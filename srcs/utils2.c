@@ -43,3 +43,26 @@ int	longest_line(t_cub *cub)
 	}
 	return (len);
 }
+
+int	ft_check_nums(char *str)
+{
+	int	i;
+	int	num;
+	char	**check_n;
+
+	i = 0;
+	num = 0;
+	check_n = ft_split(str, ',');
+	while (check_n[i])
+	{
+		num = ft_atoi(check_n[i]);
+		if (num > 255 || num < 0)
+		{
+			free_tab(check_n);
+			return (ft_printf("Error : Check params : number too big\n"), 1);
+		}
+		i++;
+	}
+	free_tab(check_n);
+	return (0);
+}

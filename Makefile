@@ -1,9 +1,10 @@
-SRC =	main.c \
-		utils.c \
-		utils2.c \
-		map_check.c  \
-		map_check2.c  \
-		ft_free.c  \
+SRC =	srcs/main.c \
+		srcs/utils.c \
+		srcs/utils2.c \
+		srcs/map_check.c  \
+		srcs/map_check2.c  \
+		srcs/init_map.c  \
+		srcs/ft_free.c  \
 
 OBJ = $(SRC:.c=.o)
 

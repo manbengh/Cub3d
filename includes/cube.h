@@ -37,6 +37,11 @@ int	check_other_num(t_cub *cub, char **map_check);
 int	check_first_last_line(t_cub *cub, char **map_check);
 int	check_walls(t_cub *cub, char **map_check);
 int	check_file_name(char *argv);
+int	ft_check_nums(char *str);
+int	check_names(t_map *maps);
+
+int compare_dir(t_map *maps, char *stock_l);
+int	check_params_c(t_map *maps);
 
 int line_is_empty(char *line);
 int	longest_line(t_cub *cub);
