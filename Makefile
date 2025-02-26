@@ -5,6 +5,7 @@ SRC =	srcs/main.c \
 		srcs/map_check2.c  \
 		srcs/init_map.c  \
 		srcs/ft_free.c  \
+		raycasting.c \
 
 OBJ = $(SRC:.c=.o)
 
@@ -16,16 +17,18 @@ CFLAGS = -Wall -Wextra -Werror -g3
 
 INC = -Iincludes -I/usr/include -ILibft
 
-# MLX_LIB =  minilibx-linux/libmlx_Linux.a
-# MLX_FLAGS = -Lmlx -L/usr/lib/X11 -lXext -lX11
+MLX_LIB =  minilibx-linux/minilibx-linux/libmlx_Linux.a
+MLX_FLAGS = -Lmlx -L/usr/lib/X11 -lXext -lX11
 
 LIBFT = Libft/libft.a
 
 all: $(NAME)
 
-$(NAME): $(OBJ) $(LIBFT)
-	$(CC) $(CFLAGS) $(MLX_FLAGS) $(OBJ) $(INC) -o $(NAME) $(LIBFT)
+$(NAME): $(OBJ) $(MLX_LIB) $(LIBFT)
+	$(CC) $(CFLAGS) $(MLX_FLAGS) $(OBJ) $(INC) -o $(NAME) $(MLX_LIB) $(LIBFT)
 
+$(MLX_LIB):
+	make -C minilibx-linux/minilibx-linux
 
 $(LIBFT):
 	make -C Libft
@@ -35,11 +38,13 @@ $(LIBFT):
 
 clean:
 	rm -f ${OBJ}
-	make -C Libft clean
+	make -C clean minilibx-linux/minilibx-linux
+	make -C clean Libft 
 
 fclean: clean
 	rm -f ${NAME}
-	make -C Libft fclean
+	make fclean -C Libft
+	make -C fclean minilibx-linux/minilibx-linux
 
 re: fclean all
 

@@ -1,13 +1,16 @@
 #ifndef CUBE_H
 # define CUBE_H
 
-// # include "../minilibx-linux/mlx.h"
 # include "libft.h"
+# include "minilibx-linux/minilibx-linux/mlx.h"
+
 # include <fcntl.h>
 # include <limits.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+
+#include <math.h>
 
 typedef struct t_map
 {
