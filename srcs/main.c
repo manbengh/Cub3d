@@ -50,6 +50,8 @@ int main(int argc, char **argv)
 		if (fd < 0 || read(fd, 0, 0) < 0)
 			return (printf("Error !\nFile can't be opened\n"), 0);
 		init_struct(&cub, fd, argv);
+		my_game(&cub);
+		printf("laaaa\n");
 		print_error(&cub, NULL, NULL);
 	}
 	return (0);

@@ -2,7 +2,7 @@
 # define CUBE_H
 
 # include "libft.h"
-# include "minilibx-linux/minilibx-linux/mlx.h"
+# include "../minilibx-linux/mlx.h"
 
 # include <fcntl.h>
 # include <limits.h>
@@ -30,6 +30,10 @@ typedef struct t_cub
 {
     int     lines;
     char    **stock_l;
+    void    *mlx_ptr;
+    void    *win_ptr;
+    void    *img_ptr;
+    char    *img_data;
     t_map   *maps;
 }               t_cub;
 
@@ -59,5 +63,8 @@ int	check_my_map(t_cub *cub, char **map_check, int c);
 void	free_tab(char **tab);
 void	free_struct(t_cub *cub);
 void	print_error(t_cub *cub, char *str, char **map_check);
+
+// GAME
+void my_game(t_cub *cub);
 
 #endif
