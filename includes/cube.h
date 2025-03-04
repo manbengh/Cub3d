@@ -25,15 +25,21 @@ typedef struct t_map
     char    player_dir;
 }               t_map;
 
+typedef struct t_mlx
+{
+    void    *mlx_ptr;
+    void    *win_ptr;
+    void    *img_ptr;
+    char    *img_data;
+}               t_mlx;
+
+
 
 typedef struct t_cub
 {
     int     lines;
     char    **stock_l;
-    void    *mlx_ptr;
-    void    *win_ptr;
-    void    *img_ptr;
-    char    *img_data;
+    t_mlx   *my_mlx;
     t_map   *maps;
 }               t_cub;
 
