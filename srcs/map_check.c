@@ -37,7 +37,7 @@ int	check_dir(char **map_check, t_cub *cub)
 		if (!line_is_empty(map_check[i]))
 		{
 			stock_l[j] = ft_strdup(map_check[i]);
-			printf("{%s}\n", stock_l[j]);
+			printf("%s\n", stock_l[j]);
 			j++;
 		}
 		i++;

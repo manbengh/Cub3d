@@ -12,6 +12,13 @@
 
 #include <math.h>
 
+#define SCREEN_W 640
+#define SCREEN_H 480
+
+//pour x et y des vecteurs
+typedef double __attribute((ext_vector_type(2)))	t_double;
+typedef int __attribute__((ext_vector_type(2)))		t_int;
+
 typedef struct t_map
 {
     int long_line;
@@ -23,6 +30,7 @@ typedef struct t_map
     char **c;
     char **my_map;
     char    player_dir;
+    t_int    start_pos;
 }               t_map;
 
 typedef struct t_mlx
