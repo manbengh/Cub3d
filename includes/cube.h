@@ -2,7 +2,7 @@
 # define CUBE_H
 
 # include "libft.h"
-# include "minilibx-linux/minilibx-linux/mlx.h"
+# include "../minilibx-linux/mlx.h"
 
 # include <fcntl.h>
 # include <limits.h>
@@ -11,6 +11,13 @@
 # include <unistd.h>
 
 #include <math.h>
+
+#define SCREEN_W 640
+#define SCREEN_H 480
+
+//pour x et y des vecteurs
+typedef double __attribute((ext_vector_type(2)))	t_double;
+typedef int __attribute__((ext_vector_type(2)))		t_int;
 
 typedef struct t_map
 {
@@ -23,13 +30,29 @@ typedef struct t_map
     char **c;
     char **my_map;
     char    player_dir;
+    t_int    start_pos;
 }               t_map;
+
+typedef struct t_mlx
+{
+    void    *mlx_ptr;
+    void    *win_ptr;
+    void    *img_ptr;
+    char    *img_data;
+    int bpp;
+    int size_line;
+    int endian;
+    t_double    pos;
+    t_int       dir;
+}               t_mlx;
+
 
 
 typedef struct t_cub
 {
     int     lines;
     char    **stock_l;
+    t_mlx   *my_mlx;
     t_map   *maps;
 }               t_cub;
 
@@ -59,5 +82,8 @@ int	check_my_map(t_cub *cub, char **map_check, int c);
 void	free_tab(char **tab);
 void	free_struct(t_cub *cub);
 void	print_error(t_cub *cub, char *str, char **map_check);
+
+// GAME
+void my_game(t_cub *cub);
 
 #endif

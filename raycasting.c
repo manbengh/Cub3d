@@ -67,94 +67,94 @@ void drawVerticalLine(int x, int startY, int endY, int color) {
     }
 }
 
-int main() {
-    if (init() < 0) {
-        return -1;
-    }
+// int main() {
+//     if (init() < 0) {
+//         return -1;
+//     }
 
-    double posX = 20, posY = 10;  // Position du joueur
-    double dirX = 0, dirY = -1;   // Direction du joueur
-    double planeX = 0, planeY = 0.66; // Plan de la caméra
+//     double posX = 23, posY = 16;  // Position du joueur
+//     double dirX = -1, dirY = 0;   // Direction du joueur
+//     double planeX = 0, planeY = 0.66; // Plan de la caméra
 
-    // double time = 0;  // Temps actuel
-    // double oldTime = 0;  // Temps de l'ancien frame
+//     // double time = 0;  // Temps actuel
+//     // double oldTime = 0;  // Temps de l'ancien frame
 
-    while (1) {
-        mlx_clear_window(mlx_ptr, win_ptr);
+//     while (1) {
+//         mlx_clear_window(mlx_ptr, win_ptr);
 
-        // Calcul du raycasting pour chaque pixel à l'écran
-        for (int x = 0; x < screen_width; x++) {
-            double cameraX = 2 * x / (double)screen_width - 1;
-            double rayDirX = dirX + planeX * cameraX;
-            double rayDirY = dirY + planeY * cameraX;
-            int mapX = (int)posX;
-            int mapY = (int)posY;
+//         // Calcul du raycasting pour chaque pixel à l'écran
+//         for (int x = 0; x < screen_width; x++) {
+//             double cameraX = 2 * x / (double)screen_width - 1;
+//             double rayDirX = dirX + planeX * cameraX;
+//             double rayDirY = dirY + planeY * cameraX;
+//             int mapX = (int)posX;
+//             int mapY = (int)posY;
 
-            double deltaDistX = (rayDirX == 0) ? 1e30 : fabs(1 / rayDirX);
-            double deltaDistY = (rayDirY == 0) ? 1e30 : fabs(1 / rayDirY);
+//             double deltaDistX = (rayDirX == 0) ? 1e30 : fabs(1 / rayDirX);
+//             double deltaDistY = (rayDirY == 0) ? 1e30 : fabs(1 / rayDirY);
 
-            double sideDistX, sideDistY;
-            int stepX, stepY;
-            int hit = 0;
-            int side;
+//             double sideDistX, sideDistY;
+//             int stepX, stepY;
+//             int hit = 0;
+//             int side;
 
-            // Initialisation des directions de déplacement et distances
-            if (rayDirX < 0) {
-                stepX = -1;
-                sideDistX = (posX - mapX) * deltaDistX;
-            } else {
-                stepX = 1;
-                sideDistX = (mapX + 1.0 - posX) * deltaDistX;
-            }
-            if (rayDirY < 0) {
-                stepY = -1;
-                sideDistY = (posY - mapY) * deltaDistY;
-            } else {
-                stepY = 1;
-                sideDistY = (mapY + 1.0 - posY) * deltaDistY;
-            }
+//             // Initialisation des directions de déplacement et distances
+//             if (rayDirX < 0) {
+//                 stepX = -1;
+//                 sideDistX = (posX - mapX) * deltaDistX;
+//             } else {
+//                 stepX = 1;
+//                 sideDistX = (mapX + 1.0 - posX) * deltaDistX;
+//             }
+//             if (rayDirY < 0) {
+//                 stepY = -1;
+//                 sideDistY = (posY - mapY) * deltaDistY;
+//             } else {
+//                 stepY = 1;
+//                 sideDistY = (mapY + 1.0 - posY) * deltaDistY;
+//             }
 
-            // DDA algorithm pour déterminer le point d'intersection
-            while (hit == 0) {
-                if (sideDistX < sideDistY) {
-                    sideDistX += deltaDistX;
-                    mapX += stepX;
-                    side = 0;
-                } else {
-                    sideDistY += deltaDistY;
-                    mapY += stepY;
-                    side = 1;
-                }
-                if (worldMap[mapX][mapY] > 0) hit = 1;
-            }
+//             // DDA algorithm pour déterminer le point d'intersection
+//             while (hit == 0) {
+//                 if (sideDistX < sideDistY) {
+//                     sideDistX += deltaDistX;
+//                     mapX += stepX;
+//                     side = 0;
+//                 } else {
+//                     sideDistY += deltaDistY;
+//                     mapY += stepY;
+//                     side = 1;
+//                 }
+//                 if (worldMap[mapX][mapY] > 0) hit = 1;
+//             }
 
-            double perpWallDist;
-            if (side == 0) perpWallDist = (sideDistX - deltaDistX);
-            else perpWallDist = (sideDistY - deltaDistY);
+//             double perpWallDist;
+//             if (side == 0) perpWallDist = (sideDistX - deltaDistX);
+//             else perpWallDist = (sideDistY - deltaDistY);
 
-            int lineHeight = (int)(screen_height / perpWallDist);
-            int drawStart = -lineHeight / 2 + screen_height / 2;
-            if (drawStart < 0) drawStart = 0;
-            int drawEnd = lineHeight / 2 + screen_height / 2;
-            if (drawEnd >= screen_height) drawEnd = screen_height - 1;
+//             int lineHeight = (int)(screen_height / perpWallDist);
+//             int drawStart = -lineHeight / 2 + screen_height / 2;
+//             if (drawStart < 0) drawStart = 0;
+//             int drawEnd = lineHeight / 2 + screen_height / 2;
+//             if (drawEnd >= screen_height) drawEnd = screen_height - 1;
 
-            int color;
-            if (side == 0) {
-                color = 0xFF0000; // Rouge
-            } else {
-                color = 0x00FF00; // Vert
-            }
+//             int color;
+//             if (side == 0) {
+//                 color = 0xFF0000; // Rouge
+//             } else {
+//                 color = 0x00FF00; // Vert
+//             }
 
-            drawVerticalLine(x, drawStart, drawEnd, color);
-        }
+//             drawVerticalLine(x, drawStart, drawEnd, color);
+//         }
 
-        mlx_put_image_to_window(mlx_ptr, win_ptr, img_ptr, 0, 0);
-        mlx_do_sync(mlx_ptr);
+//         mlx_put_image_to_window(mlx_ptr, win_ptr, img_ptr, 0, 0);
+//         mlx_do_sync(mlx_ptr);
 
-        usleep(1000 / 60);  // Limiter à 60 FPS
-    }
+//         usleep(1000 / 60);  // Limiter à 60 FPS
+//     }
 
-    mlx_destroy_image(mlx_ptr, img_ptr);
-    mlx_destroy_window(mlx_ptr, win_ptr);
-    return 0;
-}
+//     mlx_destroy_image(mlx_ptr, img_ptr);
+//     mlx_destroy_window(mlx_ptr, win_ptr);
+//     return 0;
+// }

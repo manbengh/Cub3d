@@ -5,6 +5,7 @@ SRC =	srcs/main.c \
 		srcs/map_check2.c  \
 		srcs/init_map.c  \
 		srcs/ft_free.c  \
+		srcs/my_game.c  \
 		raycasting.c \
 
 OBJ = $(SRC:.c=.o)
@@ -15,9 +16,9 @@ NAME = cub3D
 
 CFLAGS = -Wall -Wextra -Werror -g3
 
-INC = -Iincludes -I/usr/include -ILibft
+INC = -Iincludes -I/usr/include -Iminilibx-linux -ILibft
 
-MLX_LIB =  minilibx-linux/minilibx-linux/libmlx_Linux.a
+MLX_LIB =  minilibx-linux/libmlx_Linux.a
 MLX_FLAGS = -Lmlx -L/usr/lib/X11 -lXext -lX11
 
 LIBFT = Libft/libft.a
@@ -28,7 +29,7 @@ $(NAME): $(OBJ) $(MLX_LIB) $(LIBFT)
 	$(CC) $(CFLAGS) $(MLX_FLAGS) $(OBJ) $(INC) -o $(NAME) $(MLX_LIB) $(LIBFT)
 
 $(MLX_LIB):
-	make -C minilibx-linux/minilibx-linux
+	make -C minilibx-linux
 
 $(LIBFT):
 	make -C Libft
@@ -38,13 +39,12 @@ $(LIBFT):
 
 clean:
 	rm -f ${OBJ}
-	make -C clean minilibx-linux/minilibx-linux
-	make -C clean Libft 
+	make -C minilibx-linux clean
+	make -C Libft clean
 
 fclean: clean
 	rm -f ${NAME}
 	make fclean -C Libft
-	make -C fclean minilibx-linux/minilibx-linux
 
 re: fclean all
 

@@ -38,7 +38,7 @@ int	longest_line(t_cub *cub)
 	while (i < cub->lines)
 	{
 		if (len < ft_strlen(cub->maps->my_map[i]))
-			len = ft_strlen(cub->maps->my_map[i]);
+		len = ft_strlen(cub->maps->my_map[i]);
 		i++;
 	}
 	return (len);
