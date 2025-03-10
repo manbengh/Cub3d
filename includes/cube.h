@@ -34,6 +34,9 @@ typedef struct t_cub
     void    *win_ptr;
     void    *img_ptr;
     char    *img_data;
+    int bpp;
+    int size_line;
+    int endian;
     t_map   *maps;
 }               t_cub;
 
