@@ -82,7 +82,7 @@ int key_events(int key_code, t_cub *cub)
         y++;
     else if (key_code == 97)
         y--;
-    
+    return (0);
 }
 
 void my_game(t_cub *cub)
@@ -94,6 +94,6 @@ void my_game(t_cub *cub)
     cub->my_mlx->img_ptr = mlx_new_image(cub->my_mlx->mlx_ptr, SCREEN_W, SCREEN_H);
     cub->my_mlx->img_data = mlx_get_data_addr(cub->my_mlx->img_ptr, &screen_w, &screen_h, &screen_w);
     mlx_loop_hook(cub->my_mlx->mlx_ptr, my_window, cub);
-    mlx_hook(cub->my_mlx->win_ptr, 2, 1L << 0, key_events,cub)
-    mlx_loop(cub->my_mlx->mlx_ptr);
+    // mlx_hook(cub->my_mlx->win_ptr, 2, 1L << 0, key_events,cub);
+    // mlx_loop(cub->my_mlx->mlx_ptr);
 }

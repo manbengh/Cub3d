@@ -72,7 +72,9 @@ int	check_first_last_line(t_cub *cub, char **map_check)
 	len = ft_strlen(cub->maps->my_map[cub->lines - 1]);
 	while (i < len)
 	{
-		if (line_is_empty(cub->maps->my_map[cub->lines - 1]) && cub->maps->my_map[cub->lines - 1][i] != '1' && cub->maps->my_map[cub->lines - 1][i] != ' ')
+		if (line_is_empty(cub->maps->my_map[cub->lines - 1])
+			&& cub->maps->my_map[cub->lines - 1][i] != '1'
+			&& cub->maps->my_map[cub->lines - 1][i] != ' ')
 			return (print_error(cub, "Error ! \nCheck the last line !", map_check), 1);
 		i++;
 	}
@@ -90,7 +92,9 @@ int	check_walls(t_cub *cub, char **map_check)
 		len = ft_strlen(cub->maps->my_map[i]) - 1;
 		while (i < (cub->lines - 1))
 		{
-			if (cub->maps->my_map[i][0] != '1' || cub->maps->my_map[i][len - 1] != '1')
+			if (cub->maps->my_map[i][0] != '1'
+				&& cub->maps->my_map[i][len - 1] != ' '
+				&& cub->maps->my_map[i][len - 1] == '\t')
 				return (print_error(cub, "Error ! \nCheck the walls !", map_check), 1);
 			i++;
 			len = ft_strlen(cub->maps->my_map[i]) - 1;
