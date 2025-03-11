@@ -1,6 +1,5 @@
 #include "cube.h"
 
-
 int close_window(t_cub *cub)
 {
     mlx_destroy_window(cub->mlx_ptr, cub->win_ptr);
@@ -8,7 +7,7 @@ int close_window(t_cub *cub)
     return (0);
 }
 
-void my_game(t_cub *cub)
+void init_window(t_cub *cub)
 {
     int screen_w = 640;
     int screen_h = 480;
@@ -27,4 +26,18 @@ void my_game(t_cub *cub)
     mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img_ptr, 0, 0);
     mlx_hook(cub->win_ptr, 17, 0, close_window, cub);
     mlx_loop(cub->mlx_ptr);
+}
+
+int touch_key(int keycode, t_cub *cub)
+{
+    if (keycode == 65307)
+		mlx_loop_end(cub->mlx_ptr);
+    my_game(cub);
+    return(0);
+}
+
+void my_game(t_cub *cub)
+{
+    init_window(cub);
+    
 }

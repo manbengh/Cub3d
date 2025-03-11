@@ -51,6 +51,7 @@ int main(int argc, char **argv)
 			return (printf("Error !\nFile can't be opened\n"), 0);
 		init_struct(&cub, fd, argv);
 		my_game(&cub);
+		mlx_hook(cub.win_ptr, KeyPress, KeyPressMask, &touch_key, &cub);
 		printf("laaaa\n");
 		print_error(&cub, NULL, NULL);
 	}

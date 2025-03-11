@@ -9,7 +9,8 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-
+# include <X11/X.h>
+# include <X11/keysym.h>
 #include <math.h>
 
 typedef struct t_map
@@ -69,5 +70,7 @@ void	print_error(t_cub *cub, char *str, char **map_check);
 
 // GAME
 void my_game(t_cub *cub);
+int touch_key(int keycode, t_cub *cub);
+
 
 #endif
