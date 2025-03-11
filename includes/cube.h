@@ -13,6 +13,13 @@
 # include <X11/keysym.h>
 #include <math.h>
 
+#define SCREEN_W 640
+#define SCREEN_H 480
+
+//pour x et y des vecteurs
+typedef double __attribute((ext_vector_type(2)))	t_double;
+typedef int __attribute__((ext_vector_type(2)))		t_int;
+
 typedef struct t_map
 {
     int long_line;
@@ -24,13 +31,11 @@ typedef struct t_map
     char **c;
     char **my_map;
     char    player_dir;
+    t_int    start_pos;
 }               t_map;
 
-
-typedef struct t_cub
+typedef struct t_mlx
 {
-    int     lines;
-    char    **stock_l;
     void    *mlx_ptr;
     void    *win_ptr;
     void    *img_ptr;
@@ -38,6 +43,17 @@ typedef struct t_cub
     int bpp;
     int size_line;
     int endian;
+    t_double    pos;
+    t_int       dir;
+}               t_mlx;
+
+
+
+typedef struct t_cub
+{
+    int     lines;
+    char    **stock_l;
+    t_mlx   *my_mlx;
     t_map   *maps;
 }               t_cub;
 
@@ -70,7 +86,5 @@ void	print_error(t_cub *cub, char *str, char **map_check);
 
 // GAME
 void my_game(t_cub *cub);
-int touch_key(int keycode, t_cub *cub);
-
 
 #endif

@@ -37,7 +37,7 @@ int	check_dir(char **map_check, t_cub *cub)
 		if (!line_is_empty(map_check[i]))
 		{
 			stock_l[j] = ft_strdup(map_check[i]);
-			// printf("{%s}\n", stock_l[j]);
+			printf("%s\n", stock_l[j]);
 			j++;
 		}
 		i++;
@@ -101,8 +101,8 @@ int	fill_my_map(t_cub *cub, char **map_check, int i)
 	cub->lines = j;
 	cub->maps->long_line = longest_line(cub);
 	if (check_first_last_line(cub, map_check) == 1
-		|| check_walls(cub, map_check) == 1 || check_player(cub, map_check) == 1
-		|| check_other_num(cub, map_check) == 1)
+	|| check_walls(cub, map_check) == 1 || check_player(cub, map_check) == 1
+	|| check_other_num(cub, map_check) == 1)
 		return (1);
 	printf("PLAYER ---> %c\n", cub->maps->player_dir);
 	return (0);

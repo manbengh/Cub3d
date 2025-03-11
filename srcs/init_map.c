@@ -53,9 +53,9 @@ int check_params_f(t_map *maps)
             if (ft_isalpha(maps->f[1][i]))
                 return (printf("Error !\nCheck params : no letters \n"), 1);
             if (maps->f[1][i] == ',' && (ft_isdigit(maps->f[1][i + 1]) == 0 || ft_isdigit(maps->f[1][i - 1]) == 0))
-                return (printf("Error !\nCheck params : number too big\n"), 1);
+                return (printf("Error !\nCheck params : incorrect number\n"), 1);
             if (ft_count_num(maps->f[1]) < 3 || ft_count_num(maps->f[1]) > 9)
-                return (printf("Error !\nCheck params : number too big\n"), 1);
+                return (printf("Error !\nCheck params : incorrect number\n"), 1);
             if (ft_check_nums(maps->f[1]) == 1)
                 return (1);
             i++;
@@ -77,9 +77,9 @@ int check_params_c(t_map *maps)
             if (ft_isalpha(maps->c[1][i]))
                 return (printf("Error !\nCheck params : no letters \n"), 1);
             if (maps->c[1][i] == ',' && (!ft_isdigit(maps->c[1][i + 1]) || !ft_isdigit(maps->c[1][i - 1])))
-                return (printf("Error !\nCheck params : number too big\n"), 1);
+                return (printf("Error !\nCheck params : incorrect number\n"), 1);
             if (ft_count_num(maps->c[1]) < 3 || ft_count_num(maps->c[1]) > 9)
-                return (printf("Error !\nCheck params : number too big\n"), 1);
+                return (printf("Error !\nCheck params : incorrect number\n"), 1);
             if (ft_check_nums(maps->c[1]) == 1)
                 return (1);
             i++;
