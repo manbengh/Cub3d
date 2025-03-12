@@ -9,8 +9,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <X11/X.h>
-# include <X11/keysym.h>
+
 #include <math.h>
 
 #define SCREEN_W 640
