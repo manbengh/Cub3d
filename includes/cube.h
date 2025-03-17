@@ -12,8 +12,18 @@
 
 #include <math.h>
 
-#define SCREEN_W 640
-#define SCREEN_H 480
+#define SCREEN_W 1280
+#define SCREEN_H 800
+
+/* KEYCODES */
+# define KEY_ESC 65307   // exit
+# define KEY_W 122       // move forwards
+# define KEY_A 113       // move left
+# define KEY_S 115       // move backwards
+# define KEY_D 100       // move right
+# define KEY_LEFT 65361  // look left
+# define KEY_RIGHT 65363 // look right
+# define KEY_CTRL 65507  // ctrl
 
 //pour x et y des vecteurs
 typedef double __attribute((ext_vector_type(2)))	t_double;
@@ -30,8 +40,20 @@ typedef struct t_map
     char **c;
     char **my_map;
     char    player_dir;
-    t_int    start_pos;
+    t_int    pos;
 }               t_map;
+
+typedef struct t_key
+{
+	int			w;
+	int			a;
+	int			s;
+	int			d;
+	int			left;
+	int			right;
+	int			esc;
+	int			ctrl;
+}	t_key;
 
 typedef struct t_mlx
 {
@@ -44,9 +66,8 @@ typedef struct t_mlx
     int endian;
     t_double    pos;
     t_int       dir;
+    t_double    plane;
 }               t_mlx;
-
-
 
 typedef struct t_cub
 {
@@ -54,6 +75,7 @@ typedef struct t_cub
     char    **stock_l;
     t_mlx   *my_mlx;
     t_map   *maps;
+    t_key      *keys;
 }               t_cub;
 
 // CHECKS
