@@ -139,10 +139,64 @@ int key_release(int keycode, t_cub *cub)
     return (1);
 }
 
+void    move_forward(t_cub *cub, t_mlx *my_mlx)
+{
+    if (cub->maps->my_map[(int)my_mlx->pos.y][(int)my_mlx->pos.x] == 1)
+        return ;
+    if (cub->maps->my_map[(int)my_mlx->pos.y][(int)my_mlx->pos.x + my_mlx->dir.x * PLAYER_SPEED] != '1')
+        my_mlx->pos.x += my_mlx->dir.x * PLAYER_SPEED;
+    if (cub->maps->my_map[(int)my_mlx->pos.y + my_mlx->dir.y * PLAYER_SPEED][(int)my_mlx->pos.x] != '1')
+        my_mlx->pos.y += my_mlx->dir.y * PLAYER_SPEED;
+}
+
+void    move_backward(t_cub *cub, t_mlx *my_mlx)
+{
+    if (cub->maps->my_map[(int)my_mlx->pos.y][(int)my_mlx->pos.x] == 1)
+        return ;
+    if (cub->maps->my_map[(int)my_mlx->pos.y][(int)my_mlx->pos.x + my_mlx->dir.y * PLAYER_SPEED] != '1')
+        my_mlx->pos.x += my_mlx->dir.x * PLAYER_SPEED;
+    if (cub->maps->my_map[(int)my_mlx->pos.y - my_mlx->dir.y * PLAYER_SPEED][(int)my_mlx->pos.x] != '1')
+        my_mlx->pos.y += my_mlx->dir.y * PLAYER_SPEED;
+}
+
+void    move_right(t_cub *cub, t_mlx *my_mlx)
+{
+    if (cub->maps->my_map[(int)my_mlx->pos.y][(int)my_mlx->pos.x - my_mlx->dir.y * PLAYER_SPEED] != '1')
+        my_mlx->pos.x -= my_mlx->dir.y * PLAYER_SPEED;
+    if (cub->maps->my_map[(int)my_mlx->pos.y + my_mlx->dir.x * PLAYER_SPEED][(int)my_mlx->pos.x] != '1')
+        my_mlx->pos.y += my_mlx->dir.x * PLAYER_SPEED;
+}
+
+void    move_left(t_cub *cub, t_mlx *my_mlx)
+{
+    if (cub->maps->my_map[(int)my_mlx->pos.y][(int)my_mlx->pos.x] == 1)
+        return ;
+    if (cub->maps->my_map[(int)my_mlx->pos.y][(int)my_mlx->pos.x - my_mlx->dir.y * PLAYER_SPEED] != '1')
+        my_mlx->pos.x += my_mlx->dir.x * PLAYER_SPEED;
+    if (cub->maps->my_map[(int)my_mlx->pos.y - my_mlx->dir.x * PLAYER_SPEED][(int)my_mlx->pos.x] != '1')
+        my_mlx->pos.y += my_mlx->dir.x * PLAYER_SPEED;
+}
+
 int moving(t_cub *cub)
 {
     if (cub->keys->w == 1)
-        move_forward(cub, );
+        move_forward(cub, cub->my_mlx);
+    if (cub->keys->s == 1)
+        move_backward(cub, cub->my_mlx);
+    if (cub->keys->d == 1)
+        move_right(cub, cub->my_mlx);
+    if (cub->keys->a == 1)
+        move_left(cub, cub->my_mlx);
+    if (cub->keys->left == 1)
+    {
+        cub->keys->rotate = -1;
+        //rotate_function
+    }
+    if (cub->keys->right == 1)
+    {
+        cub->keys->rotate = 1;
+        //rotate_function
+    }
 }
 
 void my_game(t_cub *cub)
@@ -163,6 +217,5 @@ void my_game(t_cub *cub)
     mlx_hook(cub->my_mlx->win_ptr, 17, 0, close_window, cub);
     mlx_loop(cub->my_mlx->mlx_ptr);
 }
-
 
 //set directions

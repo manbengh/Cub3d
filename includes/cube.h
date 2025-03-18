@@ -25,6 +25,9 @@
 # define KEY_RIGHT 65363 // look right
 # define KEY_CTRL 65507  // ctrl
 
+# define PLAYER_SPEED 0.014
+# define ROTATION_SPEED 0.024
+
 //pour x et y des vecteurs
 typedef double __attribute((ext_vector_type(2)))	t_double;
 typedef int __attribute__((ext_vector_type(2)))		t_int;
@@ -53,6 +56,7 @@ typedef struct t_key
 	int			right;
 	int			esc;
 	int			ctrl;
+    int         rotate;
 }	t_key;
 
 typedef struct t_mlx
