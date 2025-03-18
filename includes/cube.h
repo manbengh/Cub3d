@@ -44,6 +44,7 @@ typedef struct t_mlx
     int endian;
     t_double    pos;
     t_int       dir;
+    
 }               t_mlx;
 
 

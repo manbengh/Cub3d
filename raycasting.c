@@ -6,7 +6,8 @@
 #define MAP_HEIGHT 24
 
 // Carte du monde (identique à l'original)
-int worldMap[MAP_WIDTH][MAP_HEIGHT] = {
+int worldMap[MAP_WIDTH][MAP_HEIGHT] = 
+{
     {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
     {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
     {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
@@ -32,40 +33,40 @@ int worldMap[MAP_WIDTH][MAP_HEIGHT] = {
 };
 
 
-void *mlx_ptr;
-void *win_ptr;
-void *img_ptr;
-char *img_data;
+// void *mlx_ptr;
+// void *win_ptr;
+// void *img_ptr;
+// char *img_data;
 
-int screen_width = SCREEN_WIDTH;
-int screen_height = SCREEN_HEIGHT;
+// int screen_width = SCREEN_WIDTH;
+// int screen_height = SCREEN_HEIGHT;
 
-// Fonction d'initialisation de la fenêtre
-int init() {
-    mlx_ptr = mlx_init();
-    if (!mlx_ptr) {
-        printf("MLX could not initialize!\n");
-        return -1;
-    }
-    win_ptr = mlx_new_window(mlx_ptr, screen_width, screen_height, "Raycaster");
-    if (!win_ptr) {
-        printf("Window could not be created!\n");
-        return -1;
-    }
-    img_ptr = mlx_new_image(mlx_ptr, screen_width, screen_height);
-    img_data = mlx_get_data_addr(img_ptr, &screen_width, &screen_height, &screen_width);
-    return 0;
-}
+// // Fonction d'initialisation de la fenêtre
+// int init() {
+//     mlx_ptr = mlx_init();
+//     if (!mlx_ptr) {
+//         printf("MLX could not initialize!\n");
+//         return -1;
+//     }
+//     win_ptr = mlx_new_window(mlx_ptr, screen_width, screen_height, "Raycaster");
+//     if (!win_ptr) {
+//         printf("Window could not be created!\n");
+//         return -1;
+//     }
+//     img_ptr = mlx_new_image(mlx_ptr, screen_width, screen_height);
+//     img_data = mlx_get_data_addr(img_ptr, &screen_width, &screen_height, &screen_width);
+//     return 0;
+// }
 
-// Fonction pour dessiner une ligne verticale (manipulation directe des pixels)
-void drawVerticalLine(int x, int startY, int endY, int color) {
-    for (int y = startY; y < endY; y++) {
-        img_data[(y * screen_width + x) * 4] = color & 0xFF;       // Blue
-        img_data[(y * screen_width + x) * 4 + 1] = (color >> 8) & 0xFF; // Green
-        img_data[(y * screen_width + x) * 4 + 2] = (color >> 16) & 0xFF; // Red
-        img_data[(y * screen_width + x) * 4 + 3] = 0;                 // Alpha (not used)
-    }
-}
+// // Fonction pour dessiner une ligne verticale (manipulation directe des pixels)
+// void drawVerticalLine(int x, int startY, int endY, int color) {
+//     for (int y = startY; y < endY; y++) {
+//         img_data[(y * screen_width + x) * 4] = color & 0xFF;       // Blue
+//         img_data[(y * screen_width + x) * 4 + 1] = (color >> 8) & 0xFF; // Green
+//         img_data[(y * screen_width + x) * 4 + 2] = (color >> 16) & 0xFF; // Red
+//         img_data[(y * screen_width + x) * 4 + 3] = 0;                 // Alpha (not used)
+//     }
+// }
 
 // int main() {
 //     if (init() < 0) {
@@ -158,3 +159,7 @@ void drawVerticalLine(int x, int startY, int endY, int color) {
 //     mlx_destroy_window(mlx_ptr, win_ptr);
 //     return 0;
 // }
+
+
+
+

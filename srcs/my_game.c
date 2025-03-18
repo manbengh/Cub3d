@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 14:29:00 by ahbey             #+#    #+#             */
-/*   Updated: 2025/03/12 14:38:00 by ahbey            ###   ########.fr       */
+/*   Updated: 2025/03/16 16:40:02 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void    get_pos_player(t_cub *cub)
         {
             if (cub->maps->my_map[i][j] == cub->maps->player_dir)
             {
-                cub->maps->start_pos.x = j;
-                cub->maps->start_pos.y = i;
+                cub->maps->start_pos[0] = j;
+                cub->maps->start_pos[1] = i;
                 return ;
             }
             j++;
@@ -56,7 +56,7 @@ void    init_game(t_cub *cub)
         exit (1);
     }
     get_pos_player(cub);
-    printf("pos x == %i\npos y == %i\n", cub->maps->start_pos.x, cub->maps->start_pos.y);
+    printf("pos x == %i\npos y == %i\n", cub->maps->start_pos[0], cub->maps->start_pos[1]);
     // init_pers(cub);
 }
 
@@ -102,21 +102,6 @@ void    init_game(t_cub *cub)
 //         y--;
 //     return (0);
 // }
-
-// void my_game(t_cub *cub)
-// {
-//     int screen_w = SCREEN_W;
-//     int screen_h = SCREEN_H;
-    
-//     init_game(cub);
-//     cub->my_mlx->img_ptr = mlx_new_image(cub->my_mlx->mlx_ptr, SCREEN_W, SCREEN_H);
-//     cub->my_mlx->img_data = mlx_get_data_addr(cub->my_mlx->img_ptr, &screen_w, &screen_h, &screen_w);
-//     mlx_loop_hook(cub->my_mlx->mlx_ptr, my_window, cub);
-//     // mlx_hook(cub->my_mlx->win_ptr, 2, 1L << 0, key_events,cub);
-//     // mlx_loop(cub->my_mlx->mlx_ptr);
-// }
-
-
 
 int close_window(t_cub *cub)
 {
