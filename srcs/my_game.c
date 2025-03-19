@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   my_game.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/12 14:29:00 by ahbey             #+#    #+#             */
-/*   Updated: 2025/03/16 16:40:02 by ahbey            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "cube.h"
 
 void    get_pos_player(t_cub *cub)
@@ -25,8 +13,8 @@ void    get_pos_player(t_cub *cub)
         {
             if (cub->maps->my_map[i][j] == cub->maps->player_dir)
             {
-                cub->maps->start_pos[0] = j;
-                cub->maps->start_pos[1] = i;
+                cub->maps->pos.x = j + 0.5;
+                cub->maps->pos.y = i + 0.5;
                 return ;
             }
             j++;
@@ -35,10 +23,54 @@ void    get_pos_player(t_cub *cub)
     }
 }
 
-// void    init_pers(t_cub *cub)
-// {
-//     cub.
-// }
+void    set_directions(t_cub *cub, char p)
+{
+    if (p == 'N')
+    {
+        cub->my_mlx->dir.x = 0;
+        cub->my_mlx->dir.y = -1;
+    }
+    else if (p == 'S')
+    {
+        cub->my_mlx->dir.x = 0;
+        cub->my_mlx->dir.y = 1;
+    }
+    else if (p == 'W')
+    {
+        cub->my_mlx->dir.x = -1;
+        cub->my_mlx->dir.y = 0;
+    }
+    else if (p == 'E')
+    {
+        cub->my_mlx->dir.x = 1;
+        cub->my_mlx->dir.y = 0;
+    }
+}
+
+void    set_plane(t_cub *cub, char p)
+{
+    if (p == 'N')
+    {
+        cub->my_mlx->plane.x = 0.66;
+        cub->my_mlx->plane.y = 0;
+    }
+    else if (p == 'S')
+    {
+        cub->my_mlx->plane.x = -0.66;
+        cub->my_mlx->plane.y = 0;
+    }
+    else if (p == 'W')
+    {
+        cub->my_mlx->plane.x = 0;
+        cub->my_mlx->plane.y = -0.66;
+    }
+    else if (p == 'E')
+    {
+        cub->my_mlx->plane.x = 0;
+        cub->my_mlx->plane.y = 0.66;
+    }
+    printf("plane x = %f\nplane y %f\n", cub->my_mlx->plane.x, cub->my_mlx->plane.y);
+}
 
 void    init_game(t_cub *cub)
 {
@@ -56,52 +88,10 @@ void    init_game(t_cub *cub)
         exit (1);
     }
     get_pos_player(cub);
-    printf("pos x == %i\npos y == %i\n", cub->maps->start_pos[0], cub->maps->start_pos[1]);
-    // init_pers(cub);
+    // printf("pos x == %i\npos y == %i\n", cub->maps->pos.x, cub->maps->pos.y);
+    set_directions(cub, cub->maps->player_dir);
+    set_plane(cub, cub->maps->player_dir);
 }
-
-// int my_window(t_cub *cub)
-// {
-//     int x;
-//     int y;
-
-//     x = 0;
-//     y = 0;
-//     if (cub->my_mlx->win_ptr)
-//     {
-//         while (x < cub->lines)
-//         {
-//             printf("x -----> %i\n", x);
-//             y = 0;
-//             while (y < ft_strlen(cub->maps->my_map[x]))
-//             {
-//                 mlx_put_image_to_window(cub->my_mlx->mlx_ptr, cub->my_mlx->win_ptr, "../thisisfine.xpm", y
-//                     * 64, x * 64);
-//                 y++;
-//             }
-//             x++;
-//         }
-//     }
-//     return  (0);
-// }
-
-// int key_events(int key_code, t_cub *cub)
-// {
-//     int x;
-//     int y;
-
-//     x = cub->maps->start_pos.x;
-//     y = cub->maps->start_pos.y;
-//     if (key_code == 119)
-//         x--;
-//     else if (key_code == 115)
-//         x++;
-//     else if (key_code == 100)
-//         y++;
-//     else if (key_code == 97)
-//         y--;
-//     return (0);
-// }
 
 int close_window(t_cub *cub)
 {
@@ -109,6 +99,50 @@ int close_window(t_cub *cub)
     print_error(cub, NULL, NULL);
     exit(0);
     return (0);
+}
+
+int key_press(int keycode, t_cub *cub)
+{
+    if (keycode == KEY_W)
+        cub->keys->w = 1;
+    if (keycode == KEY_A)
+        cub->keys->a = 1;
+    if (keycode == KEY_S)
+        cub->keys->s = 1;
+    if (keycode == KEY_D)
+        cub->keys->d = 1;
+    if (keycode == KEY_LEFT)
+        cub->keys->left = 1;
+    if (keycode == KEY_RIGHT)
+        cub->keys->right = 1;
+    if (keycode == KEY_ESC)
+        cub->keys->esc = 1;
+    return (1);
+}
+
+int key_release(int keycode, t_cub *cub)
+{
+    if (keycode == KEY_W)
+        cub->keys->w = 0;
+    if (keycode == KEY_A)
+        cub->keys->a = 0;
+    if (keycode == KEY_S)
+        cub->keys->s = 0;
+    if (keycode == KEY_D)
+        cub->keys->d = 0;
+    if (keycode == KEY_LEFT)
+        cub->keys->left = 0;
+    if (keycode == KEY_RIGHT)
+        cub->keys->right = 0;
+    if (keycode == KEY_ESC)
+        cub->keys->esc = 0;
+    return (1);
+}
+
+int moving(t_cub *cub)
+{
+    if (cub->keys->w == 1)
+        move_forward(cub, );
 }
 
 void my_game(t_cub *cub)
@@ -123,6 +157,9 @@ void my_game(t_cub *cub)
         print_error(cub, "Image Fail", NULL);
     cub->my_mlx->img_data = mlx_get_data_addr(cub->my_mlx->img_ptr, &cub->my_mlx->bpp, &cub->my_mlx->size_line, &cub->my_mlx->endian);
     mlx_put_image_to_window(cub->my_mlx->mlx_ptr, cub->my_mlx->win_ptr, cub->my_mlx->img_ptr, 0, 0);
+    mlx_hook(cub->my_mlx->win_ptr, 2, 1L << 0, &key_press, cub);
+    mlx_hook(cub->my_mlx->win_ptr, 3, 1L << 1, &key_release, cub);
+    mlx_loop_hook(cub->my_mlx->mlx_ptr, &moving, cub);
     mlx_hook(cub->my_mlx->win_ptr, 17, 0, close_window, cub);
     mlx_loop(cub->my_mlx->mlx_ptr);
 }

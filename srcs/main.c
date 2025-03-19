@@ -50,6 +50,9 @@ void init_struct(t_cub *cub, int fd, char **argv)
 	cub->maps->my_map = ft_calloc((cub->lines + 1), sizeof(char *));
 	if (!cub->maps->my_map)
 		return;
+	cub->keys = ft_calloc(sizeof(t_key), 1);
+	if (!cub->keys)
+		return ;
 	check_map(cub, fd);
 }
 
