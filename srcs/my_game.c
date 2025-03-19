@@ -141,40 +141,40 @@ int key_release(int keycode, t_cub *cub)
 
 void    move_forward(t_cub *cub, t_mlx *my_mlx)
 {
-    if (cub->maps->my_map[(int)my_mlx->pos.y][(int)my_mlx->pos.x] == 1)
+    if (cub->maps->my_map[(int)(my_mlx->pos.y)][(int)(my_mlx->pos.x)] == 1)
         return ;
-    if (cub->maps->my_map[(int)my_mlx->pos.y][(int)my_mlx->pos.x + my_mlx->dir.x * PLAYER_SPEED] != '1')
+    if (cub->maps->my_map[(int)(my_mlx->pos.y)][(int)(my_mlx->pos.x + my_mlx->dir.x * PLAYER_SPEED)] != '1')
         my_mlx->pos.x += my_mlx->dir.x * PLAYER_SPEED;
-    if (cub->maps->my_map[(int)my_mlx->pos.y + my_mlx->dir.y * PLAYER_SPEED][(int)my_mlx->pos.x] != '1')
+    if (cub->maps->my_map[(int)(my_mlx->pos.y + my_mlx->dir.y * PLAYER_SPEED)][(int)(my_mlx->pos.x)] != '1')
         my_mlx->pos.y += my_mlx->dir.y * PLAYER_SPEED;
 }
 
 void    move_backward(t_cub *cub, t_mlx *my_mlx)
 {
-    if (cub->maps->my_map[(int)my_mlx->pos.y][(int)my_mlx->pos.x] == 1)
+    if (cub->maps->my_map[(int)(my_mlx->pos.y)][(int)(my_mlx->pos.x)] == 1)
         return ;
-    if (cub->maps->my_map[(int)my_mlx->pos.y][(int)my_mlx->pos.x + my_mlx->dir.y * PLAYER_SPEED] != '1')
-        my_mlx->pos.x += my_mlx->dir.x * PLAYER_SPEED;
-    if (cub->maps->my_map[(int)my_mlx->pos.y - my_mlx->dir.y * PLAYER_SPEED][(int)my_mlx->pos.x] != '1')
-        my_mlx->pos.y += my_mlx->dir.y * PLAYER_SPEED;
+    if (cub->maps->my_map[(int)(my_mlx->pos.y)][(int)(my_mlx->pos.x - my_mlx->dir.x * PLAYER_SPEED)] != '1')
+        my_mlx->pos.x -= my_mlx->dir.x * PLAYER_SPEED;
+    if (cub->maps->my_map[(int)(my_mlx->pos.y - my_mlx->dir.y * PLAYER_SPEED)][(int)(my_mlx->pos.x)] != '1')
+        my_mlx->pos.y -= my_mlx->dir.y * PLAYER_SPEED;
 }
 
 void    move_right(t_cub *cub, t_mlx *my_mlx)
 {
-    if (cub->maps->my_map[(int)my_mlx->pos.y][(int)my_mlx->pos.x - my_mlx->dir.y * PLAYER_SPEED] != '1')
+    if (cub->maps->my_map[(int)(my_mlx->pos.y)][(int)(my_mlx->pos.x - my_mlx->dir.y * PLAYER_SPEED)] != '1')
         my_mlx->pos.x -= my_mlx->dir.y * PLAYER_SPEED;
-    if (cub->maps->my_map[(int)my_mlx->pos.y + my_mlx->dir.x * PLAYER_SPEED][(int)my_mlx->pos.x] != '1')
+    if (cub->maps->my_map[(int)(my_mlx->pos.y + my_mlx->dir.x * PLAYER_SPEED)][(int)(my_mlx->pos.x)] != '1')
         my_mlx->pos.y += my_mlx->dir.x * PLAYER_SPEED;
 }
 
 void    move_left(t_cub *cub, t_mlx *my_mlx)
 {
-    if (cub->maps->my_map[(int)my_mlx->pos.y][(int)my_mlx->pos.x] == 1)
+    if (cub->maps->my_map[(int)(my_mlx->pos.y)][(int)(my_mlx->pos.x)] == 1)
         return ;
-    if (cub->maps->my_map[(int)my_mlx->pos.y][(int)my_mlx->pos.x - my_mlx->dir.y * PLAYER_SPEED] != '1')
-        my_mlx->pos.x += my_mlx->dir.x * PLAYER_SPEED;
-    if (cub->maps->my_map[(int)my_mlx->pos.y - my_mlx->dir.x * PLAYER_SPEED][(int)my_mlx->pos.x] != '1')
-        my_mlx->pos.y += my_mlx->dir.x * PLAYER_SPEED;
+    if (cub->maps->my_map[(int)(my_mlx->pos.y)][(int)(my_mlx->pos.x + my_mlx->dir.y * PLAYER_SPEED)] != '1')
+        my_mlx->pos.x += my_mlx->dir.y * PLAYER_SPEED;
+    if (cub->maps->my_map[(int)(my_mlx->pos.y - my_mlx->dir.x * PLAYER_SPEED)][(int)(my_mlx->pos.x)] != '1')
+        my_mlx->pos.y -= my_mlx->dir.x * PLAYER_SPEED;
 }
 
 int moving(t_cub *cub)
@@ -197,6 +197,7 @@ int moving(t_cub *cub)
         cub->keys->rotate = 1;
         //rotate_function
     }
+    return(0);
 }
 
 void my_game(t_cub *cub)
