@@ -208,9 +208,9 @@ void    rotation(t_cub *cub)
     if (cub->maps->my_map[(int)(cub->my_mlx->pos.y)][(int)(cub->my_mlx->pos.x)] == 1)
         return ;
     if (cub->keys->rotate == 1)
-        to_the_left(cub);
+        to_the_left(cub->my_mlx);
     else if (cub->keys->rotate == -1)
-        to_the_right(cub);
+        to_the_right(cub->my_mlx);
 }
 
 int moving(t_cub *cub)
@@ -233,8 +233,17 @@ int moving(t_cub *cub)
         cub->keys->rotate = 1;
         rotation(cub);
     }
+    // raycaster(cub);
     return(0);
 }
+
+// int check_f_c_colors(t_cub *cub)
+// {
+//     int i;
+
+//     i = -1;
+//     while (++i < )
+// }
 
 void my_game(t_cub *cub)
 {
@@ -242,7 +251,7 @@ void my_game(t_cub *cub)
     int screen_h = 480;
 
     init_game(cub);
-    // Création d'une image
+    // Creation d'une image
     cub->my_mlx->img_ptr = mlx_new_image(cub->my_mlx->mlx_ptr, screen_w, screen_h);
     if (!cub->my_mlx->img_ptr)
         print_error(cub, "Image Fail", NULL);

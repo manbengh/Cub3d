@@ -14,7 +14,7 @@ CC = cc
 
 NAME = cub3D
 
-CFLAGS = -Wall -Wextra -Werror -g3
+CFLAGS = -Wall -Wextra -Werror -lm -g3
 
 INC = -Iincludes -I/usr/include -Iminilibx-linux -ILibft
 

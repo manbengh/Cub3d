@@ -9,8 +9,13 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <math.h>
 
-#include <math.h>
+// # include <X11/X.h>
+// # include <X11/keysym.h>
+// # include <fcntl.h>
+// # include <math.h>
+// # include <stdio.h>
 
 #define SCREEN_W 1280
 #define SCREEN_H 800
