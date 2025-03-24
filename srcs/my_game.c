@@ -208,12 +208,12 @@ void    rotation(t_cub *cub)
     if (cub->maps->my_map[(int)(cub->my_mlx->pos.y)][(int)(cub->my_mlx->pos.x)] == 1)
         return ;
     if (cub->keys->rotate == 1)
-        to_the_left(cub);
+        to_the_left(cub->my_mlx);
     else if (cub->keys->rotate == -1)
-        to_the_right(cub);
+        to_the_right(cub->my_mlx);
 }
 
-int moving(t_cub *cub)
+int whiche_moving(t_cub *cub)
 {
     if (cub->keys->w == 1)
         move_forward(cub, cub->my_mlx);
@@ -235,6 +235,19 @@ int moving(t_cub *cub)
     }
     return(0);
 }
+
+int moving(t_cub *cub)
+{
+    whiche_moving(cub);
+    start_ray(cub);
+    return(0);
+}
+void start_ray(t_cub *cub)
+{
+    mlx_destroy_image(cub->my_mlx->mlx_ptr, cub->my_mlx->img_ptr);
+    
+}
+
 
 void my_game(t_cub *cub)
 {

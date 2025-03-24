@@ -33,6 +33,64 @@ int worldMap[MAP_WIDTH][MAP_HEIGHT] =
 };
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // void *mlx_ptr;
 // void *win_ptr;
 // void *img_ptr;

@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 14:34:55 by ahbey             #+#    #+#             */
-/*   Updated: 2025/03/17 14:27:24 by ahbey            ###   ########.fr       */
+/*   Updated: 2025/03/20 16:42:48 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int main(int argc, char **argv)
 {
 	int fd;
 	t_cub cub;
-
+	
 	if (argc == 2)
 	{
 		check_file_name(argv[1]);
