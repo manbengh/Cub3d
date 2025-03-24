@@ -6,6 +6,7 @@ SRC =	srcs/main.c \
 		srcs/init_map.c  \
 		srcs/ft_free.c  \
 		srcs/my_game.c  \
+		srcs/raycasting.c  \
 		raycasting.c \
 
 OBJ = $(SRC:.c=.o)
@@ -14,7 +15,7 @@ CC = cc
 
 NAME = cub3D
 
-CFLAGS = -Wall -Wextra -Werror -g3 
+CFLAGS = -Wall -Wextra -Werror -lm -g3
 
 INC = -Iincludes -I/usr/include -Iminilibx-linux -ILibft
 

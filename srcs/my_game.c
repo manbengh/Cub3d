@@ -233,21 +233,17 @@ int whiche_moving(t_cub *cub)
         cub->keys->rotate = 1;
         rotation(cub);
     }
+    // raycaster(cub);
     return(0);
 }
 
-int moving(t_cub *cub)
-{
-    whiche_moving(cub);
-    start_ray(cub);
-    return(0);
-}
-void start_ray(t_cub *cub)
-{
-    mlx_destroy_image(cub->my_mlx->mlx_ptr, cub->my_mlx->img_ptr);
-    
-}
+// int check_f_c_colors(t_cub *cub)
+// {
+//     int i;
 
+//     i = -1;
+//     while (++i < )
+// }
 
 void my_game(t_cub *cub)
 {
@@ -255,7 +251,7 @@ void my_game(t_cub *cub)
     int screen_h = 480;
 
     init_game(cub);
-    // Création d'une image
+    // Creation d'une image
     cub->my_mlx->img_ptr = mlx_new_image(cub->my_mlx->mlx_ptr, screen_w, screen_h);
     if (!cub->my_mlx->img_ptr)
         print_error(cub, "Image Fail", NULL);
