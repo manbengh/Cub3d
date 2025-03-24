@@ -15,12 +15,12 @@ CC = cc
 
 NAME = cub3D
 
-CFLAGS = -Wall -Wextra -Werror -lm -g3
+CFLAGS = -Wall -Wextra -Werror -g3
 
 INC = -Iincludes -I/usr/include -Iminilibx-linux -ILibft
 
 MLX_LIB =  minilibx-linux/libmlx_Linux.a
-MLX_FLAGS = -Lmlx -L/usr/lib/X11 -lXext -lX11
+MLX_FLAGS = -Lmlx -L/usr/lib/X11 -lXext -lX11 -lm
 
 LIBFT = Libft/libft.a
 
