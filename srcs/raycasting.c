@@ -9,6 +9,7 @@ void    calculate_ray_dir(t_cub *cub, int x)
 
 void    calculate_step_dist(t_cub *cub, t_mlx *my_mlx, t_ray *ray)
 {
+    
     ray->map_x = (int)my_mlx->pos.x;
     ray->map_y = (int)my_mlx->pos.y;
 
@@ -101,7 +102,8 @@ void    draw_vertical_line(int x, t_cub *cub, t_ray *ray)
     y = ray->start_draw;
     while (y <= ray->end_draw)
     {
-        my_mlx_pixel_put(cub->my_mlx->img_ptr, )
+        my_mlx_pixel_put(cub->my_mlx->img_ptr, x, y, ray->color);
+        y++;
     }
 }
 
@@ -129,5 +131,5 @@ void    raycaster(t_cub *cub)
         get_wall_color(cub->ray);
         draw_vertical_line(x, cub, cub->ray);
     }
-
+    mlx_put_image_to_window(cub->my_mlx->mlx_ptr, cub->my_mlx->win_ptr, cub->my_mlx->img_ptr, 0, 0);
 }

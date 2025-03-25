@@ -76,8 +76,8 @@ typedef struct t_ray
     int end_draw;
     int color;
     double  perp_wall_dist;
-    t_int   side_dist;
-    t_int   delta_dist;
+    t_double   side_dist;
+    t_double   delta_dist;
     t_int   ray_dir;
 } t_ray;
 
