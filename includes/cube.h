@@ -11,8 +11,8 @@
 #include <unistd.h>
 #include <math.h>
 
-// # include <X11/X.h>
-// # include <X11/keysym.h>
+# include <X11/X.h>
+# include <X11/keysym.h>
 // # include <fcntl.h>
 // # include <math.h>
 // # include <stdio.h>
@@ -78,7 +78,7 @@ typedef struct t_ray
     double  perp_wall_dist;
     t_double   side_dist;
     t_double   delta_dist;
-    t_int   ray_dir;
+    t_double   ray_dir;
 } t_ray;
 
 typedef struct t_mlx
@@ -134,5 +134,6 @@ void print_error(t_cub *cub, char *str, char **map_check);
 
 // GAME
 void my_game(t_cub *cub);
+void    raycaster(t_cub *cub);
 
 #endif
