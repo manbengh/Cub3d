@@ -30,7 +30,7 @@
 #define KEY_RIGHT 65363 // look right
 #define KEY_CTRL 65507  // ctrl
 
-#define PLAYER_SPEED 0.014
+#define PLAYER_SPEED 0.1
 #define ROTATION_SPEED 0.024
 
 // pour x et y des vecteurs

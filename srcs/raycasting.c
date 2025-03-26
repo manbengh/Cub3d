@@ -78,6 +78,7 @@ void    perform_dda(t_cub *cub, t_ray *ray)
 
 void get_wall_color(t_ray *ray)
 {
+    // printf("ray dir ------> %f\nside ----> %i\n", ray->ray_dir.x, ray->side);
     if (ray->side == 0)
     {
         if (ray->ray_dir.x < 0)
@@ -115,6 +116,7 @@ void    draw_vertical_line(int x, t_cub *cub, t_ray *ray)
         put_mlx_pixel(cub->my_mlx, x, y, ray);
         y++;
     }
+	printf("draw_end --> %i\n draz_strat-----> %i\n", ray->end_draw, ray->start_draw);
     mlx_put_image_to_window(cub->my_mlx->mlx_ptr, cub->my_mlx->win_ptr, cub->my_mlx->img_ptr, 0, 0);
 
 }
@@ -124,23 +126,23 @@ void    raycaster(t_cub *cub)
     int x;
 
     x = 0;
-    printf("ptr img = %p\n", cub->my_mlx->img_ptr);
+    // printf("ptr img = %p\n", cub->my_mlx->img_ptr);
     
     
     mlx_destroy_image(cub->my_mlx->mlx_ptr, cub->my_mlx->img_ptr);
     cub->my_mlx->img_ptr = mlx_new_image(cub->my_mlx->mlx_ptr, SCREEN_W, SCREEN_H);
     cub->my_mlx->img_data = mlx_get_data_addr(cub->my_mlx->img_ptr, &cub->my_mlx->bpp, &cub->my_mlx->size_line, &cub->my_mlx->endian);
     
-    
+    printf("player ---> %f   %f\n", cub->my_mlx->pos.x, cub->my_mlx->pos.y);
     while (x < SCREEN_W)
     {
         calculate_ray_dir(cub, x);
         calculate_step_dist(cub, cub->my_mlx, cub->ray);
         perform_dda(cub, cub->ray);
         if (cub->ray->side == 0)
-        cub->ray->perp_wall_dist = (cub->ray->side_dist.x - cub->ray->delta_dist.x);
+            cub->ray->perp_wall_dist = (cub->ray->side_dist.x - cub->ray->delta_dist.x);
         else
-        cub->ray->perp_wall_dist = (cub->ray->side_dist.y - cub->ray->delta_dist.y);
+            cub->ray->perp_wall_dist = (cub->ray->side_dist.y - cub->ray->delta_dist.y);
         cub->ray->line_h = (int)(SCREEN_H / cub->ray->perp_wall_dist);
         cub->ray->start_draw = -cub->ray->line_h / 2 + SCREEN_H / 2;
         if (cub->ray->start_draw < 0)
