@@ -49,10 +49,10 @@ void    calculate_step_dist(t_cub *cub, t_mlx *my_mlx, t_ray *ray)
 
 void    perform_dda(t_cub *cub, t_ray *ray)
 {
-    int wall;
+    // int wall;
 
-    wall = 0;
-    while (wall == 0)
+    // wall = 0;
+    while (1)
     {
         if (ray->side_dist.x < ray->side_dist.y)
         {
@@ -68,9 +68,9 @@ void    perform_dda(t_cub *cub, t_ray *ray)
             ray->side = 1;
         }
         // printf("mapx ======= %i\n mapy ====== %i\n",ray->map_x ,ray->map_y);
-        if (cub->maps->my_map && cub->maps->my_map[ray->map_y][ray->map_x] > 0)
+        if (cub->maps->my_map[ray->map_y][ray->map_x] == '1')
         {
-            wall = 1;
+            // wall = 1;
             break ;
         }
     }
@@ -146,10 +146,10 @@ void    raycaster(t_cub *cub)
         cub->ray->line_h = (int)(SCREEN_H / cub->ray->perp_wall_dist);
         cub->ray->start_draw = -cub->ray->line_h / 2 + SCREEN_H / 2;
         if (cub->ray->start_draw < 0)
-        cub->ray->start_draw = 0;
+            cub->ray->start_draw = 0;
         cub->ray->end_draw = cub->ray->line_h / 2 + SCREEN_H / 2;
         if (cub->ray->end_draw >= SCREEN_H)
-        cub->ray->end_draw = SCREEN_H - 1;
+            cub->ray->end_draw = SCREEN_H - 1;
         get_wall_color(cub->ray);
         draw_vertical_line(x, cub, cub->ray);
         x++;
