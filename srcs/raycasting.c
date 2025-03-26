@@ -2,27 +2,43 @@
 
 void    calculate_ray_dir(t_cub *cub, int x)
 {
-    double  camera_x = 2 * x /(double)SCREEN_W - 1;
+    double  camera_x = 2 * x / (double)SCREEN_W - 1;
     cub->ray->ray_dir.x = cub->my_mlx->dir.x + cub->my_mlx->plane.x * camera_x;
     cub->ray->ray_dir.y = cub->my_mlx->dir.y + cub->my_mlx->plane.y * camera_x;
+
+    // Normalisation de ray_dir
+    double length = sqrt(cub->ray->ray_dir.x * cub->ray->ray_dir.x + 
+                         cub->ray->ray_dir.y * cub->ray->ray_dir.y);
+    if (length != 0)  // Éviter la division par zéro
+    {
+        cub->ray->ray_dir.x /= length;
+        cub->ray->ray_dir.y /= length;
+    }
+
+    // Debug pour voir si c'est bien normalisé
+    printf("Normalized ray_dir: x = %f, y = %f\n", cub->ray->ray_dir.x, cub->ray->ray_dir.y);
 }
+
 
 void    calculate_step_dist(t_cub *cub, t_mlx *my_mlx, t_ray *ray)
 {
     (void)cub;
     ray->map_x = (int)my_mlx->pos.x;
     ray->map_y = (int)my_mlx->pos.y;
-    // printf("mapx = %i\n mapy = %i\n",ray->map_x ,ray->map_y);
 
+    if (fabs(ray->ray_dir.y) < 1e-6)
+        ray->delta_dist.y = 1e30;
+    else
+        ray->delta_dist.y = fabs(1 / ray->ray_dir.y);
     if (ray->ray_dir.x == 0)
         ray->delta_dist.x = 1e30;
     else
         ray->delta_dist.x = fabs(1 / ray->ray_dir.x);
 
-    if (ray->ray_dir.y == 0)
-        ray->delta_dist.y = 1e30;
-    else
-        ray->delta_dist.y = fabs(1 / ray->ray_dir.y);
+    // if (ray->ray_dir.y == 0)
+    //     ray->delta_dist.y = 1e30;
+    // else
+    //     ray->delta_dist.y = fabs(1 / ray->ray_dir.y);
 
     if (ray->ray_dir.x < 0)
     {
@@ -45,14 +61,48 @@ void    calculate_step_dist(t_cub *cub, t_mlx *my_mlx, t_ray *ray)
         ray->step_y = 1;
         ray->side_dist.y = (ray->map_y + 1.0 - my_mlx->pos.y) * ray->delta_dist.y;
     }
+    printf("1 / ray_dir.x = %f\n", 1 / ray->ray_dir.x);
+    printf("1 / ray_dir.y = %f\n", 1 / ray->ray_dir.y);
+    printf("delta_dist.x = %f\n", ray->delta_dist.x);
+    printf("delta_dist.y = %f\n", ray->delta_dist.y);
+
 }
+
+// void    perform_dda(t_cub *cub, t_ray *ray)
+// {
+//     int wall;
+
+//     wall = 0;
+//     while (wall == 0)
+//     {
+//         if (ray->side_dist.x < ray->side_dist.y)
+//         {
+//             ray->side_dist.x += ray->delta_dist.x;
+//             ray->map_x += ray->step_x;
+//             ray->side = 0;
+//         }
+//         else
+//         {
+//             ray->side_dist.y += ray->delta_dist.y;
+//             ray->map_y += ray->step_y;
+//             // printf("stepy ==> %i\n",ray->step_y);
+//             ray->side = 1;
+//         }
+//         // printf("mapx ======= %i\n mapy ====== %i\n",ray->map_x ,ray->map_y);
+//         if (cub->maps->my_map && cub->maps->my_map[ray->map_y][ray->map_x] > 0)
+//         {
+//             wall = 1;
+//             break ;
+//         }
+//     }
+// }
 
 void    perform_dda(t_cub *cub, t_ray *ray)
 {
-    int wall;
+    // int wall;
 
-    wall = 0;
-    while (wall == 0)
+    // wall = 0;
+    while (1)
     {
         if (ray->side_dist.x < ray->side_dist.y)
         {
@@ -68,13 +118,22 @@ void    perform_dda(t_cub *cub, t_ray *ray)
             ray->side = 1;
         }
         // printf("mapx ======= %i\n mapy ====== %i\n",ray->map_x ,ray->map_y);
-        if (cub->maps->my_map && cub->maps->my_map[ray->map_y][ray->map_x] > 0)
+        if (cub->maps->my_map[ray->map_y][ray->map_x] == '1')
         {
-            wall = 1;
+            // wall = 1;
             break ;
         }
+        // Test de distance correcte pour le mur
+        if (ray->side == 0)
+        ray->perp_wall_dist = (ray->map_x - cub->my_mlx->pos.x + (1 - ray->step_x) / 2) / ray->ray_dir.x;
+    else
+        ray->perp_wall_dist = (ray->map_y - cub->my_mlx->pos.y + (1 - ray->step_y) / 2) / ray->ray_dir.y;
+
+    printf("Wall distance: %f\n", ray->perp_wall_dist);
+
     }
 }
+
 
 void get_wall_color(t_ray *ray)
 {
@@ -97,6 +156,9 @@ void get_wall_color(t_ray *ray)
 void put_mlx_pixel(t_mlx *my_mlx, int x, int y, t_ray *ray)
 {
     char *dest;
+
+    if (x < 0 || x >= SCREEN_W || y < 0 || y >= SCREEN_H)
+        return; 
     dest = my_mlx->img_data + (y * my_mlx->size_line + x * (my_mlx->bpp / 8));
     *(unsigned int*)dest = ray->color;
 }
@@ -115,7 +177,10 @@ void    draw_vertical_line(int x, t_cub *cub, t_ray *ray)
         put_mlx_pixel(cub->my_mlx, x, y, ray);
         y++;
     }
-    mlx_put_image_to_window(cub->my_mlx->mlx_ptr, cub->my_mlx->win_ptr, cub->my_mlx->img_ptr, 0, 0);
+    ray->line_h = (int)(SCREEN_H / ray->perp_wall_dist);
+    ray->start_draw = -ray->line_h / 2 + SCREEN_H / 2;
+    ray->end_draw = ray->line_h / 2 + SCREEN_H / 2;
+    printf("Wall Height: %d, Start: %d, End: %d\n", ray->line_h, ray->start_draw, ray->end_draw);
 
 }
 
@@ -124,9 +189,10 @@ void    raycaster(t_cub *cub)
     int x;
 
     x = 0;
-    printf("ptr img = %p\n", cub->my_mlx->img_ptr);
+    // printf("ptr img = %p\n", cub->my_mlx->img_ptr);
     
-    
+    printf("Plane: x = %f, y = %f\n", cub->my_mlx->plane.x, cub->my_mlx->plane.y);
+
     mlx_destroy_image(cub->my_mlx->mlx_ptr, cub->my_mlx->img_ptr);
     cub->my_mlx->img_ptr = mlx_new_image(cub->my_mlx->mlx_ptr, SCREEN_W, SCREEN_H);
     cub->my_mlx->img_data = mlx_get_data_addr(cub->my_mlx->img_ptr, &cub->my_mlx->bpp, &cub->my_mlx->size_line, &cub->my_mlx->endian);

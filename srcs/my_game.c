@@ -69,7 +69,7 @@ void    set_plane(t_cub *cub, char p)
         cub->my_mlx->plane.x = 0;
         cub->my_mlx->plane.y = 0.66;
     }
-    printf("plane x = %f\nplane y %f\n", cub->my_mlx->plane.x, cub->my_mlx->plane.y);
+    // printf("plane x = %f\nplane y %f\n", cub->my_mlx->plane.x, cub->my_mlx->plane.y);
 }
 
 void    init_game(t_cub *cub)
@@ -101,11 +101,12 @@ int close_window(t_cub *cub)
     return (0);
 }
 
+
 int key_press(int keycode, t_cub *cub)
 {
     if (keycode == XK_w)
     {
-        printf("W\n");
+        // printf("W\n");
         cub->keys->w = 1;
     }
     if (keycode == XK_a)
@@ -119,25 +120,25 @@ int key_press(int keycode, t_cub *cub)
     if (keycode == XK_Right)
         cub->keys->right = 1;
     if (keycode == XK_Escape)
-        cub->keys->esc = 1;
+        ft_free_escape(cub);
     return (1);
 }
 
 int key_release(int keycode, t_cub *cub)
 {
-    if (keycode == KEY_W)
+    if (keycode == XK_w)
         cub->keys->w = 0;
-    if (keycode == KEY_A)
+    if (keycode == XK_a)
         cub->keys->a = 0;
-    if (keycode == KEY_S)
+    if (keycode == XK_s)
         cub->keys->s = 0;
-    if (keycode == KEY_D)
+    if (keycode == XK_d)
         cub->keys->d = 0;
-    if (keycode == KEY_LEFT)
+    if (keycode == XK_Left)
         cub->keys->left = 0;
-    if (keycode == KEY_RIGHT)
+    if (keycode == XK_Right)
         cub->keys->right = 0;
-    if (keycode == KEY_ESC)
+    if (keycode == XK_Escape)
         cub->keys->esc = 0;
     return (1);
 }
@@ -250,8 +251,6 @@ int moving(t_cub *cub)
 
 void my_game(t_cub *cub)
 {
-    // int screen_w = 640;
-    // int screen_h = 480;
 
     init_game(cub);
     // Creation d'une image

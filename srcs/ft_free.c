@@ -6,11 +6,17 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 14:34:02 by ahbey             #+#    #+#             */
-/*   Updated: 2025/03/12 14:34:09 by ahbey            ###   ########.fr       */
+/*   Updated: 2025/03/26 15:02:20 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
+
+void ft_free_escape(t_cub *cub)
+{
+	free_struct(cub);
+	exit(0);
+}
 
 void	free_tab(char **tab)
 {
