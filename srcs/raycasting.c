@@ -135,21 +135,38 @@ void    perform_dda(t_cub *cub, t_ray *ray)
 }
 
 
+// void get_wall_color(t_ray *ray)
+// {
+//     if (ray->side == 0)
+//     {
+//         if (ray->ray_dir.x < 0)
+//             ray->color = 0xFF0000;
+//         else if (ray->ray_dir.x > 0)
+//         ray->color = 0x00FF00;    // Vert // Mur à est
+//     }
+//     else
+//     {
+//         if (ray->ray_dir.y < 0)
+//             ray->color = 0x0000FF;    // Bleu // Mur au Nord
+//         else
+//             ray->color = 0xFFFFFF;    // Blanc // Mur au Sud
+//     }
+// }
 void get_wall_color(t_ray *ray)
 {
-    if (ray->side == 0)
+    if (ray->side == 0)  // Mur vertical
     {
         if (ray->ray_dir.x < 0)
-            ray->color = 0xFF0000;
-        else if (ray->ray_dir.x > 0)
-        ray->color = 0x00FF00;    // Vert // Mur à est
+            ray->color = 0xFF0000;  // Rouge, mur à l'ouest
+        else
+            ray->color = 0x00FF00;  // Vert, mur à l'est
     }
-    else
+    else  // Mur horizontal
     {
         if (ray->ray_dir.y < 0)
-            ray->color = 0x0000FF;    // Bleu // Mur au Nord
+            ray->color = 0x0000FF;  // Bleu, mur au nord
         else
-            ray->color = 0xFFFFFF;    // Blanc // Mur au Sud
+            ray->color = 0xFFFFFF;  // Blanc, mur au sud
     }
 }
 
@@ -184,13 +201,30 @@ void    draw_vertical_line(int x, t_cub *cub, t_ray *ray)
 
 }
 
+
+void init_mlx_vectors(t_mlx *my_mlx) {
+    // Initialisation du vecteur de direction (dir) et du plan (plane)
+    // Ces valeurs peuvent être définies en fonction de l'orientation de la caméra
+    my_mlx->dir[0] = 1.0;  // Direction sur l'axe X (pour une vue de base)
+    my_mlx->dir[1] = 0.0;  // Direction sur l'axe Y
+
+    my_mlx->plane[0] = 0.0;  // Plan sur l'axe X (perpendiculaire à la direction)
+    my_mlx->plane[1] = 0.66; // Plan sur l'axe Y (pour la perspective)
+
+    // Vérification que les vecteurs sont initialisés
+    printf("Direction vector: x = %d, y = %d\n", my_mlx->dir[0], my_mlx->dir[1]);
+    printf("Plane vector: x = %f, y = %f\n", my_mlx->plane[0], my_mlx->plane[1]);
+}
+
+
+
 void    raycaster(t_cub *cub)
 {
     int x;
 
     x = 0;
     // printf("ptr img = %p\n", cub->my_mlx->img_ptr);
-    
+    init_mlx_vectors(cub->my_mlx);
     printf("Plane: x = %f, y = %f\n", cub->my_mlx->plane.x, cub->my_mlx->plane.y);
 
     mlx_destroy_image(cub->my_mlx->mlx_ptr, cub->my_mlx->img_ptr);
