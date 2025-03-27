@@ -88,7 +88,7 @@ typedef struct t_mlx
 	int			size_line;
 	int			endian;
 	t_double	pos;
-	t_int		dir;
+	t_double		dir;
 	t_double	plane;
 }				t_mlx;
 
@@ -132,5 +132,11 @@ void ft_free_escape(t_cub *cub);
 // GAME
 void			my_game(t_cub *cub);
 void			raycaster(t_cub *cub);
+
+
+void get_pos_player(t_cub *cub);
+void set_plane(t_cub *cub, char p);
+void set_directions(t_cub *cub, char p);
+
 
 #endif

@@ -1,6 +1,6 @@
 #include "cube.h"
 
-void    get_pos_player(t_cub *cub)
+void get_pos_player(t_cub *cub)
 {
     int i;
     int j;
@@ -11,17 +11,23 @@ void    get_pos_player(t_cub *cub)
         j = 0;
         while (j < ft_strlen(cub->maps->my_map[i]))
         {
-            if (cub->maps->my_map[i][j] == cub->maps->player_dir)
+            if (cub->maps->my_map[i][j] == 'N' || cub->maps->my_map[i][j] == 'S' ||
+                cub->maps->my_map[i][j] == 'E' || cub->maps->my_map[i][j] == 'W')
             {
+                cub->maps->player_dir = cub->maps->my_map[i][j];  // Stocker la direction
                 cub->my_mlx->pos.x = j + 0.5;
                 cub->my_mlx->pos.y = i + 0.5;
-                return ;
+
+                printf("Found Player at: x = %f, y = %f\n", cub->my_mlx->pos.x, cub->my_mlx->pos.y);
+                printf("Player Direction: %c\n", cub->maps->player_dir);
+                return;
             }
             j++;
         }
         i++;
     }
 }
+
 
 void    set_directions(t_cub *cub, char p)
 {
@@ -145,8 +151,8 @@ int key_release(int keycode, t_cub *cub)
 
 void    move_forward(t_cub *cub, t_mlx *my_mlx)
 {
-    // if (cub->maps->my_map[(int)(my_mlx->pos.y)][(int)(my_mlx->pos.x)] == '1')
-    //     return ;
+    if (cub->maps->my_map[(int)(my_mlx->pos.y)][(int)(my_mlx->pos.x)] == '1')
+        return ;
     if (cub->maps->my_map[(int)(my_mlx->pos.y)][(int)(my_mlx->pos.x + my_mlx->dir.x * PLAYER_SPEED)] != '1')
         my_mlx->pos.x += my_mlx->dir.x * PLAYER_SPEED;
     if (cub->maps->my_map[(int)(my_mlx->pos.y + my_mlx->dir.y * PLAYER_SPEED)][(int)(my_mlx->pos.x)] != '1')
@@ -155,8 +161,8 @@ void    move_forward(t_cub *cub, t_mlx *my_mlx)
 
 void    move_backward(t_cub *cub, t_mlx *my_mlx)
 {
-    // if (cub->maps->my_map[(int)(my_mlx->pos.y)][(int)(my_mlx->pos.x)] == '1')
-    //     return ;
+    if (cub->maps->my_map[(int)(my_mlx->pos.y)][(int)(my_mlx->pos.x)] == '1')
+        return ;
     if (cub->maps->my_map[(int)(my_mlx->pos.y)][(int)(my_mlx->pos.x - my_mlx->dir.x * PLAYER_SPEED)] != '1')
         my_mlx->pos.x -= my_mlx->dir.x * PLAYER_SPEED;
     if (cub->maps->my_map[(int)(my_mlx->pos.y - my_mlx->dir.y * PLAYER_SPEED)][(int)(my_mlx->pos.x)] != '1')
@@ -165,6 +171,8 @@ void    move_backward(t_cub *cub, t_mlx *my_mlx)
 
 void    move_right(t_cub *cub, t_mlx *my_mlx)
 {
+    if (cub->maps->my_map[(int)(my_mlx->pos.y)][(int)(my_mlx->pos.x)] == '1')
+        return ;
     if (cub->maps->my_map[(int)(my_mlx->pos.y)][(int)(my_mlx->pos.x - my_mlx->dir.y * PLAYER_SPEED)] != '1')
         my_mlx->pos.x -= my_mlx->dir.y * PLAYER_SPEED;
     if (cub->maps->my_map[(int)(my_mlx->pos.y + my_mlx->dir.x * PLAYER_SPEED)][(int)(my_mlx->pos.x)] != '1')
@@ -173,8 +181,8 @@ void    move_right(t_cub *cub, t_mlx *my_mlx)
 
 void    move_left(t_cub *cub, t_mlx *my_mlx)
 {
-    // if (cub->maps->my_map[(int)(my_mlx->pos.y)][(int)(my_mlx->pos.x)] == '1')
-    //     return ;
+    if (cub->maps->my_map[(int)(my_mlx->pos.y)][(int)(my_mlx->pos.x)] == '1')
+        return ;
     if (cub->maps->my_map[(int)(my_mlx->pos.y)][(int)(my_mlx->pos.x + my_mlx->dir.y * PLAYER_SPEED)] != '1')
         my_mlx->pos.x += my_mlx->dir.y * PLAYER_SPEED;
     if (cub->maps->my_map[(int)(my_mlx->pos.y - my_mlx->dir.x * PLAYER_SPEED)][(int)(my_mlx->pos.x)] != '1')
@@ -241,14 +249,6 @@ int moving(t_cub *cub)
     return(0);
 }
 
-// int check_f_c_colors(t_cub *cub)
-// {
-//     int i;
-
-//     i = -1;
-//     while (++i < )
-// }
-
 void my_game(t_cub *cub)
 {
 
@@ -265,5 +265,3 @@ void my_game(t_cub *cub)
     mlx_hook(cub->my_mlx->win_ptr, 17, 0, close_window, cub);
     mlx_loop(cub->my_mlx->mlx_ptr);
 }
-
-//set directions
