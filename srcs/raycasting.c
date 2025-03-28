@@ -24,37 +24,60 @@ void print_trig_circle(double angle) {
 }
 
 
+
+
 void calculate_ray_dir(t_cub *cub, int x)
 {
+    // Calcul de la position x sur le plan de la caméra
     double camera_x = 2 * x / (double)SCREEN_W - 1;
+    
+    // Calcul de la direction du rayon
     cub->ray->ray_dir.x = cub->my_mlx->dir.x + cub->my_mlx->plane.x * camera_x;
     cub->ray->ray_dir.y = cub->my_mlx->dir.y + cub->my_mlx->plane.y * camera_x;
-
-    // Normalisation de ray_dir
-    double length = sqrt(cub->ray->ray_dir.x * cub->ray->ray_dir.x + 
-                         cub->ray->ray_dir.y * cub->ray->ray_dir.y);
-    if (length != 0)  
-    {
-        cub->ray->ray_dir.x /= length;
-        cub->ray->ray_dir.y /= length;
-    }
-
-    // Log pour voir si c'est bien normalisé
-    // printf("Normalized ray_dir: x = %f, y = %f\n", cub->ray->ray_dir.x, cub->ray->ray_dir.y);
-
+    
     // Log pour voir l'angle de vision en degrés
-    // double angle = atan2(cub->ray->ray_dir.y, cub->ray->ray_dir.x) * 180 / M_PI;
-    // print_trig_circle(angle);
+    double angle = atan2(cub->ray->ray_dir.y, cub->ray->ray_dir.x) * 180 / M_PI;
+    
+    // Debug prints
+    printf("Ray Direction: x = %f, y = %f\n", cub->ray->ray_dir.x, cub->ray->ray_dir.y);
+    printf("Ray Angle: %f°\n", angle);
+    
+    // Option conditionnelle pour le cercle trigonométrique
+    #ifdef DEBUG_TRIG
+    print_trig_circle(angle);
+    #endif
 }
+// void calculate_ray_dir(t_cub *cub, int x)
+// {
+//     double camera_x = 2 * x / (double)SCREEN_W - 1;
+//     cub->ray->ray_dir.x = cub->my_mlx->dir.x + cub->my_mlx->plane.x * camera_x;
+//     cub->ray->ray_dir.y = cub->my_mlx->dir.y + cub->my_mlx->plane.y * camera_x;
+
+//     // Normalisation de ray_dir
+//     double length = sqrt(cub->ray->ray_dir.x * cub->ray->ray_dir.x + 
+//                          cub->ray->ray_dir.y * cub->ray->ray_dir.y);
+//     if (length != 0)  
+//     {
+//         cub->ray->ray_dir.x /= length;
+//         cub->ray->ray_dir.y /= length;
+//     }
+
+//     // Log pour voir si c'est bien normalisé
+//     // printf("Normalized ray_dir: x = %f, y = %f\n", cub->ray->ray_dir.x, cub->ray->ray_dir.y);
+
+//     // Log pour voir l'angle de vision en degrés
+//      double angle = atan2(cub->ray->ray_dir.y, cub->ray->ray_dir.x) * 180 / M_PI;
+//      print_trig_circle(angle);
+// }
 
 
 
-void    calculate_step_dist(t_cub *cub, t_mlx *my_mlx, t_ray *ray)
+
+void calculate_step_dist(t_cub *cub, t_mlx *my_mlx, t_ray *ray)
 {
     (void)cub;
     ray->map_x = (int)my_mlx->pos.x;
     ray->map_y = (int)my_mlx->pos.y;
-
     if (fabs(ray->ray_dir.y) < 1e-6)
         ray->delta_dist.y = 1e30;
     else
@@ -63,11 +86,6 @@ void    calculate_step_dist(t_cub *cub, t_mlx *my_mlx, t_ray *ray)
         ray->delta_dist.x = 1e30;
     else
         ray->delta_dist.x = fabs(1 / ray->ray_dir.x);
-
-    // if (ray->ray_dir.y == 0)
-    //     ray->delta_dist.y = 1e30;
-    // else
-    //     ray->delta_dist.y = fabs(1 / ray->ray_dir.y);
 
     if (ray->ray_dir.x < 0)
     {
@@ -79,7 +97,6 @@ void    calculate_step_dist(t_cub *cub, t_mlx *my_mlx, t_ray *ray)
         ray->step_x = 1;
         ray->side_dist.x = (ray->map_x + 1.0 - my_mlx->pos.x) * ray->delta_dist.x;
     }
-
     if (ray->ray_dir.y < 0)
     {
         ray->step_y = -1;
@@ -90,12 +107,55 @@ void    calculate_step_dist(t_cub *cub, t_mlx *my_mlx, t_ray *ray)
         ray->step_y = 1;
         ray->side_dist.y = (ray->map_y + 1.0 - my_mlx->pos.y) * ray->delta_dist.y;
     }
-    // printf("1 / ray_dir.x = %f\n", 1 / ray->ray_dir.x);
-    // printf("1 / ray_dir.y = %f\n", 1 / ray->ray_dir.y);
-    // printf("delta_dist.x = %f\n", ray->delta_dist.x);
-    // printf("delta_dist.y = %f\n", ray->delta_dist.y);
-
 }
+
+// void    calculate_step_dist(t_cub *cub, t_mlx *my_mlx, t_ray *ray)
+// {
+//     (void)cub;
+//     ray->map_x = (int)my_mlx->pos.x;
+//     ray->map_y = (int)my_mlx->pos.y;
+
+//     if (fabs(ray->ray_dir.y) < 1e-6)
+//         ray->delta_dist.y = 1e30;
+//     else
+//         ray->delta_dist.y = fabs(1 / ray->ray_dir.y);
+//     if (ray->ray_dir.x == 0)
+//         ray->delta_dist.x = 1e30;
+//     else
+//         ray->delta_dist.x = fabs(1 / ray->ray_dir.x);
+
+//     // if (ray->ray_dir.y == 0)
+//     //     ray->delta_dist.y = 1e30;
+//     // else
+//     //     ray->delta_dist.y = fabs(1 / ray->ray_dir.y);
+
+//     if (ray->ray_dir.x < 0)
+//     {
+//         ray->step_x = -1;
+//         ray->side_dist.x = (my_mlx->pos.x - ray->map_x) * ray->delta_dist.x;
+//     }
+//     else
+//     {
+//         ray->step_x = 1;
+//         ray->side_dist.x = (ray->map_x + 1.0 - my_mlx->pos.x) * ray->delta_dist.x;
+//     }
+
+//     if (ray->ray_dir.y < 0)
+//     {
+//         ray->step_y = -1;
+//         ray->side_dist.y = (my_mlx->pos.y - ray->map_y) * ray->delta_dist.y;
+//     }
+//     else
+//     {
+//         ray->step_y = 1;
+//         ray->side_dist.y = (ray->map_y + 1.0 - my_mlx->pos.y) * ray->delta_dist.y;
+//     }
+//     // printf("1 / ray_dir.x = %f\n", 1 / ray->ray_dir.x);
+//     // printf("1 / ray_dir.y = %f\n", 1 / ray->ray_dir.y);
+//     // printf("delta_dist.x = %f\n", ray->delta_dist.x);
+//     // printf("delta_dist.y = %f\n", ray->delta_dist.y);
+
+// }
 
 // void    perform_dda(t_cub *cub, t_ray *ray)
 // {
@@ -127,11 +187,62 @@ void    calculate_step_dist(t_cub *cub, t_mlx *my_mlx, t_ray *ray)
 // }
 
 
+// void perform_dda(t_cub *cub, t_ray *ray)
+// {
+//     while (1)
+//     {
+    
+//         if (ray->side_dist.x < ray->side_dist.y)
+//         {
+//             ray->side_dist.x += ray->delta_dist.x;
+//             ray->map_x += ray->step_x;
+//             ray->side = 0;
+//         }
+//         else
+//         {
+//             ray->side_dist.y += ray->delta_dist.y;
+//             ray->map_y += ray->step_y;
+//             ray->side = 1;
+//         }
+
+//         // Vérifier où le mur est rencontré
+//         if (cub->maps->my_map[ray->map_y][ray->map_x] == '1')
+//         {
+//             printf("Hit Wall at Map Position: x = %d, y = %d\n", ray->map_x, ray->map_y);
+
+//             if (ray->side == 0)
+//             {
+//                 if (ray->ray_dir.x > 0)
+//                     printf("Hit an East wall\n");
+//                 else
+//                     printf("Hit a West wall\n");
+//             }
+//             else
+//             {
+//                 if (ray->ray_dir.y > 0)
+//                     printf("Hit a South wall\n");
+//                 else
+//                     printf("Hit a North wall\n");
+//             }
+//             break;
+//         }
+
+//         // Calculer la distance du mur
+//         if (ray->side == 0)
+//             ray->perp_wall_dist = (ray->map_x - cub->my_mlx->pos.x + (1 - ray->step_x) / 2) / ray->ray_dir.x;
+//         else
+//             ray->perp_wall_dist = (ray->map_y - cub->my_mlx->pos.y + (1 - ray->step_y) / 2) / ray->ray_dir.y;
+
+//         // printf("Wall distance: %f\n", ray->perp_wall_dist);
+//     }
+// }
+
+
+
 void perform_dda(t_cub *cub, t_ray *ray)
 {
     while (1)
     {
-    
         if (ray->side_dist.x < ray->side_dist.y)
         {
             ray->side_dist.x += ray->delta_dist.x;
@@ -144,12 +255,12 @@ void perform_dda(t_cub *cub, t_ray *ray)
             ray->map_y += ray->step_y;
             ray->side = 1;
         }
-
+        
         // Vérifier où le mur est rencontré
         if (cub->maps->my_map[ray->map_y][ray->map_x] == '1')
         {
             printf("Hit Wall at Map Position: x = %d, y = %d\n", ray->map_x, ray->map_y);
-
+    
             if (ray->side == 0)
             {
                 if (ray->ray_dir.x > 0)
@@ -166,16 +277,84 @@ void perform_dda(t_cub *cub, t_ray *ray)
             }
             break;
         }
-
-        // Calculer la distance du mur
-        if (ray->side == 0)
-            ray->perp_wall_dist = (ray->map_x - cub->my_mlx->pos.x + (1 - ray->step_x) / 2) / ray->ray_dir.x;
-        else
-            ray->perp_wall_dist = (ray->map_y - cub->my_mlx->pos.y + (1 - ray->step_y) / 2) / ray->ray_dir.y;
-
-        // printf("Wall distance: %f\n", ray->perp_wall_dist);
     }
+    
+    // Calcul de la distance perpendiculaire au mur avec correction fish-eye
+    double cos_angle;
+    if (ray->side == 0)
+    {
+        ray->perp_wall_dist = (ray->map_x - cub->my_mlx->pos.x + (1 - ray->step_x) / 2) / ray->ray_dir.x;
+        // Correction fish-eye : projection sur le plan de la caméra
+        cos_angle = fabs(ray->ray_dir.x * cub->my_mlx->dir.x + ray->ray_dir.y * cub->my_mlx->dir.y);
+    }
+    else
+    {
+        ray->perp_wall_dist = (ray->map_y - cub->my_mlx->pos.y + (1 - ray->step_y) / 2) / ray->ray_dir.y;
+        // Correction fish-eye : projection sur le plan de la caméra
+        cos_angle = fabs(ray->ray_dir.x * cub->my_mlx->dir.x + ray->ray_dir.y * cub->my_mlx->dir.y);
+    }
+    
+    // Division par le cosinus de l'angle pour corriger la déformation
+    ray->perp_wall_dist /= cos_angle;
+    
+    // Debug de la distance du mur
+    printf("Wall distance (fish-eye corrected): %f\n", ray->perp_wall_dist);
+    printf("Cos Angle: %f\n", cos_angle);
 }
+// void perform_dda(t_cub *cub, t_ray *ray)
+// {
+//     while (1)
+//     {
+//         if (ray->side_dist.x < ray->side_dist.y)
+//         {
+//             ray->side_dist.x += ray->delta_dist.x;
+//             ray->map_x += ray->step_x;
+//             ray->side = 0;
+//         }
+//         else
+//         {
+//             ray->side_dist.y += ray->delta_dist.y;
+//             ray->map_y += ray->step_y;
+//             ray->side = 1;
+//         }
+
+//                 // Vérifier où le mur est rencontré
+//                 if (cub->maps->my_map[ray->map_y][ray->map_x] == '1')
+//                 {
+//                     printf("Hit Wall at Map Position: x = %d, y = %d\n", ray->map_x, ray->map_y);
+        
+//                     if (ray->side == 0)
+//                     {
+//                         if (ray->ray_dir.x > 0)
+//                             printf("Hit an East wall\n");
+//                         else
+//                             printf("Hit a West wall\n");
+//                     }
+//                     else
+//                     {
+//                         if (ray->ray_dir.y > 0)
+//                             printf("Hit a South wall\n");
+//                         else
+//                             printf("Hit a North wall\n");
+//                     }
+//                     break;
+//                 }
+//     }
+
+//     // Calcul de la distance perpendiculaire au mur
+//     // Calcul de la distance perpendiculaire au mur
+//     if (ray->side == 0)
+//         ray->perp_wall_dist = (ray->map_x - cub->my_mlx->pos.x + (1 - ray->step_x) / 2) / ray->ray_dir.x;
+//     else
+//         ray->perp_wall_dist = (ray->map_y - cub->my_mlx->pos.y + (1 - ray->step_y) / 2) / ray->ray_dir.y;
+
+//     // Correction Fish-Eye
+//     double cos_angle = fabs(ray->ray_dir.x * cub->my_mlx->dir.x + ray->ray_dir.y * cub->my_mlx->dir.y);
+//     ray->perp_wall_dist /= cos_angle; 
+
+//     // Debug de la distance du mur
+//     printf("Wall distance: %f\n", ray->perp_wall_dist);
+// }
 
 
 
@@ -302,7 +481,7 @@ void raycaster(t_cub *cub)
     // get_pos_player(cub);
     
     // Initialiser les vecteurs en fonction de l'orientation du joueur
-    init_mlx_vectors(cub->my_mlx, 'W');
+    // init_mlx_vectors(cub->my_mlx, cub->maps->player_dir);
 
     // Affichage des valeurs d'initialisation
     printf("Plane: x = %f, y = %f\n", cub->my_mlx->plane.x, cub->my_mlx->plane.y);
