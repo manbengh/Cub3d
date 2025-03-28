@@ -7,7 +7,6 @@ SRC =	srcs/main.c \
 		srcs/ft_free.c  \
 		srcs/my_game.c  \
 		srcs/raycasting.c  \
-		raycasting.c \
 
 OBJ = $(SRC:.c=.o)
 
