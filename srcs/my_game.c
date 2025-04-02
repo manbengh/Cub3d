@@ -94,7 +94,6 @@ void    init_game(t_cub *cub)
         exit (1);
     }
     get_pos_player(cub);
-    // printf("pos x == %i\npos y == %i\n", cub->maps->pos.x, cub->maps->pos.y);
     set_directions(cub, cub->maps->player_dir);
     set_plane(cub, cub->maps->player_dir);
 }
@@ -229,8 +228,7 @@ int moving(t_cub *cub)
         cub->keys->rotate = -1;
     if (cub->keys->right == 1)
         cub->keys->rotate = 1;
-    rotation(cub); // ✅ Rotation mise à jour à chaque frame
-    
+    rotation(cub);
     raycaster(cub);
     return (0);
 }
