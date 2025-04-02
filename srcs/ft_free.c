@@ -40,18 +40,27 @@ void	free_struct(t_cub *cub)
 	free(cub->maps);
 }
 
+void	maps_free(t_map *maps)
+{
+	free_tab(maps->c);
+	free_tab(maps->f);
+	free_tab(maps->ea);
+	free_tab(maps->we);
+	free_tab(maps->no);
+	free_tab(maps->so);
+	free_tab(maps->my_map);
+	free(maps);
+}
+
+
 void	print_error(t_cub *cub, char *str, char **map_check)
 {
 	if (str)
 		printf("%s\n", str);
 	free_tab(map_check);
-	free_tab(cub->maps->c);
-	free_tab(cub->maps->f);
-	free_tab(cub->maps->ea);
-	free_tab(cub->maps->we);
-	free_tab(cub->maps->no);
-	free_tab(cub->maps->so);
-	free_tab(cub->maps->my_map);
-	free(cub->maps);
+	maps_free(cub->maps);
+	free(cub->my_mlx);
+	free(cub->keys);
+	free(cub->ray);
 	exit(1);
 }

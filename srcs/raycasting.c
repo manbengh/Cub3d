@@ -36,11 +36,11 @@ void calculate_ray_dir(t_cub *cub, int x)
     cub->ray->ray_dir.y = cub->my_mlx->dir.y + cub->my_mlx->plane.y * camera_x;
     
     // Log pour voir l'angle de vision en degrés
-    double angle = atan2(cub->ray->ray_dir.y, cub->ray->ray_dir.x) * 180 / M_PI;
+    // double angle = atan2(cub->ray->ray_dir.y, cub->ray->ray_dir.x) * 180 / M_PI;
     
     // Debug prints
-    printf("Ray Direction: x = %f, y = %f\n", cub->ray->ray_dir.x, cub->ray->ray_dir.y);
-    printf("Ray Angle: %f°\n", angle);
+    // printf("Ray Direction: x = %f, y = %f\n", cub->ray->ray_dir.x, cub->ray->ray_dir.y);
+    // printf("Ray Angle: %f°\n", angle);
     
     // Option conditionnelle pour le cercle trigonométrique
     #ifdef DEBUG_TRIG
@@ -259,22 +259,22 @@ void perform_dda(t_cub *cub, t_ray *ray)
         // Vérifier où le mur est rencontré
         if (cub->maps->my_map[ray->map_y][ray->map_x] == '1')
         {
-            printf("Hit Wall at Map Position: x = %d, y = %d\n", ray->map_x, ray->map_y);
+            // printf("Hit Wall at Map Position: x = %d, y = %d\n", ray->map_x, ray->map_y);
     
-            if (ray->side == 0)
-            {
-                if (ray->ray_dir.x > 0)
-                    printf("Hit an East wall\n");
-                else
-                    printf("Hit a West wall\n");
-            }
-            else
-            {
-                if (ray->ray_dir.y > 0)
-                    printf("Hit a South wall\n");
-                else
-                    printf("Hit a North wall\n");
-            }
+            // if (ray->side == 0)
+            // {
+            //     if (ray->ray_dir.x > 0)
+            //         printf("Hit an East wall\n");
+            //     else
+            //         printf("Hit a West wall\n");
+            // }
+            // else
+            // {
+            //     if (ray->ray_dir.y > 0)
+            //         printf("Hit a South wall\n");
+            //     else
+            //         printf("Hit a North wall\n");
+            // }
             break;
         }
     }
@@ -298,8 +298,8 @@ void perform_dda(t_cub *cub, t_ray *ray)
     ray->perp_wall_dist /= cos_angle;
     
     // Debug de la distance du mur
-    printf("Wall distance (fish-eye corrected): %f\n", ray->perp_wall_dist);
-    printf("Cos Angle: %f\n", cos_angle);
+    // printf("Wall distance (fish-eye corrected): %f\n", ray->perp_wall_dist);
+    // printf("Cos Angle: %f\n", cos_angle);
 }
 // void perform_dda(t_cub *cub, t_ray *ray)
 // {
