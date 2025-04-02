@@ -7,6 +7,10 @@ SRC =	srcs/main.c \
 		srcs/ft_free.c  \
 		srcs/my_game.c  \
 		srcs/raycasting.c  \
+		srcs/calculate.c  \
+		srcs/moving.c  \
+		srcs/init_game.c  \
+		srcs/rotation.c  \
 
 OBJ = $(SRC:.c=.o)
 
