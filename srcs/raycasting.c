@@ -424,54 +424,6 @@ void    draw_vertical_line(int x, t_cub *cub, t_ray *ray)
 
 }
 
-void init_mlx_vectors(t_mlx *my_mlx, char orientation) {
-    if (orientation == 'E') {  
-        my_mlx->dir.x = 1.0;
-        my_mlx->dir.y = 0.0;
-        my_mlx->plane.x = 0.0;
-        my_mlx->plane.y = 0.66;
-    } 
-    else if (orientation == 'W') {  
-        my_mlx->dir.x = -1.0;
-        my_mlx->dir.y = 0.0;
-        my_mlx->plane.x = 0.0;
-        my_mlx->plane.y = -0.66;
-    } 
-    else if (orientation == 'S') {  
-        my_mlx->dir.x = 0.0;
-        my_mlx->dir.y = 1.0;
-        my_mlx->plane.x = -0.66;
-        my_mlx->plane.y = 0.0;
-    } 
-    else {  // Nord
-        my_mlx->dir.x = 0.0;
-        my_mlx->dir.y = -1.0;
-        my_mlx->plane.x = 0.66;
-        my_mlx->plane.y = 0.0;
-    }
-
-    // Debug
-    // printf("Orientation: %c\n", orientation);
-    // printf("Dir: x = %f, y = %f\n", my_mlx->dir.x, my_mlx->dir.y);
-    // printf("Plane: x = %f, y = %f\n", my_mlx->plane.x, my_mlx->plane.y);
-}
-
-
-// void init_mlx_vectors(t_mlx *my_mlx) {
-//     // Initialisation du vecteur de direction (dir) et du plan (plane)
-//     // Ces valeurs peuvent être définies en fonction de l'orientation de la caméra
-//     my_mlx->dir[0] = 1.0;  // Direction sur l'axe X (pour une vue de base)
-//     my_mlx->dir[1] = 0.0;  // Direction sur l'axe Y
-
-//     my_mlx->plane[0] = 0.0;  // Plan sur l'axe X (perpendiculaire à la direction)
-//     my_mlx->plane[1] = 0.66; // Plan sur l'axe Y (pour la perspective)
-
-//     // Vérification que les vecteurs sont initialisés
-//     printf("Direction vector: x = %f, y = %f\n", my_mlx->dir[0], my_mlx->dir[1]);
-//     printf("Plane vector: x = %f, y = %f\n", my_mlx->plane[0], my_mlx->plane[1]);
-// }
-
-
 
 void raycaster(t_cub *cub)
 {
