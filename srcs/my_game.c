@@ -75,7 +75,6 @@ void    set_plane(t_cub *cub, char p)
         cub->my_mlx->plane.x = 0;
         cub->my_mlx->plane.y = 0.66;
     }
-    // printf("plane x = %f\nplane y %f\n", cub->my_mlx->plane.x, cub->my_mlx->plane.y);
 }
 
 void    init_game(t_cub *cub)
@@ -100,16 +99,14 @@ void    init_game(t_cub *cub)
 
 int close_window(t_cub *cub)
 {
-    mlx_destroy_window(cub->my_mlx->mlx_ptr, cub->my_mlx->win_ptr);
-    print_error(cub, NULL, NULL);
-    exit(0);
+    // mlx_destroy_window(cub->my_mlx->mlx_ptr, cub->my_mlx->win_ptr);
+    // cub->keys->ctrl = 1;
+    destroy_all(cub);
     return (0);
 }
 
 int key_press(int keycode, t_cub *cub)
 {
-    printf("[KEY PRESS] Keycode: %d\n", keycode);
-
     if (keycode == XK_w)
         cub->keys->w = 1;
     if (keycode == XK_a)
@@ -123,17 +120,14 @@ int key_press(int keycode, t_cub *cub)
     if (keycode == XK_Right)
         cub->keys->right = 1;
     if (keycode == XK_Escape)
-    {
-        printf("[EXIT] Escape key pressed. Closing window.\n");
-        exit(0);
-    }
+        cub->keys->esc = 1;
+    if (keycode == KEY_CTRL)
+        cub->keys->ctrl = 1;
     return (1);
 }
 
 int key_release(int keycode, t_cub *cub)
 {
-    printf("[KEY RELEASE] Keycode: %d\n", keycode);
-
     if (keycode == XK_w)
         cub->keys->w = 0;
     if (keycode == XK_a)
@@ -211,7 +205,7 @@ void rotation(t_cub *cub)
         to_the_left(cub->my_mlx);
     else if (cub->keys->rotate == 1)
         to_the_right(cub->my_mlx);
-    cub->keys->rotate = 0;  // ✅ Reset après rotation
+    cub->keys->rotate = 0;
 }
 
 int moving(t_cub *cub)
@@ -229,7 +223,23 @@ int moving(t_cub *cub)
     if (cub->keys->right == 1)
         cub->keys->rotate = 1;
     rotation(cub);
+    if (cub->keys->esc == 1)
+        destroy_all(cub);
     raycaster(cub);
+    return (0);
+}
+
+int destroy_all(t_cub *cub)
+{
+    mlx_destroy_image(cub->my_mlx->mlx_ptr, cub->my_mlx->img_ptr);
+    if (cub->my_mlx->win_ptr)
+        mlx_destroy_window(cub->my_mlx->mlx_ptr, cub->my_mlx->win_ptr);
+    if (cub->my_mlx->mlx_ptr)
+    {
+        mlx_destroy_display(cub->my_mlx->mlx_ptr);
+        free(cub->my_mlx->mlx_ptr);
+    }
+    print_error(cub, NULL, NULL);
     return (0);
 }
 
@@ -237,7 +247,6 @@ void my_game(t_cub *cub)
 {
     init_game(cub);
 
-    // Création de l'image
     cub->my_mlx->img_ptr = mlx_new_image(cub->my_mlx->mlx_ptr, SCREEN_W, SCREEN_H);
     if (!cub->my_mlx->img_ptr)
         print_error(cub, "Image Fail", NULL);
@@ -247,9 +256,9 @@ void my_game(t_cub *cub)
 
     mlx_hook(cub->my_mlx->win_ptr, 2, 1L << 0, &key_press, cub);
     mlx_hook(cub->my_mlx->win_ptr, 3, 1L << 1, &key_release, cub);
+    mlx_hook(cub->my_mlx->win_ptr, DestroyNotify, StructureNotifyMask, &destroy_all, cub);
+    mlx_hook(cub->my_mlx->win_ptr, 17, 0, &close_window, cub);
     mlx_loop_hook(cub->my_mlx->mlx_ptr, &moving, cub);
-    mlx_hook(cub->my_mlx->win_ptr, 17, 0, close_window, cub);
-
     mlx_loop(cub->my_mlx->mlx_ptr);
 }
 

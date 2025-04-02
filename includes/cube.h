@@ -125,6 +125,7 @@ int				ft_count_times(char *str, char c);
 int				check_my_map(t_cub *cub, char **map_check, int c);
 
 // FREE
+int destroy_all(t_cub *cub);
 void			free_tab(char **tab);
 void			free_struct(t_cub *cub);
 void			print_error(t_cub *cub, char *str, char **map_check);
