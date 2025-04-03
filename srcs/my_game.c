@@ -28,7 +28,6 @@ void get_pos_player(t_cub *cub)
     }
 }
 
-
 void    set_directions(t_cub *cub, char p)
 {
     if (p == 'N')
@@ -246,7 +245,6 @@ int destroy_all(t_cub *cub)
 void my_game(t_cub *cub)
 {
     init_game(cub);
-
     cub->my_mlx->img_ptr = mlx_new_image(cub->my_mlx->mlx_ptr, SCREEN_W, SCREEN_H);
     if (!cub->my_mlx->img_ptr)
         print_error(cub, "Image Fail", NULL);

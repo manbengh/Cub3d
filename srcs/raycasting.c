@@ -154,7 +154,6 @@ void    draw_vertical_line(int x, t_cub *cub, t_ray *ray)
     ray->line_h = (int)(SCREEN_H / ray->perp_wall_dist);
     ray->start_draw = -ray->line_h / 2 + SCREEN_H / 2;
     ray->end_draw = ray->line_h / 2 + SCREEN_H / 2;
-
 }
 
 void raycaster(t_cub *cub)
@@ -164,21 +163,16 @@ void raycaster(t_cub *cub)
     mlx_destroy_image(cub->my_mlx->mlx_ptr, cub->my_mlx->img_ptr);
     cub->my_mlx->img_ptr = mlx_new_image(cub->my_mlx->mlx_ptr, SCREEN_W, SCREEN_H);
     cub->my_mlx->img_data = mlx_get_data_addr(cub->my_mlx->img_ptr, &cub->my_mlx->bpp, 
-                                              &cub->my_mlx->size_line, &cub->my_mlx->endian);
-    
+                                              &cub->my_mlx->size_line, &cub->my_mlx->endian);                                      
     while (x < SCREEN_W)
     {
         calculate_ray_dir(cub, x);
         calculate_step_dist(cub, cub->my_mlx, cub->ray);
         perform_dda(cub, cub->ray);
-
-        
-        
         if (cub->ray->side == 0)
             cub->ray->perp_wall_dist = (cub->ray->side_dist.x - cub->ray->delta_dist.x);
         else
             cub->ray->perp_wall_dist = (cub->ray->side_dist.y - cub->ray->delta_dist.y);
-        
         // Calcul des dimensions du mur
         cub->ray->line_h = (int)(SCREEN_H / cub->ray->perp_wall_dist);
         cub->ray->start_draw = -cub->ray->line_h / 2 + SCREEN_H / 2;
@@ -187,12 +181,10 @@ void raycaster(t_cub *cub)
         cub->ray->end_draw = cub->ray->line_h / 2 + SCREEN_H / 2;
         if (cub->ray->end_draw >= SCREEN_H)
             cub->ray->end_draw = SCREEN_H - 1;
-
         get_wall_color(cub->ray);
         draw_vertical_line(x, cub, cub->ray);
         x++;
     }
-
     // Affichage de l'image dans la fenêtre
     mlx_put_image_to_window(cub->my_mlx->mlx_ptr, cub->my_mlx->win_ptr, cub->my_mlx->img_ptr, 0, 0);
 }

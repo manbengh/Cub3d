@@ -28,8 +28,8 @@
 # define KEY_RIGHT 65363 // look right
 # define KEY_CTRL 65507  // ctrl
 
-# define PLAYER_SPEED 0.020
-# define ROTATION_SPEED 0.025
+# define PLAYER_SPEED 0.010
+# define ROTATION_SPEED 0.010
 
 // pour x et y des vecteurs
 typedef double	__attribute((ext_vector_type(2))) t_double;
@@ -72,10 +72,12 @@ typedef struct t_ray
 	int			start_draw;
 	int			end_draw;
 	int			color;
+	int			floor_sky;
 	double		perp_wall_dist;
 	t_double	side_dist;
 	t_double	delta_dist;
 	t_double	ray_dir;
+
 }				t_ray;
 
 typedef struct t_mlx
