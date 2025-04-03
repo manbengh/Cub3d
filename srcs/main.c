@@ -73,8 +73,6 @@ int main(int argc, char **argv)
 		init_struct(&cub, fd, argv);
 		my_game(&cub);
 	}
-	// destroy_all(&cub);
-	// print_error(&cub, NULL, NULL);
 	return (0);
 }
 

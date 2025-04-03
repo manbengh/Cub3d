@@ -64,25 +64,45 @@ void	get_start_end_draw(t_ray *ray)
 		ray->end_draw = SCREEN_H - 1;
 }
 
-// void	my_ceiling(t_cub *cub, int x)
-// {
-// 	int	c;
+int	make_rgb(int r, int g, int b)
+{
+	return (r << 16 | g << 8 | b);
+}
+void	put_pixel_floor_sky(t_mlx *my_mlx, int x, int y, int color)
+{
+	char	*dest;
 
-// 	c = 0;
-// 	while (c < cub->ray->start_draw)
-// 	{
-// 		if (c < SCREEN_H && c >= 0)
-// 			cub->my_mlx.
-// 	}
-// }
+	if (x < 0 || x >= SCREEN_W || y < 0 || y >= SCREEN_H)
+		return ;
+	dest = my_mlx->img_data + (y * my_mlx->size_line + x * (my_mlx->bpp / 8));
+	*(unsigned int *)dest = color;
+}
+void	make_floor_sky(t_cub *cub)
+{
+	int x;
+	int y;
+	int	my_floor;
+	int	my_sky;
 
-// void	wall_text(t_cub *cub, int x)
-// {
-// 	int	text;
+	my_sky = make_rgb(cub->ray->my_sky[0], cub->ray->my_sky[1], cub->ray->my_sky[2]);
+	my_floor = make_rgb(cub->ray->my_floor[0], cub->ray->my_floor[1], cub->ray->my_floor[2]);
+	
+	y = 0;
+	while(y < SCREEN_H)
+	{
+		x = 0;
+		while(x < SCREEN_W)
+		{
+			if(y < SCREEN_H / 2)
+				put_pixel_floor_sky(cub->my_mlx, x, y, my_sky);
+			else
+				put_pixel_floor_sky(cub->my_mlx, x, y, my_floor);
+			x++;
+		}
+		y++;
+	}
 
-// 	text = -1;
-// }
-
+}
 void	raycaster(t_cub *cub)
 {
 	int	x;
@@ -94,7 +114,7 @@ void	raycaster(t_cub *cub)
 	cub->my_mlx->img_data = mlx_get_data_addr(cub->my_mlx->img_ptr,
 			&cub->my_mlx->bpp, &cub->my_mlx->size_line,
 			&cub->my_mlx->endian);
-	
+	make_floor_sky(cub);
 	while (x < SCREEN_W)
 	{
 		calculate_ray_dir(cub, x);
@@ -103,7 +123,6 @@ void	raycaster(t_cub *cub)
 		get_start_end_draw(cub->ray);
 		get_wall_color(cub->ray);
 		draw_vertical_line(x, cub, cub->ray);
-		// wall_text(cub, x);
 		x++;
 	}
 	mlx_put_image_to_window(cub->my_mlx->mlx_ptr, cub->my_mlx->win_ptr,

@@ -12,10 +12,10 @@
 
 #include "cube.h"
 
-void ft_free_escape(t_cub *cub)
+int close_window(t_cub *cub)
 {
-	free_struct(cub);
-	exit(0);
+    destroy_all(cub);
+    return (0);
 }
 
 void	free_tab(char **tab)
@@ -31,15 +31,6 @@ void	free_tab(char **tab)
 	free(tab);
 }
 
-void	free_struct(t_cub *cub)
-{
-	if (cub->maps->c)
-		free_tab(cub->maps->c);
-	if (cub->maps->f)
-		free_tab(cub->maps->f);
-	free(cub->maps);
-}
-
 void	maps_free(t_map *maps)
 {
 	free_tab(maps->c);
@@ -52,7 +43,6 @@ void	maps_free(t_map *maps)
 	free(maps);
 }
 
-
 void	print_error(t_cub *cub, char *str, char **map_check)
 {
 	if (str)
@@ -63,4 +53,18 @@ void	print_error(t_cub *cub, char *str, char **map_check)
 	free(cub->keys);
 	free(cub->ray);
 	exit(1);
+}
+
+int destroy_all(t_cub *cub)
+{
+    mlx_destroy_image(cub->my_mlx->mlx_ptr, cub->my_mlx->img_ptr);
+    if (cub->my_mlx->win_ptr)
+        mlx_destroy_window(cub->my_mlx->mlx_ptr, cub->my_mlx->win_ptr);
+    if (cub->my_mlx->mlx_ptr)
+    {
+        mlx_destroy_display(cub->my_mlx->mlx_ptr);
+        free(cub->my_mlx->mlx_ptr);
+    }
+    print_error(cub, NULL, NULL);
+    return (0);
 }
