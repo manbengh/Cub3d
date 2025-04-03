@@ -64,6 +64,26 @@ void	get_start_end_draw(t_ray *ray)
 		ray->end_draw = SCREEN_H - 1;
 }
 
+void	my_ceiling(t_cub *cub, int x)
+{
+	int	c;
+
+	c = 0;
+	while (c < cub->ray->start_draw)
+	{
+		if (c < SCREEN_H && c >= 0)
+			cub->my_mlx.
+	}
+}
+
+void	wall_text(t_cub *cub, int x)
+{
+	int	text;
+
+	text = -1;
+	my_ceiling(cub, x);
+}
+
 void	raycaster(t_cub *cub)
 {
 	int	x;
@@ -83,6 +103,7 @@ void	raycaster(t_cub *cub)
 		get_start_end_draw(cub->ray);
 		get_wall_color(cub->ray);
 		draw_vertical_line(x, cub, cub->ray);
+		wall_text(cub, x);
 		x++;
 	}
 	mlx_put_image_to_window(cub->my_mlx->mlx_ptr, cub->my_mlx->win_ptr,
