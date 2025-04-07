@@ -119,7 +119,42 @@ void	make_floor_sky(t_cub *cub)
 
 }
 
-void	my_texture(t_cub *cub)
+void	calc_text(t_cub *cub, t_ray *ray, t_mlx *text)
+{
+	if (ray->side == 0)
+		cub->my_mlx->wall_x = cub->my_mlx->pos.y + ray->perp_wall_dist * ray->ray_dir.y;
+	else
+		cub->my_mlx->wall_x = cub->my_mlx->pos.x + ray->perp_wall_dist * ray->ray_dir.x;
+	cub->my_mlx->wall_x -= floor(cub->my_mlx->wall_x);
+	cub->my_mlx->text_x = (int)(cub->my_mlx->wall_x * text->width);
+	if (ray->side == 0 && ray->ray_dir.x < 0)
+		cub->text->text_x = text->width - cub->text->text_x - 1;
+	if (ray->side == 1 && ray->ray_dir.x > 0)
+		cub->text->text_x = text->width - cub->text->text_x - 1;
+}
+
+int	get_my_text_color(t_ray *ray, t_mlx *text, int x, int y)
+{
+	char	*dst;
+
+	if (x < 0 || x >= text->width || y < 0 || y >= text->height)
+		return (0);
+	dst = text->img_data + (y * ray->line_h + x * (text->bpp / 8));
+	return (*(unsigned int *)dst);
+}
+
+int	put_my_pxl(t_cub *cub, int x, int y, int color)
+{
+	char	*dst;
+
+	if (x < 0 || y < 0 || x >= SCREEN_W || y >= SCREEN_H)
+		return (ft_printf("Error pixel put\n"), 1);
+	dst = cub->my_mlx->img_data + (y * cub->ray->line_h + x * (cub->my_mlx->bpp / 8));
+	*(unsigned int *)dst = color;
+	return (0);
+}
+
+void	my_texture(t_cub *cub, int x)
 {
 	t_mlx	*text;
 
@@ -128,7 +163,22 @@ void	my_texture(t_cub *cub)
 		cub->ray->start_draw = 0;
 	if (cub->ray->end_draw >= SCREEN_H)
 		cub->ray->end_draw = SCREEN_H - 1;
-	
+	calc_text(cub, cub->ray, text);
+	cub->text->step = (double)text->height / cub->ray->line_h;
+	cub->text->text_pos = (cub->ray->start_draw - SCREEN_W / 2 + cub->ray->line_h / 2) * cub->text->step;
+	cub->my_mlx->y = cub->ray->start_draw;
+	while (cub->my_mlx->y <= cub->ray->end_draw)
+	{
+		if (cub->text->text_pos >= text->height)
+			cub->text->text_y = (int)(cub->text->text_pos) % text->height;
+		else
+			cub->text->text_y = (int)(cub->text->text_pos);
+		cub->text->text_pos += cub->text->step;
+		cub->text->color = get_my_text_color(cub->ray, text, cub->text->text_x, cub->text->text_y);
+		if (put_my_pxl(cub, x, cub->my_mlx->y, cub->text->color))
+			return ;
+		cub->my_mlx->y++;
+	}
 }
 
 void	raycaster(t_cub *cub)
@@ -149,7 +199,7 @@ void	raycaster(t_cub *cub)
 		calculate_step_dist(cub->my_mlx, cub->ray);
 		perform_dda(cub, cub->ray);
 		get_start_end_draw(cub->ray);
-		my_texture(cub);
+		my_texture(cub, x);
 		draw_vertical_line(x, cub, cub->ray);
 		x++;
 	}

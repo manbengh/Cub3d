@@ -90,7 +90,15 @@ typedef struct t_mlx
 	int bpp;
 	int size_line;
 	int endian;
-
+	double	wall_x;
+	int		text_x;
+	int		text_y;
+	int		width;
+	int		height;
+	int		color;
+	double	step;
+	double	text_pos;
+	int		y;
 	t_double pos;
 	t_double dir;
 	t_double plane;
