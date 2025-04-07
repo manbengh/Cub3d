@@ -5,16 +5,16 @@ void	get_wall_color(t_ray *ray)
 	if (ray->side == 0)
 	{
 		if (ray->ray_dir.x < 0)
-			ray->color = 0xFF0000;
+			ray->color = 0xFF0000;// Rouge // Mur à ouest
 		else
-			ray->color = 0x00FF00;
+			ray->color = 0x00FF00; // Vert // Mur à est
 	}
 	else
 	{
-		if (ray->ray_dir.y < 0)
-			ray->color = 0x0000FF;
+		if (ray->ray_dir.y < 0) 
+			ray->color = 0x0000FF; // Bleu // Mur au Nord
 		else
-			ray->color = 0xFFFFFF;
+			ray->color = 0xFFFFFF; // Blanc // Mur au Sud
 	}
 }
 
@@ -86,7 +86,6 @@ void	make_floor_sky(t_cub *cub)
 
 	my_sky = make_rgb(cub->ray->my_sky[0], cub->ray->my_sky[1], cub->ray->my_sky[2]);
 	my_floor = make_rgb(cub->ray->my_floor[0], cub->ray->my_floor[1], cub->ray->my_floor[2]);
-	
 	y = 0;
 	while(y < SCREEN_H)
 	{
@@ -103,6 +102,7 @@ void	make_floor_sky(t_cub *cub)
 	}
 
 }
+
 void	raycaster(t_cub *cub)
 {
 	int	x;
@@ -121,6 +121,7 @@ void	raycaster(t_cub *cub)
 		calculate_step_dist(cub->my_mlx, cub->ray);
 		perform_dda(cub, cub->ray);
 		get_start_end_draw(cub->ray);
+		// my_texture(cub);
 		get_wall_color(cub->ray);
 		draw_vertical_line(x, cub, cub->ray);
 		x++;

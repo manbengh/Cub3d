@@ -74,16 +74,23 @@ void	set_plane(t_cub *cub, char p)
 	}
 }
 
-void	initi_floor_sky(t_cub *cub)
+void	init_floor_sky(t_cub *cub)
 {
-	cub->ray->my_sky[0] = 163; // Rouge
-	cub->ray->my_sky[1] = 206; // Vert
-	cub->ray->my_sky[2] = 220; // Bleu
-	cub->ray->my_floor[0] = 211;
-	cub->ray->my_floor[1] = 211;
-	cub->ray->my_floor[2] = 211;
+	char	**my_f;
+	char	**my_c;
 
-
+	my_f = ft_split(cub->maps->f[1], ',');
+	my_c = ft_split(cub->maps->c[1], ',');
+	// printf("my_f --> %s,   %s,    %s\n", my_f[0], my_f[1], my_f[2]);
+	// printf("my_c --> %s,   %s,    %s\n", my_c[0], my_c[1], my_c[2]);
+	cub->ray->my_sky[0] = ft_atoi(my_c[0]);
+	cub->ray->my_sky[1] = ft_atoi(my_c[1]);
+	cub->ray->my_sky[2] = ft_atoi(my_c[2]);
+	cub->ray->my_floor[0] = ft_atoi(my_f[0]);
+	cub->ray->my_floor[1] = ft_atoi(my_f[1]);
+	cub->ray->my_floor[2] = ft_atoi(my_f[2]);
+	free_tab(my_c);
+	free_tab(my_f);
 }
 
 void	init_game(t_cub *cub)
@@ -101,7 +108,7 @@ void	init_game(t_cub *cub)
 		print_error(cub, "Window Fail", NULL);
 		exit(1);
 	}
-    initi_floor_sky(cub);
+    init_floor_sky(cub);
 	get_pos_player(cub);
 	set_directions(cub, cub->maps->player_dir);
 	set_plane(cub, cub->maps->player_dir);
