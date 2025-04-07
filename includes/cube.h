@@ -90,6 +90,7 @@ typedef struct t_mlx
 	int bpp;
 	int size_line;
 	int endian;
+
 	t_double pos;
 	t_double dir;
 	t_double plane;
@@ -97,12 +98,13 @@ typedef struct t_mlx
 
 typedef struct t_cub
 {
-	int lines;
-	char **stock_l;
-	t_mlx *my_mlx;
-	t_map *maps;
-	t_key *keys;
-	t_ray *ray;
+	int		lines;
+	char	**stock_l;
+	t_mlx	text[4];
+	t_mlx	*my_mlx;
+	t_map	*maps;
+	t_key	*keys;
+	t_ray	*ray;
 } t_cub;
 
 // CHECKS
