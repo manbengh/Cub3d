@@ -82,6 +82,8 @@ void	initi_floor_sky(t_cub *cub)
 	cub->ray->my_floor[0] = 211;
 	cub->ray->my_floor[1] = 211;
 	cub->ray->my_floor[2] = 211;
+
+
 }
 
 void	init_game(t_cub *cub)
