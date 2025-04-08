@@ -11,6 +11,7 @@ SRC =	srcs/main.c \
 		srcs/moving.c  \
 		srcs/init_game.c  \
 		srcs/rotation.c  \
+		srcs/texture.c  \
 
 OBJ = $(SRC:.c=.o)
 

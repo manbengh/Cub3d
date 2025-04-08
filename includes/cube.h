@@ -167,4 +167,8 @@ void get_pos_player(t_cub *cub);
 void set_plane(t_cub *cub, char p);
 void set_directions(t_cub *cub, char p);
 
+// TEXT
+void	my_texture(t_cub *cub, int x);
+
+
 #endif

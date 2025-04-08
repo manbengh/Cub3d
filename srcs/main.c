@@ -56,6 +56,9 @@ void init_struct(t_cub *cub, int fd, char **argv)
 	cub->ray = ft_calloc(sizeof(t_ray), 1);
 		if (!cub->ray)
 			return ;
+	// cub->text[0] = ft_calloc(sizeof(t_mlx), 1);
+	// if (!cub->ray)
+	// 	return ;
 	check_map(cub, fd);
 }
 

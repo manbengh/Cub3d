@@ -58,3 +58,4 @@ void my_game(t_cub *cub)
     mlx_loop_hook(cub->my_mlx->mlx_ptr, &moving, cub);
     mlx_loop(cub->my_mlx->mlx_ptr);
 }
+ 
