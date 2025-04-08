@@ -95,7 +95,7 @@ typedef struct t_mlx
 	int		text_y;
 	int		width;
 	int		height;
-	int		color;
+	unsigned int		color;
 	double	step;
 	double	text_pos;
 	int		y;
@@ -104,11 +104,16 @@ typedef struct t_mlx
 	t_double plane;
 } t_mlx;
 
+typedef struct t_jsp {
+
+}	t_jsp;
+
 typedef struct t_cub
 {
 	int		lines;
 	char	**stock_l;
 	t_mlx	text[4];
+	t_jsp	mdr;
 	t_mlx	*my_mlx;
 	t_map	*maps;
 	t_key	*keys;
@@ -169,6 +174,7 @@ void set_directions(t_cub *cub, char p);
 
 // TEXT
 void	my_texture(t_cub *cub, int x);
-
+int init_text(t_cub *cub);
+int	put_mlx_pixel(t_mlx *my_mlx, int x, int y, t_ray *ray);
 
 #endif

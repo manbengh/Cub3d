@@ -47,6 +47,9 @@ void init_struct(t_cub *cub, int fd, char **argv)
 	cub->my_mlx = ft_calloc(sizeof(t_mlx), 1);
 	if (!cub->my_mlx)
 		return ;
+	// cub->keys = ft_calloc(sizeof(t_mlx), 1);
+	// if (!cub->my_mlx)
+	// 	return ;
 	cub->maps->my_map = ft_calloc((cub->lines + 1), sizeof(char *));
 	if (!cub->maps->my_map)
 		return;
@@ -56,9 +59,8 @@ void init_struct(t_cub *cub, int fd, char **argv)
 	cub->ray = ft_calloc(sizeof(t_ray), 1);
 		if (!cub->ray)
 			return ;
-	// cub->text[0] = ft_calloc(sizeof(t_mlx), 1);
-	// if (!cub->ray)
-	// 	return ;
+	// for (int i = 0 ; i < 4 ; i++)
+	// 	ft_bzero(&(cub->text[i]), sizeof(cub->text[i]));
 	check_map(cub, fd);
 }
 
@@ -72,7 +74,7 @@ int main(int argc, char **argv)
 		check_file_name(argv[1]);
 		fd = open(argv[1], O_RDONLY);
 		if (fd < 0 || read(fd, 0, 0) < 0)
-		return (printf("Error !\nFile can't be opened\n"), 0);
+			return (printf("Error !\nFile can't be opened\n"), 0);
 		init_struct(&cub, fd, argv);
 		my_game(&cub);
 	}

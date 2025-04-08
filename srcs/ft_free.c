@@ -57,7 +57,8 @@ void	print_error(t_cub *cub, char *str, char **map_check)
 
 int destroy_all(t_cub *cub)
 {
-    mlx_destroy_image(cub->my_mlx->mlx_ptr, cub->my_mlx->img_ptr);
+	// printf("AAAAAAAAAAAAAAAAAA %p\n", cub->my_mlx->img_ptr);
+	mlx_destroy_image(cub->my_mlx->mlx_ptr, cub->my_mlx->img_ptr);
     if (cub->my_mlx->win_ptr)
         mlx_destroy_window(cub->my_mlx->mlx_ptr, cub->my_mlx->win_ptr);
     if (cub->my_mlx->mlx_ptr)

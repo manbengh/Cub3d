@@ -43,9 +43,10 @@ int key_release(int keycode, t_cub *cub)
 void my_game(t_cub *cub)
 {
     init_game(cub);
-    cub->my_mlx->img_ptr = mlx_new_image(cub->my_mlx->mlx_ptr, SCREEN_W, SCREEN_H);
-    if (!cub->my_mlx->img_ptr)
-        print_error(cub, "Image Fail", NULL);
+    // cub->my_mlx->img_ptr = mlx_new_image(cub->my_mlx->mlx_ptr, SCREEN_W, SCREEN_H);
+    // printf("img_ptr %p\n", cub->my_mlx->img_ptr);
+    // if (!cub->my_mlx->img_ptr)
+    // print_error(cub, "Image Fail", NULL);
 
     cub->my_mlx->img_data = mlx_get_data_addr(cub->my_mlx->img_ptr, &cub->my_mlx->bpp, &cub->my_mlx->size_line, &cub->my_mlx->endian);
     mlx_put_image_to_window(cub->my_mlx->mlx_ptr, cub->my_mlx->win_ptr, cub->my_mlx->img_ptr, 0, 0);

@@ -18,14 +18,15 @@ void	get_wall_color(t_ray *ray)
 	}
 }
 
-void	put_mlx_pixel(t_mlx *my_mlx, int x, int y, t_ray *ray)
+int	put_mlx_pixel(t_mlx *my_mlx, int x, int y, t_ray *ray)
 {
 	char	*dest;
 
 	if (x < 0 || x >= SCREEN_W || y < 0 || y >= SCREEN_H)
-		return ;
+		return (printf("Pxl Error !\n"), 1);
 	dest = my_mlx->img_data + (y * my_mlx->size_line + x * (my_mlx->bpp / 8));
 	*(unsigned int *)dest = ray->color;
+	return (0);
 }
 
 void	draw_vertical_line(int x, t_cub *cub, t_ray *ray)
@@ -121,8 +122,8 @@ void	raycaster(t_cub *cub)
 		calculate_step_dist(cub->my_mlx, cub->ray);
 		perform_dda(cub, cub->ray);
 		get_start_end_draw(cub->ray);
-		// my_texture(cub);
-		get_wall_color(cub->ray);
+		my_texture(cub, x);
+		// get_wall_color(cub->ray);
 		draw_vertical_line(x, cub, cub->ray);
 		x++;
 	}
