@@ -1,14 +1,11 @@
 SO ./textures/greystone.cub
-
 EA ./textures/red.cub
-
-F 100,211,251
-
 NO ./textures/eagle.cub
-
-C 7,0,5
-
 WE ./textures/purplestone.cub
+
+F 163,206,220
+C 100,211,251
+
 
 11111111111111111111
 10000000000000000001

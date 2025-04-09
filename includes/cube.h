@@ -96,11 +96,23 @@ typedef struct t_mlx
 	t_double plane;
 } t_mlx;
 
+typedef struct t_text
+{
+	void *win;
+	void *img;
+	char *img_addr;
+	int bpp;
+	int endian;
+	int size_h;
+	int line_l;
+
+}			t_text;
+
 typedef struct t_cub
 {
 	int		lines;
 	char	**stock_l;
-	t_mlx	text[4];
+	t_text	text[4];
 	t_mlx	*my_mlx;
 	t_map	*maps;
 	t_key	*keys;

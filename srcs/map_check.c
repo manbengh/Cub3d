@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 14:35:23 by ahbey             #+#    #+#             */
-/*   Updated: 2025/03/12 14:35:49 by ahbey            ###   ########.fr       */
+/*   Updated: 2025/04/08 19:32:55 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	check_flood(t_cub *cub, char **map_check)
 		j = -1;
 		while (++j < ft_strlen(cub->maps->my_map[i]))
 		{
-			if (cub->maps->my_map[i][j] == '0')
+			if (cub->maps->my_map[i][j] == '0' || cub->maps->my_map[i][j] == 'N' || cub->maps->my_map[i][j] == 'S' || cub->maps->my_map[i][j] == 'W' || cub->maps->my_map[i][j] == 'E')
 			{
 				if (cub->maps->my_map[i][j + 1] == ' ')
 					return (print_error(cub, "Error !\nFlood 1", map_check), 1);
