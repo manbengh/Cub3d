@@ -20,6 +20,7 @@ int	get_my_text_color(t_mlx *text, int x, int y)
 {
 	char	*dst;
 
+	// printf("x ==> %i\ny ==> %i\ntext->width ==> %i\ntext->height %i\n", x, y,text->width,text->height);
 	if (x < 0 || x >= text->width || y < 0 || y >= text->height)
 		return (0);
 	dst = text->img_data + (y * text->size_line + x * (text->bpp / 8));
@@ -33,11 +34,11 @@ void	calc_text(t_cub *cub, t_ray *ray, t_mlx *text)
 	else
 		cub->my_mlx->wall_x = cub->my_mlx->pos.x + ray->perp_wall_dist * ray->ray_dir.x;
 	cub->my_mlx->wall_x -= floor(cub->my_mlx->wall_x);
-	cub->my_mlx->text_x = (int)(cub->my_mlx->wall_x * text->width);
+	text->text_x = (int)(cub->my_mlx->wall_x * text->width);
 	if (ray->side == 0 && ray->ray_dir.x < 0)
-		cub->text->text_x = text->width - cub->text->text_x - 1;
+		text->text_x = text->width - text->text_x - 1;
 	if (ray->side == 1 && ray->ray_dir.x > 0)
-		cub->text->text_x = text->width - cub->text->text_x - 1;
+		text->text_x = text->width - text->text_x - 1;
 }
 
 void	my_texture(t_cub *cub, int x)
@@ -50,18 +51,19 @@ void	my_texture(t_cub *cub, int x)
 	if (cub->ray->end_draw >= SCREEN_H)
 		cub->ray->end_draw = SCREEN_H - 1;
 	calc_text(cub, cub->ray, text);
-	cub->text->step = (double)text->height / (cub->ray->line_h + 1e-10);
-	cub->text->text_pos = (cub->ray->start_draw - SCREEN_W / 2 + cub->ray->line_h / 2) * cub->text->step;
+	text->step = (double)text->height / (cub->ray->line_h + 1e-10);
+	text->text_pos = (cub->ray->start_draw - SCREEN_W / 2 + cub->ray->line_h / 2) * text->step;
 	cub->my_mlx->y = cub->ray->start_draw;
 	while (cub->my_mlx->y <= cub->ray->end_draw)
 	{
-		if (cub->text->text_pos >= text->height)
-			cub->text->text_y = (int)(cub->text->text_pos) % text->height;
+		if (text->text_pos >= text->height)
+			text->text_y = (int)(text->text_pos) % text->height;
 		else
-			cub->text->text_y = (int)(cub->text->text_pos);
-		cub->text->text_pos += cub->text->step;
-		cub->ray->color = get_my_text_color(text, cub->text->text_x, cub->text->text_y);
-        // cub->ray->color = cub->text->color;
+			text->text_y = (int)(text->text_pos);
+		text->text_pos += text->step;
+		cub->ray->color = get_my_text_color(text, text->text_x, text->text_y);
+		// printf("color ---> %i\n", cub->ray->color);
+        // cub->ray->color = text->color;
 		if (put_mlx_pixel(cub->my_mlx, x, cub->my_mlx->y, cub->ray))
 			return ;
 		cub->my_mlx->y++;
