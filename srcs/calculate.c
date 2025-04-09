@@ -2,8 +2,9 @@
 
 void calculate_ray_dir(t_cub *cub, int x)
 {
-    double camera_x = 2 * x / (double)SCREEN_W - 1;
-
+    double camera_x;
+    
+    camera_x = 2 * x / (double)SCREEN_W - 1;
     cub->ray->ray_dir.x = cub->my_mlx->dir.x + cub->my_mlx->plane.x * camera_x;
     cub->ray->ray_dir.y = cub->my_mlx->dir.y + cub->my_mlx->plane.y * camera_x;
 }

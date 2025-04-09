@@ -51,8 +51,8 @@ void	my_texture(t_cub *cub, int x)
 	if (cub->ray->end_draw >= SCREEN_H)
 		cub->ray->end_draw = SCREEN_H - 1;
 	calc_text(cub, cub->ray, text);
-	text->step = (double)text->height / (cub->ray->line_h + 1e-10);
-	text->text_pos = (cub->ray->start_draw - SCREEN_W / 2 + cub->ray->line_h / 2) * text->step;
+	text->step = (double)text->height / (cub->ray->line_h);
+	text->text_pos = (cub->ray->start_draw - SCREEN_H / 2 + cub->ray->line_h / 2) * text->step;
 	cub->my_mlx->y = cub->ray->start_draw;
 	while (cub->my_mlx->y <= cub->ray->end_draw)
 	{
@@ -62,8 +62,6 @@ void	my_texture(t_cub *cub, int x)
 			text->text_y = (int)(text->text_pos);
 		text->text_pos += text->step;
 		cub->ray->color = get_my_text_color(text, text->text_x, text->text_y);
-		// printf("color ---> %i\n", cub->ray->color);
-        // cub->ray->color = text->color;
 		if (put_mlx_pixel(cub->my_mlx, x, cub->my_mlx->y, cub->ray))
 			return ;
 		cub->my_mlx->y++;
