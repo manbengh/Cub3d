@@ -90,29 +90,30 @@ typedef struct t_mlx
 	int bpp;
 	int size_line;
 	int endian;
-
+	double	wall_x;
+	int		text_x;
+	int		text_y;
+	int		width;
+	int		height;
+	unsigned int		color;
+	double	step;
+	double	text_pos;
+	int		y;
 	t_double pos;
 	t_double dir;
 	t_double plane;
 } t_mlx;
 
-typedef struct t_text
-{
-	void *win;
-	void *img;
-	char *img_addr;
-	int bpp;
-	int endian;
-	int size_h;
-	int line_l;
+typedef struct t_jsp {
 
-}			t_text;
+}	t_jsp;
 
 typedef struct t_cub
 {
 	int		lines;
 	char	**stock_l;
-	t_text	text[4];
+	t_mlx	text[4];
+	t_jsp	mdr;
 	t_mlx	*my_mlx;
 	t_map	*maps;
 	t_key	*keys;
@@ -170,5 +171,10 @@ void perform_dda(t_cub *cub, t_ray *ray);
 void get_pos_player(t_cub *cub);
 void set_plane(t_cub *cub, char p);
 void set_directions(t_cub *cub, char p);
+
+// TEXT
+void	my_texture(t_cub *cub, int x);
+int init_text(t_cub *cub);
+int	put_mlx_pixel(t_mlx *my_mlx, int x, int y, t_ray *ray);
 
 #endif

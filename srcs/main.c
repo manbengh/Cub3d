@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 14:34:55 by ahbey             #+#    #+#             */
-/*   Updated: 2025/04/08 19:44:19 by ahbey            ###   ########.fr       */
+/*   Updated: 2025/04/09 19:12:36 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int main(int argc, char **argv)
 		check_file_name(argv[1]);
 		fd = open(argv[1], O_RDONLY);
 		if (fd < 0 || read(fd, 0, 0) < 0)
-		return (printf("Error !\nFile can't be opened\n"), 0);
+			return (printf("Error !\nFile can't be opened\n"), 0);
 		init_struct(&cub, fd, argv);
 		for(int i = 0;cub.maps->my_map[i];i++)
 			printf("%s",cub.maps->my_map[i]);
