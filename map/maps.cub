@@ -1,15 +1,9 @@
-SO ./textures/greystone.cub
-
-EA ./textures/red.cub
-
-F 100,211,251
-
-NO ./textures/eagle.cub
-
-C 7,0,5
-
-WE ./textures/purplestone.cub
-
+SO ./textures/sud.xpm
+EA ./textures/est.xpm
+NO ./textures/north.xpm
+WE ./textures/west.xpm
+F 211,211,211
+C 163,206,220
 
 11111111111111111111111111111111
 111111111000000000000000011111                         1

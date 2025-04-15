@@ -81,8 +81,6 @@ void	init_floor_sky(t_cub *cub)
 
 	my_f = ft_split(cub->maps->f[1], ',');
 	my_c = ft_split(cub->maps->c[1], ',');
-	// printf("my_f --> %s,   %s,    %s\n", my_f[0], my_f[1], my_f[2]);
-	// printf("my_c --> %s,   %s,    %s\n", my_c[0], my_c[1], my_c[2]);
 	cub->ray->my_sky[0] = ft_atoi(my_c[0]);
 	cub->ray->my_sky[1] = ft_atoi(my_c[1]);
 	cub->ray->my_sky[2] = ft_atoi(my_c[2]);
@@ -108,7 +106,6 @@ void	init_game(t_cub *cub)
 		print_error(cub, "Window Fail", NULL);
 		exit(1);
 	}
-	// printf("ici %d\n", init_text(cub));
 	cub->my_mlx->img_ptr = mlx_new_image(cub->my_mlx->mlx_ptr, SCREEN_W, SCREEN_H);
     printf("img_ptr %p\n", cub->my_mlx->img_ptr);
     if (!cub->my_mlx->img_ptr)

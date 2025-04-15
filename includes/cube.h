@@ -28,8 +28,8 @@
 #define KEY_RIGHT 65363 // look right
 #define KEY_CTRL 65507	// ctrl
 
-#define PLAYER_SPEED 0.010
-#define ROTATION_SPEED 0.010
+#define PLAYER_SPEED 0.015
+#define ROTATION_SPEED 0.024
 
 // pour x et y des vecteurs
 typedef double __attribute((ext_vector_type(2))) t_double;
