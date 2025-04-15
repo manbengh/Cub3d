@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 14:34:24 by ahbey             #+#    #+#             */
-/*   Updated: 2025/04/07 15:33:37 by ahbey            ###   ########.fr       */
+/*   Updated: 2025/04/15 19:31:55 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,29 @@ int compare_dir(t_map *maps, char *stock_l)
     return (compare_dir_c_f(maps, stock_l));
 }
 
+char    *ignore_space(char *str)
+{
+    int i;
+    int j;
+    char    *res;
+
+    i = 0;
+    j = 0;
+    res = malloc((ft_strlen(str) + 1) * sizeof(char));
+    while (str[i])
+    {
+        if (str[i] != ' ' || str[i] != '\t')
+        {
+            res[j] = str[i];
+            j++;
+        }
+        i++;
+    }
+    printf("res ------> %s\n\n", res);
+    // free(str);
+    return (res);
+}
+
 int check_params_f(t_map *maps)
 {
     int i;
@@ -59,9 +82,9 @@ int check_params_f(t_map *maps)
     i = 0;
     if (maps->f)
     {
+        maps->f[1] = ignore_space(maps->f[1]);
         while (maps->f[1][i])
         {
-            // if (ft_isdigit(maps->f[1][i]) == 0 || maps->f[1][i] != ',')
             if (ft_isalpha(maps->f[1][i]))
                 return (printf("Error !\nCheck params : no letters \n"), 1);
             if (maps->f[1][i] == ',' && (ft_isdigit(maps->f[1][i + 1]) == 0 || ft_isdigit(maps->f[1][i - 1]) == 0))
@@ -83,6 +106,7 @@ int check_params_c(t_map *maps)
     i = 0;
     if (maps->c)
     {
+        maps->c[1] = ignore_space(maps->c[1]);
         while (maps->c[1][i])
         {
             // if (ft_isdigit(maps->c[1][i]) == 0 && maps->c[1][i] != ',')

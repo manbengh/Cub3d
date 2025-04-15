@@ -107,7 +107,6 @@ void	init_game(t_cub *cub)
 		exit(1);
 	}
 	cub->my_mlx->img_ptr = mlx_new_image(cub->my_mlx->mlx_ptr, SCREEN_W, SCREEN_H);
-    printf("img_ptr %p\n", cub->my_mlx->img_ptr);
     if (!cub->my_mlx->img_ptr)
 		print_error(cub, "Image Fail", NULL);
 	if (init_text(cub) != 0)
