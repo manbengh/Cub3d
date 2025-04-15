@@ -104,16 +104,11 @@ typedef struct t_mlx
 	t_double plane;
 } t_mlx;
 
-typedef struct t_jsp {
-
-}	t_jsp;
-
 typedef struct t_cub
 {
 	int		lines;
 	char	**stock_l;
 	t_mlx	text[4];
-	t_jsp	mdr;
 	t_mlx	*my_mlx;
 	t_map	*maps;
 	t_key	*keys;

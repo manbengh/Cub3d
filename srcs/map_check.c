@@ -35,13 +35,11 @@ void	init_maps(t_cub *cub, char **stock_l, char **map_check)
 	free_tab(stock_l);
 }
 
-int	check_dir(char **map_check, t_cub *cub)
+int	check_dir(char **map_check, t_cub *cub, int i)
 {
-	int	i;
 	int	j;
 	char	**stock_l;
 
-	i = 0;
 	j = 0;
 	stock_l = ft_calloc(7, sizeof(char *));
 	while (i < cub->lines)
@@ -65,6 +63,13 @@ int	check_dir(char **map_check, t_cub *cub)
 	return (i);
 }
 
+int	check_flood_error(char str)
+{
+	if (str == '0' || str == 'N' || str == 'S' || str == 'W' || str == 'E')
+		return (0);
+	return (1);
+}
+
 int	check_flood(t_cub *cub, char **map_check)
 {
 	int	i;
@@ -76,7 +81,7 @@ int	check_flood(t_cub *cub, char **map_check)
 		j = -1;
 		while (++j < ft_strlen(cub->maps->my_map[i]))
 		{
-			if (cub->maps->my_map[i][j] == '0' || cub->maps->my_map[i][j] == 'N' || cub->maps->my_map[i][j] == 'S' || cub->maps->my_map[i][j] == 'W' || cub->maps->my_map[i][j] == 'E')
+			if (!check_flood_error(cub->maps->my_map[i][j]))
 			{
 				if (cub->maps->my_map[i][j + 1] == ' ')
 					return (print_error(cub, "Error !\nFlood 1", map_check), 1);
@@ -127,7 +132,7 @@ int	check_my_map(t_cub *cub, char **map_check, int c)
 
 	(void)c;
 	len = ft_strlen(map_check[0]);
-	i = check_dir(map_check, cub);
+	i = check_dir(map_check, cub, 0);
 	if (i > 1)
 	{
 		if (fill_my_map(cub, map_check, i) == 1)
