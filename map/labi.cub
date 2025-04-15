@@ -1,17 +1,10 @@
-SO ./textures/prout.xpm
-EA ./textures/prout.xpm
-NO ./textures/prout.xpm
-WE ./textures/prout.xpm
+SO ./textures/sud.xpm
+EA ./textures/est.xpm
+NO ./textures/north.xpm
+WE ./textures/west.xpm
 F 211,211,211
 C 163,206,220
 
-
-
-111111111111111
-
-
-
-00000E00000
 
 111111111111111111111111111111111111111
 100000000000000000000000000000000000001

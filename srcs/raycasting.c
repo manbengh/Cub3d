@@ -118,8 +118,6 @@ void	raycaster(t_cub *cub)
 		calculate_step_dist(cub->my_mlx, cub->ray);
 		perform_dda(cub, cub->ray);
 		get_start_end_draw(cub->ray);
-		// my_texture(cub, x);
-		// get_wall_color(cub->ray);
 		draw_vertical_line(x, cub, cub->ray);
 		x++;
 	}
