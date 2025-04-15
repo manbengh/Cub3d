@@ -55,7 +55,7 @@ void	print_error(t_cub *cub, char *str, char **map_check)
 	exit(1);
 }
 
-int destroy_all(t_cub *cub)
+void	free_my_text(t_cub *cub)
 {
 	int	i;
 
@@ -66,9 +66,14 @@ int destroy_all(t_cub *cub)
 			mlx_destroy_image(cub->my_mlx, cub->text[i].img_ptr);
 		i++;
 	}
-	mlx_destroy_image(cub->my_mlx->mlx_ptr, cub->my_mlx->img_ptr);
+}
+
+int destroy_all(t_cub *cub)
+{
+	free_my_text(cub);
     if (cub->my_mlx->win_ptr)
-        mlx_destroy_window(cub->my_mlx->mlx_ptr, cub->my_mlx->win_ptr);
+		mlx_destroy_window(cub->my_mlx->mlx_ptr, cub->my_mlx->win_ptr);
+	mlx_destroy_image(cub->my_mlx->mlx_ptr, cub->my_mlx->img_ptr);
     if (cub->my_mlx->mlx_ptr)
     {
         mlx_destroy_display(cub->my_mlx->mlx_ptr);
