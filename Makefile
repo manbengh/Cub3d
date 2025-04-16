@@ -3,6 +3,7 @@ SRC =	srcs/main.c \
 		srcs/utils2.c \
 		srcs/map_check.c  \
 		srcs/map_check2.c  \
+		srcs/map_check3.c  \
 		srcs/init_map.c  \
 		srcs/ft_free.c  \
 		srcs/my_game.c  \
@@ -12,6 +13,7 @@ SRC =	srcs/main.c \
 		srcs/init_game.c  \
 		srcs/rotation.c  \
 		srcs/texture.c  \
+		srcs/raycasting_two.c\
 
 OBJ = $(SRC:.c=.o)
 

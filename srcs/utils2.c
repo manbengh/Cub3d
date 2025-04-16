@@ -6,15 +6,15 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 14:41:15 by ahbey             #+#    #+#             */
-/*   Updated: 2025/03/12 14:41:18 by ahbey            ###   ########.fr       */
+/*   Updated: 2025/04/16 16:23:56 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 
-int line_is_empty(char *line)
+int	line_is_empty(char *line)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (line && (line[i] == '\t' || line[i] == ' ' || line[i] == '\n'))
@@ -26,7 +26,7 @@ int line_is_empty(char *line)
 
 int	ft_count_times(char *str, char c)
 {
-	int i;
+	int	i;
 	int	res;
 
 	i = 0;
@@ -50,7 +50,7 @@ int	longest_line(t_cub *cub)
 	while (i < cub->lines)
 	{
 		if (len < ft_strlen(cub->maps->my_map[i]))
-		len = ft_strlen(cub->maps->my_map[i]);
+			len = ft_strlen(cub->maps->my_map[i]);
 		i++;
 	}
 	return (len);
@@ -58,8 +58,8 @@ int	longest_line(t_cub *cub)
 
 int	ft_check_nums(char *str)
 {
-	int	i;
-	int	num;
+	int		i;
+	int		num;
 	char	**check_n;
 
 	i = 0;
