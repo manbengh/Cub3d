@@ -62,7 +62,7 @@ void init_struct(t_cub *cub, int fd, char **argv)
 int main(int argc, char **argv)
 {
 	int fd;
-	t_cub cub;
+	static t_cub cub = {0};
 	
 	if (argc == 2)
 	{

@@ -85,7 +85,7 @@ int	check_first_last_line(t_cub *cub, char **map_check)
 	len = ft_strlen(cub->maps->my_map[cub->lines - 1]);
 	while (i < len)
 	{
-		if (line_is_empty(cub->maps->my_map[cub->lines - 1])
+		if (!line_is_empty(cub->maps->my_map[cub->lines - 1])
 			&& cub->maps->my_map[cub->lines - 1][i] != '1'
 			&& cub->maps->my_map[cub->lines - 1][i] != ' ')
 			return (print_error(cub, "Error ! \nCheck the last line !", map_check), 1);
@@ -117,7 +117,6 @@ int	check_walls(t_cub *cub, char **map_check)
 	if (cub->maps->my_map)
 	{
 		len = ft_strlen(cub->maps->my_map[i]) - 1;
-		printf("len: %i | my_map[i]: %s | i: %i\n", len, cub->maps->my_map[i], i);
 		while (i < (cub->lines - 1))
 		{
 			if (len != 0)

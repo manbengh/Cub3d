@@ -12,16 +12,40 @@
 
 #include "cube.h"
 
+char    **split_first_keywor(char *line)
+{
+	char	**result;
+	int		start;
+	int		i;
+
+	i = 0;
+	while (line[i] && (line[i] == ' ' || line[i] == '\t'))
+		i++;
+	start = i;
+	while (line[i] && line[i] != ' ' && line[i] != '\t')
+		i++;
+	result = malloc(sizeof(char *) * 3);
+	if (!result)
+		return (NULL);
+	result[0] = ft_substr(line, start, i - start);
+	while (line[i] && (line[i] == ' ' || line[i] == '\t'))
+		i++;
+	result[1] = ft_strdup(&line[i]);
+	result[2] = NULL;
+	return (result);
+}
+
 int compare_dir_c_f(t_map *maps, char *stock_l)
 {
     if (ft_strncmp("C ", stock_l, 2) == 0 && maps->c == NULL)
     {
-        maps->c = ft_split(stock_l, ' ');
+        maps->c = split_first_keywor(stock_l);
+		// printf("%s \")
         return (1);
     }
     else if (ft_strncmp("F ", stock_l, 2) == 0 && maps->f == NULL)
     {
-        maps->f = ft_split(stock_l, ' ');
+        maps->f = split_first_keywor(stock_l);
         return (1);
     }
     return (0);
@@ -52,28 +76,29 @@ int compare_dir(t_map *maps, char *stock_l)
     return (compare_dir_c_f(maps, stock_l));
 }
 
-char    *ignore_space(char *str)
+char	*clean_color_string(char *str)
 {
-    int i;
-    int j;
-    char    *res;
+	char	*cleaned;
+	int		i;
+	int		j;
 
-    i = 0;
-    j = 0;
-    res = ft_calloc((ft_strlen(str) + 1), sizeof(char));
-    while (str[i])
-    {
-        if (str[i] != ' ' || str[i] != '\t')
-        {
-            res[j] = str[i];
-            j++;
-        }
-        i++;
-    }
-    res[j] = '\0';
-    printf("res ------> %s\n\n", res);
+	i = 0;
+	j = 0;
+	cleaned = malloc(ft_strlen(str) + 1);
+	if (!cleaned)
+    return (NULL);
+	while (str[i])
+	{
+        if (str[i] == ' ' || str[i] == '\t')
+		{
+            i++;
+			continue;
+		}
+		cleaned[j++] = str[i++];
+	}
     free(str);
-    return (res);
+	cleaned[j] = '\0';
+	return (cleaned);
 }
 
 int check_params_f(t_map *maps)
@@ -83,7 +108,8 @@ int check_params_f(t_map *maps)
     i = 0;
     if (maps->f)
     {
-        // maps->f[1] = ignore_space(maps->f[1]);
+        // free(maps->f[1]);
+        maps->f[1] = clean_color_string(maps->f[1]);
         while (maps->f[1][i])
         {
             if (ft_isalpha(maps->f[1][i]))
@@ -107,7 +133,6 @@ int check_params_c(t_map *maps)
     i = 0;
     if (maps->c)
     {
-        // maps->c[1] = ignore_space(maps->c[1]);
         while (maps->c[1][i])
         {
             // if (ft_isdigit(maps->c[1][i]) == 0 && maps->c[1][i] != ',')

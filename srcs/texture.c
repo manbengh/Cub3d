@@ -88,14 +88,13 @@ int	make_img(t_cub *cub, t_mlx *text, char *path)
 
 int	init_text(t_cub *cub)
 {
-	// cub->text[0] = "textures/prout.xpm";
 	if (make_img(cub, &cub->text[0], cub->maps->no[1]))
 		return (1);
 	if (make_img(cub, &cub->text[1], cub->maps->so[1]))
-		return (2);
+		return (1);
 	if (make_img(cub, &cub->text[2], cub->maps->we[1]))
-		return (3);
+		return (1);
 	if (make_img(cub, &cub->text[3], cub->maps->ea[1]))
-		return (4);
+		return (1);
 	return (0);
 }

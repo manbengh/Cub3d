@@ -111,11 +111,8 @@ int	fill_my_map(t_cub *cub, char **map_check, int i)
 	j = 0;
 	while (i < cub->lines)
 	{
-		// if (!line_is_empty(map_check[i]))
-		// {
-			cub->maps->my_map[j] = ft_strdup(map_check[i]);
-			j++;
-		// }
+		cub->maps->my_map[j] = ft_strdup(map_check[i]);
+		j++;
 		i++;
 	}
 	if (j == 0)
@@ -126,7 +123,6 @@ int	fill_my_map(t_cub *cub, char **map_check, int i)
 	|| check_walls(cub, map_check) == 1 || check_player(cub, map_check) == 1
 	|| check_other_num(cub, map_check) == 1)
 		return (1);
-	printf("PLAYER ---> %c\n", cub->maps->player_dir);
 	return (0);
 }
 
