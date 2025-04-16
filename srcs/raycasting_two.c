@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 14:24:38 by ahbey             #+#    #+#             */
-/*   Updated: 2025/04/16 14:30:09 by ahbey            ###   ########.fr       */
+/*   Updated: 2025/04/16 16:13:27 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,19 @@ void	my_texture(t_cub *cub, int x)
 			return ;
 		cub->my_mlx->y++;
 	}
+}
+
+int	destroy_all(t_cub *cub)
+{
+	free_my_text(cub);
+	mlx_destroy_image(cub->my_mlx->mlx_ptr, cub->my_mlx->img_ptr);
+	if (cub->my_mlx->win_ptr)
+		mlx_destroy_window(cub->my_mlx->mlx_ptr, cub->my_mlx->win_ptr);
+	if (cub->my_mlx->mlx_ptr)
+	{
+		mlx_destroy_display(cub->my_mlx->mlx_ptr);
+		free(cub->my_mlx->mlx_ptr);
+	}
+	print_error(cub, NULL, NULL);
+	return (0);
 }

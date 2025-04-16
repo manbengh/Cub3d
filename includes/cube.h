@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cube.h                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/16 16:43:12 by ahbey             #+#    #+#             */
+/*   Updated: 2025/04/16 16:48:57 by ahbey            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUBE_H
 # define CUBE_H
 
@@ -31,8 +43,8 @@
 # define PLAYER_SPEED 0.015
 # define ROTATION_SPEED 0.024
 
-typedef double		__attribute((ext_vector_type(2))) t_double;
-typedef int			__attribute__((ext_vector_type(2))) t_int;
+typedef double __attribute((ext_vector_type(2)))	t_double;
+typedef int __attribute__((ext_vector_type(2)))		t_int;
 
 typedef struct t_map
 {
@@ -82,37 +94,37 @@ typedef struct t_ray
 
 typedef struct t_mlx
 {
-	void *mlx_ptr;
-	void *win_ptr;
-	void *img_ptr;
-	char *img_data;
-	int bpp;
-	int size_line;
-	int endian;
-	double	wall_x;
-	int		text_x;
-	int		text_y;
-	int		width;
-	int		height;
-	unsigned int		color;
-	double	step;
-	double	text_pos;
-	int		y;
-	t_double pos;
-	t_double dir;
-	t_double plane;
-} t_mlx;
+	void			*mlx_ptr;
+	void			*win_ptr;
+	void			*img_ptr;
+	char			*img_data;
+	int				bpp;
+	int				size_line;
+	int				endian;
+	double			wall_x;
+	int				text_x;
+	int				text_y;
+	int				width;
+	int				height;
+	unsigned int	color;
+	double			step;
+	double			text_pos;
+	int				y;
+	t_double		pos;
+	t_double		dir;
+	t_double		plane;
+}					t_mlx;
 
 typedef struct t_cub
 {
-	int		lines;
-	char	**stock_l;
-	t_mlx	text[4];
-	t_mlx	*my_mlx;
-	t_map	*maps;
-	t_key	*keys;
-	t_ray	*ray;
-} t_cub;
+	int				lines;
+	char			**stock_l;
+	t_mlx			text[4];
+	t_mlx			*my_mlx;
+	t_map			*maps;
+	t_key			*keys;
+	t_ray			*ray;
+}					t_cub;
 
 // CHECKS
 
@@ -135,13 +147,14 @@ int					count_lines(int fd);
 int					ft_count_num(char *str);
 int					ft_count_times(char *str, char c);
 int					check_my_map(t_cub *cub, char **map_check, int c);
+int					check_names(t_map *maps);
 
 // FREE
 int					destroy_all(t_cub *cub);
 void				free_tab(char **tab);
 int					close_window(t_cub *cub);
 void				print_error(t_cub *cub, char *str, char **map_check);
-
+void				free_my_text(t_cub *cub);
 void				init_game(t_cub *cub);
 
 // GAME
@@ -161,6 +174,7 @@ void				perform_dda(t_cub *cub, t_ray *ray);
 void				get_pos_player(t_cub *cub);
 void				set_plane(t_cub *cub, char p);
 void				set_directions(t_cub *cub, char p);
+int					check_flood(t_cub *cub, char **map_check);
 
 // TEXT
 void				my_texture(t_cub *cub, int x);

@@ -3,6 +3,7 @@ SRC =	srcs/main.c \
 		srcs/utils2.c \
 		srcs/map_check.c  \
 		srcs/map_check2.c  \
+		srcs/map_check3.c  \
 		srcs/init_map.c  \
 		srcs/ft_free.c  \
 		srcs/my_game.c  \

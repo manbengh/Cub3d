@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 14:34:02 by ahbey             #+#    #+#             */
-/*   Updated: 2025/04/16 13:57:08 by ahbey            ###   ########.fr       */
+/*   Updated: 2025/04/16 16:13:38 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,19 +66,4 @@ void	free_my_text(t_cub *cub)
 			mlx_destroy_image(cub->my_mlx->mlx_ptr, cub->text[i].img_ptr);
 		i++;
 	}
-}
-
-int	destroy_all(t_cub *cub)
-{
-	free_my_text(cub);
-	mlx_destroy_image(cub->my_mlx->mlx_ptr, cub->my_mlx->img_ptr);
-	if (cub->my_mlx->win_ptr)
-		mlx_destroy_window(cub->my_mlx->mlx_ptr, cub->my_mlx->win_ptr);
-	if (cub->my_mlx->mlx_ptr)
-	{
-		mlx_destroy_display(cub->my_mlx->mlx_ptr);
-		free(cub->my_mlx->mlx_ptr);
-	}
-	print_error(cub, NULL, NULL);
-	return (0);
 }
