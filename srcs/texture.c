@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   texture.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/16 14:18:06 by ahbey             #+#    #+#             */
+/*   Updated: 2025/04/16 14:31:28 by ahbey            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cube.h"
 
 t_mlx	*which_texture(t_cub *cub)
@@ -5,14 +17,14 @@ t_mlx	*which_texture(t_cub *cub)
 	if (cub->ray->side == 0)
 	{
 		if (cub->ray->ray_dir.x < 0)
-			return (&cub->text[1]); // Rouge // Mur à ouest
-		return (&cub->text[0]);     // Vert // Mur à est
+			return (&cub->text[1]);
+		return (&cub->text[0]);
 	}
 	else
 	{
 		if (cub->ray->ray_dir.y < 0)
-			return (&cub->text[3]); // Bleu // Mur au Nord
-		return (&cub->text[2]);     // Blanc // Mur au Sud
+			return (&cub->text[3]);
+		return (&cub->text[2]);
 	}
 }
 
@@ -36,40 +48,10 @@ void	calc_text(t_cub *cub, t_ray *ray, t_mlx *text)
 			* ray->ray_dir.x;
 	cub->my_mlx->wall_x -= floor(cub->my_mlx->wall_x);
 	text->text_x = (int)(cub->my_mlx->wall_x * (double)text->width);
-	// Correction ici : on regarde bien l’axe Y si side == 1
 	if (ray->side == 0 && ray->ray_dir.x < 0)
 		text->text_x = text->width - text->text_x - 1;
 	if (ray->side == 1 && ray->ray_dir.y > 0)
 		text->text_x = text->width - text->text_x - 1;
-}
-
-void	my_texture(t_cub *cub, int x)
-{
-	t_mlx	*text;
-
-	text = which_texture(cub);
-	if (cub->ray->start_draw < 0)
-		cub->ray->start_draw = 0;
-	if (cub->ray->end_draw >= SCREEN_H)
-		cub->ray->end_draw = SCREEN_H - 1;
-	calc_text(cub, cub->ray, text);
-	text->step = (double)text->height / (double)cub->ray->line_h;
-	text->text_pos = (cub->ray->start_draw - SCREEN_H / 2.0 + cub->ray->line_h
-			/ 2.0) * text->step;
-	cub->my_mlx->y = cub->ray->start_draw;
-	while (cub->my_mlx->y <= cub->ray->end_draw)
-	{
-		text->text_y = (int)text->text_pos;
-		if (text->text_y < 0)
-			text->text_y = 0;
-		if (text->text_y >= text->height)
-			text->text_y = text->height - 1;
-		text->text_pos += text->step;
-		cub->ray->color = get_my_text_color(text, text->text_x, text->text_y);
-		if (put_mlx_pixel(cub->my_mlx, x, cub->my_mlx->y, cub->ray))
-			return ;
-		cub->my_mlx->y++;
-	}
 }
 
 int	make_img(t_cub *cub, t_mlx *text, char *path)
@@ -88,7 +70,6 @@ int	make_img(t_cub *cub, t_mlx *text, char *path)
 
 int	init_text(t_cub *cub)
 {
-	// cub->text[0] = "textures/prout.xpm";
 	if (make_img(cub, &cub->text[0], cub->maps->no[1]))
 		return (1);
 	if (make_img(cub, &cub->text[1], cub->maps->so[1]))

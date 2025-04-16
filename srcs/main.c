@@ -6,17 +6,17 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 14:34:55 by ahbey             #+#    #+#             */
-/*   Updated: 2025/04/15 19:17:32 by ahbey            ###   ########.fr       */
+/*   Updated: 2025/04/16 14:10:59 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 
-void check_map(t_cub *cub, int fd)
+void	check_map(t_cub *cub, int fd)
 {
-	char **map_check;
-	char *str;
-	int i;
+	char	**map_check;
+	char	*str;
+	int		i;
 
 	i = 0;
 	map_check = ft_calloc((cub->lines + 1), sizeof(char *));
@@ -36,7 +36,7 @@ void check_map(t_cub *cub, int fd)
 	free_tab(map_check);
 }
 
-void init_struct(t_cub *cub, int fd, char **argv)
+void	init_struct(t_cub *cub, int fd, char **argv)
 {
 	cub->lines = count_lines(fd);
 	close(fd);
@@ -49,21 +49,21 @@ void init_struct(t_cub *cub, int fd, char **argv)
 		return ;
 	cub->maps->my_map = ft_calloc((cub->lines + 1), sizeof(char *));
 	if (!cub->maps->my_map)
-		return;
+		return ;
 	cub->keys = ft_calloc(sizeof(t_key), 1);
 	if (!cub->keys)
 		return ;
 	cub->ray = ft_calloc(sizeof(t_ray), 1);
-		if (!cub->ray)
-			return ;
+	if (!cub->ray)
+		return ;
 	check_map(cub, fd);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	int fd;
-	t_cub cub;
-	
+	int		fd;
+	t_cub	cub;
+
 	if (argc == 2)
 	{
 		check_file_name(argv[1]);
@@ -71,10 +71,10 @@ int main(int argc, char **argv)
 		if (fd < 0 || read(fd, 0, 0) < 0)
 			return (printf("Error !\nFile can't be opened\n"), 0);
 		init_struct(&cub, fd, argv);
-		// for(int i = 0;cub.maps->my_map[i];i++)
-		// 	printf("%s",cub.maps->my_map[i]);
 		my_game(&cub);
 	}
 	return (0);
 }
 
+// for(int i = 0;cub.maps->my_map[i];i++)
+// 	printf("%s",cub.maps->my_map[i]);

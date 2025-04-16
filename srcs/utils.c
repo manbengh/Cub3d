@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 14:38:22 by ahbey             #+#    #+#             */
-/*   Updated: 2025/03/12 14:40:41 by ahbey            ###   ########.fr       */
+/*   Updated: 2025/04/16 14:16:53 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	count_lines(int fd)
 	str = get_next_line(fd);
 	if (!str)
 	{
-		close (fd);
+		close(fd);
 		exit(1);
 	}
 	if (str)
@@ -91,7 +91,7 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	i = 0;
 	while (s1[i] == s2[i] && i < n - 1 && s1[i] && s2[i])
 		i++;
-	return ((unsigned char )s1[i] - (unsigned char )s2[i]);
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
 
 int	ft_count_num(char *str)
@@ -107,6 +107,5 @@ int	ft_count_num(char *str)
 			count++;
 		i++;
 	}
-	// printf("count ----> %i\n", count);
 	return (count);
 }
