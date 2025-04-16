@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 14:34:24 by ahbey             #+#    #+#             */
-/*   Updated: 2025/04/16 13:57:15 by ahbey            ###   ########.fr       */
+/*   Updated: 2025/04/16 15:06:21 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,76 +58,71 @@ char	*ignore_space(char *str)
 	int		j;
 	char	*res;
 
-	i = 0;
-	j = 0;
-	res = malloc((ft_strlen(str) + 1) * sizeof(char));
-	while (str[i])
-	{
-		if (str[i] != ' ' || str[i] != '\t')
-		{
-			res[j] = str[i];
-			j++;
-		}
-		i++;
-	}
-	printf("res ------> %s\n\n", res);
-	// free(str);
-	return (res);
+    i = 0;
+    j = 0;
+    res = ft_calloc((ft_strlen(str) + 1), sizeof(char));
+    while (str[i])
+    {
+        if (str[i] != ' ' || str[i] != '\t')
+        {
+            res[j] = str[i];
+            j++;
+        }
+        i++;
+    }
+    res[j] = '\0';
+    printf("res ------> %s\n\n", res);
+    free(str);
+    return (res);
 }
 
 int	check_params_f(t_map *maps)
 {
 	int	i;
 
-	i = 0;
-	if (maps->f)
-	{
-		maps->f[1] = ignore_space(maps->f[1]);
-		while (maps->f[1][i])
-		{
-			if (ft_isalpha(maps->f[1][i]))
-				return (printf("Error !\nCheck params : no letters \n"), 1);
-			if (maps->f[1][i] == ',' && (ft_isdigit(maps->f[1][i + 1]) == 0
-					|| ft_isdigit(maps->f[1][i - 1]) == 0))
-				return (printf("Error !\nCheck params : incorrect number\n"),
-					1);
-			if (ft_count_num(maps->f[1]) < 3 || ft_count_num(maps->f[1]) > 9)
-				return (printf("Error !\nCheck params : incorrect number\n"),
-					1);
-			if (ft_check_nums(maps->f[1]) == 1)
-				return (1);
-			i++;
-		}
-	}
-	return (0);
+    i = 0;
+    if (maps->f)
+    {
+        // maps->f[1] = ignore_space(maps->f[1]);
+        while (maps->f[1][i])
+        {
+            if (ft_isalpha(maps->f[1][i]))
+                return (printf("Error !\nCheck params : no letters \n"), 1);
+            if (maps->f[1][i] == ',' && (ft_isdigit(maps->f[1][i + 1]) == 0 || ft_isdigit(maps->f[1][i - 1]) == 0))
+                return (printf("Error !\nCheck params : incorrect number\n"), 1);
+            if (ft_count_num(maps->f[1]) < 3 || ft_count_num(maps->f[1]) > 9)
+                return (printf("Error !\nCheck params : incorrect number\n"), 1);
+            if (ft_check_nums(maps->f[1]) == 1)
+                return (1);
+            i++;
+        }
+    }
+    return (0);
 }
 
 int	check_params_c(t_map *maps)
 {
 	int	i;
 
-	i = 0;
-	if (maps->c)
-	{
-		maps->c[1] = ignore_space(maps->c[1]);
-		while (maps->c[1][i])
-		{
-			// if (ft_isdigit(maps->c[1][i]) == 0 && maps->c[1][i] != ',')
-			if (ft_isalpha(maps->c[1][i]))
-				return (printf("Error !\nCheck params : no letters \n"), 1);
-			if (maps->c[1][i] == ',' && (!ft_isdigit(maps->c[1][i + 1])
-					|| !ft_isdigit(maps->c[1][i - 1])))
-				return (printf("Error !\nCheck params : incorrect number\n"),
-					1);
-			if (ft_count_num(maps->c[1]) < 3 || ft_count_num(maps->c[1]) > 9)
-				return (printf("Error !\nCheck params : incorrect number\n"),
-					1);
-			if (ft_check_nums(maps->c[1]) == 1)
-				return (1);
-			i++;
-		}
-	}
-	return (check_params_f(maps));
+    i = 0;
+    if (maps->c)
+    {
+        // maps->c[1] = ignore_space(maps->c[1]);
+        while (maps->c[1][i])
+        {
+            // if (ft_isdigit(maps->c[1][i]) == 0 && maps->c[1][i] != ',')
+            if (ft_isalpha(maps->c[1][i]))
+                return (printf("Error !\nCheck params : no letters \n"), 1);
+            if (maps->c[1][i] == ',' && (!ft_isdigit(maps->c[1][i + 1]) || !ft_isdigit(maps->c[1][i - 1])))
+                return (printf("Error !\nCheck params : incorrect number\n"), 1);
+            if (ft_count_num(maps->c[1]) < 3 || ft_count_num(maps->c[1]) > 9)
+                return (printf("Error !\nCheck params : incorrect number\n"), 1);
+            if (ft_check_nums(maps->c[1]) == 1)
+                return (1);
+            i++;
+        }
+    }
+    return (check_params_f(maps));
 }
 
 int	check_names(t_map *maps)

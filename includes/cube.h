@@ -82,42 +82,37 @@ typedef struct t_ray
 
 typedef struct t_mlx
 {
-	void			*mlx_ptr;
-	void			*win_ptr;
-	void			*img_ptr;
-	char			*img_data;
-	int				bpp;
-	int				size_line;
-	int				endian;
-	double			wall_x;
-	int				text_x;
-	int				text_y;
-	int				width;
-	int				height;
-	unsigned int	color;
-	double			step;
-	double			text_pos;
-	int				y;
-	t_double		pos;
-	t_double		dir;
-	t_double		plane;
-}					t_mlx;
-
-typedef struct t_jsp
-{
-}					t_jsp;
+	void *mlx_ptr;
+	void *win_ptr;
+	void *img_ptr;
+	char *img_data;
+	int bpp;
+	int size_line;
+	int endian;
+	double	wall_x;
+	int		text_x;
+	int		text_y;
+	int		width;
+	int		height;
+	unsigned int		color;
+	double	step;
+	double	text_pos;
+	int		y;
+	t_double pos;
+	t_double dir;
+	t_double plane;
+} t_mlx;
 
 typedef struct t_cub
 {
-	int				lines;
-	char			**stock_l;
-	t_mlx			text[4];
-	t_jsp			mdr;
-	t_mlx			*my_mlx;
-	t_map			*maps;
-	t_key			*keys;
-	t_ray			*ray;
-}					t_cub;
+	int		lines;
+	char	**stock_l;
+	t_mlx	text[4];
+	t_mlx	*my_mlx;
+	t_map	*maps;
+	t_key	*keys;
+	t_ray	*ray;
+} t_cub;
 
 // CHECKS
 
