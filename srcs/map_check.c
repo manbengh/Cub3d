@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_check.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/12 14:35:23 by ahbey             #+#    #+#             */
+/*   Updated: 2025/04/15 18:15:56 by ahbey            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cube.h"
 
 void	init_maps(t_cub *cub, char **stock_l, char **map_check)
@@ -23,13 +35,11 @@ void	init_maps(t_cub *cub, char **stock_l, char **map_check)
 	free_tab(stock_l);
 }
 
-int	check_dir(char **map_check, t_cub *cub)
+int	check_dir(char **map_check, t_cub *cub, int i)
 {
-	int	i;
 	int	j;
 	char	**stock_l;
 
-	i = 0;
 	j = 0;
 	stock_l = ft_calloc(7, sizeof(char *));
 	while (i < cub->lines)
@@ -53,6 +63,13 @@ int	check_dir(char **map_check, t_cub *cub)
 	return (i);
 }
 
+int	check_flood_error(char str)
+{
+	if (str == '0' || str == 'N' || str == 'S' || str == 'W' || str == 'E')
+		return (0);
+	return (1);
+}
+
 int	check_flood(t_cub *cub, char **map_check)
 {
 	int	i;
@@ -64,17 +81,22 @@ int	check_flood(t_cub *cub, char **map_check)
 		j = -1;
 		while (++j < ft_strlen(cub->maps->my_map[i]))
 		{
-			if (cub->maps->my_map[i][j] == '0')
+			if (cub->maps->my_map[i][j] == '0' || cub->maps->my_map[i][j] == 'N' || cub->maps->my_map[i][j] == 'S'
+				|| cub->maps->my_map[i][j] == 'W' || cub->maps->my_map[i][j] == 'E')
 			{
-				if (cub->maps->my_map[i][j + 1] == ' ')
+				// if (line_is_empty(map_check[i]))
+				// 	return (print_error(cub, "Error !\nFlood 00\n", map_check), 1);
+				if (cub->maps->my_map[i][j + 1] == ' ' || cub->maps->my_map[i][j + 1] == '\0')
+				{
 					return (print_error(cub, "Error !\nFlood 1", map_check), 1);
-				else if (cub->maps->my_map[i][j - 1] == ' ')
+				}
+				else if (cub->maps->my_map[i][j - 1] == ' ' || cub->maps->my_map[i][j - 1] == '\0')
 					return (print_error(cub, "Error !\nFlood 2", map_check), 1);
 				else if (ft_strlen(cub->maps->my_map[i - 1]) - 2 < j
-					|| cub->maps->my_map[i - 1][j] == ' ')
+					|| cub->maps->my_map[i - 1][j] == ' ' || cub->maps->my_map[i - 1][j] == '\0')
 					return (print_error(cub, "Error !\nFlood 3", map_check), 1);
 				else if (ft_strlen(cub->maps->my_map[i + 1]) - 2 < j
-					|| cub->maps->my_map[i + 1][j] == ' ')
+					|| cub->maps->my_map[i + 1][j] == ' ' || cub->maps->my_map[i + 1][j] == '\0')
 					return (print_error(cub, "Error !\nFlood 4", map_check), 1);
 			}
 		}
@@ -89,11 +111,8 @@ int	fill_my_map(t_cub *cub, char **map_check, int i)
 	j = 0;
 	while (i < cub->lines)
 	{
-		if (!line_is_empty(map_check[i]))
-		{
-			cub->maps->my_map[j] = ft_strdup(map_check[i]);
-			j++;
-		}
+		cub->maps->my_map[j] = ft_strdup(map_check[i]);
+		j++;
 		i++;
 	}
 	if (j == 0)
@@ -104,7 +123,6 @@ int	fill_my_map(t_cub *cub, char **map_check, int i)
 	|| check_walls(cub, map_check) == 1 || check_player(cub, map_check) == 1
 	|| check_other_num(cub, map_check) == 1)
 		return (1);
-	printf("PLAYER ---> %c\n", cub->maps->player_dir);
 	return (0);
 }
 
@@ -115,7 +133,7 @@ int	check_my_map(t_cub *cub, char **map_check, int c)
 
 	(void)c;
 	len = ft_strlen(map_check[0]);
-	i = check_dir(map_check, cub);
+	i = check_dir(map_check, cub, 0);
 	if (i > 1)
 	{
 		if (fill_my_map(cub, map_check, i) == 1)

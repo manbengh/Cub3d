@@ -6,7 +6,12 @@ SRC =	srcs/main.c \
 		srcs/init_map.c  \
 		srcs/ft_free.c  \
 		srcs/my_game.c  \
-		raycasting.c \
+		srcs/raycasting.c  \
+		srcs/calculate.c  \
+		srcs/moving.c  \
+		srcs/init_game.c  \
+		srcs/rotation.c  \
+		srcs/texture.c  \
 
 OBJ = $(SRC:.c=.o)
 
@@ -19,7 +24,7 @@ CFLAGS = -Wall -Wextra -Werror -g3
 INC = -Iincludes -I/usr/include -Iminilibx-linux -ILibft
 
 MLX_LIB =  minilibx-linux/libmlx_Linux.a
-MLX_FLAGS = -Lmlx -L/usr/lib/X11 -lXext -lX11
+MLX_FLAGS = -Lmlx -L/usr/lib/X11 -lXext -lX11 -lm
 
 LIBFT = Libft/libft.a
 

@@ -1,4 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_free.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/12 14:34:02 by ahbey             #+#    #+#             */
+/*   Updated: 2025/04/15 19:14:56 by ahbey            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cube.h"
+
+int close_window(t_cub *cub)
+{
+    destroy_all(cub);
+    return (0);
+}
 
 void	free_tab(char **tab)
 {
@@ -13,13 +31,16 @@ void	free_tab(char **tab)
 	free(tab);
 }
 
-void	free_struct(t_cub *cub)
+void	maps_free(t_map *maps)
 {
-	if (cub->maps->c)
-		free_tab(cub->maps->c);
-	if (cub->maps->f)
-		free_tab(cub->maps->f);
-	free(cub->maps);
+	free_tab(maps->c);
+	free_tab(maps->f);
+	free_tab(maps->ea);
+	free_tab(maps->we);
+	free_tab(maps->no);
+	free_tab(maps->so);
+	free_tab(maps->my_map);
+	free(maps);
 }
 
 void	print_error(t_cub *cub, char *str, char **map_check)
@@ -27,13 +48,37 @@ void	print_error(t_cub *cub, char *str, char **map_check)
 	if (str)
 		printf("%s\n", str);
 	free_tab(map_check);
-	free_tab(cub->maps->c);
-	free_tab(cub->maps->f);
-	free_tab(cub->maps->ea);
-	free_tab(cub->maps->we);
-	free_tab(cub->maps->no);
-	free_tab(cub->maps->so);
-	free_tab(cub->maps->my_map);
-	free(cub->maps);
+	maps_free(cub->maps);
+	free(cub->my_mlx);
+	free(cub->keys);
+	free(cub->ray);
 	exit(1);
+}
+
+void	free_my_text(t_cub *cub)
+{
+	int	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		if (cub->text[i].img_ptr)
+			mlx_destroy_image(cub->my_mlx->mlx_ptr, cub->text[i].img_ptr);
+		i++;
+	}
+}
+
+int destroy_all(t_cub *cub)
+{
+	free_my_text(cub);
+	mlx_destroy_image(cub->my_mlx->mlx_ptr, cub->my_mlx->img_ptr);
+    if (cub->my_mlx->win_ptr)
+    	mlx_destroy_window(cub->my_mlx->mlx_ptr, cub->my_mlx->win_ptr);
+    if (cub->my_mlx->mlx_ptr)
+    {
+        mlx_destroy_display(cub->my_mlx->mlx_ptr);
+        free(cub->my_mlx->mlx_ptr);
+    }
+    print_error(cub, NULL, NULL);
+    return (0);
 }

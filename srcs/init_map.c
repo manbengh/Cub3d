@@ -1,15 +1,51 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_map.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/12 14:34:24 by ahbey             #+#    #+#             */
+/*   Updated: 2025/04/15 19:31:55 by ahbey            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cube.h"
+
+char    **split_first_keywor(char *line)
+{
+	char	**result;
+	int		start;
+	int		i;
+
+	i = 0;
+	while (line[i] && (line[i] == ' ' || line[i] == '\t'))
+		i++;
+	start = i;
+	while (line[i] && line[i] != ' ' && line[i] != '\t')
+		i++;
+	result = malloc(sizeof(char *) * 3);
+	if (!result)
+		return (NULL);
+	result[0] = ft_substr(line, start, i - start);
+	while (line[i] && (line[i] == ' ' || line[i] == '\t'))
+		i++;
+	result[1] = ft_strdup(&line[i]);
+	result[2] = NULL;
+	return (result);
+}
 
 int compare_dir_c_f(t_map *maps, char *stock_l)
 {
     if (ft_strncmp("C ", stock_l, 2) == 0 && maps->c == NULL)
     {
-        maps->c = ft_split(stock_l, ' ');
+        maps->c = split_first_keywor(stock_l);
+		// printf("%s \")
         return (1);
     }
     else if (ft_strncmp("F ", stock_l, 2) == 0 && maps->f == NULL)
     {
-        maps->f = ft_split(stock_l, ' ');
+        maps->f = split_first_keywor(stock_l);
         return (1);
     }
     return (0);
@@ -40,6 +76,31 @@ int compare_dir(t_map *maps, char *stock_l)
     return (compare_dir_c_f(maps, stock_l));
 }
 
+char	*clean_color_string(char *str)
+{
+	char	*cleaned;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	cleaned = malloc(ft_strlen(str) + 1);
+	if (!cleaned)
+    return (NULL);
+	while (str[i])
+	{
+        if (str[i] == ' ' || str[i] == '\t')
+		{
+            i++;
+			continue;
+		}
+		cleaned[j++] = str[i++];
+	}
+    free(str);
+	cleaned[j] = '\0';
+	return (cleaned);
+}
+
 int check_params_f(t_map *maps)
 {
     int i;
@@ -47,9 +108,10 @@ int check_params_f(t_map *maps)
     i = 0;
     if (maps->f)
     {
+        // free(maps->f[1]);
+        maps->f[1] = clean_color_string(maps->f[1]);
         while (maps->f[1][i])
         {
-            // if (ft_isdigit(maps->f[1][i]) == 0 || maps->f[1][i] != ',')
             if (ft_isalpha(maps->f[1][i]))
                 return (printf("Error !\nCheck params : no letters \n"), 1);
             if (maps->f[1][i] == ',' && (ft_isdigit(maps->f[1][i + 1]) == 0 || ft_isdigit(maps->f[1][i - 1]) == 0))

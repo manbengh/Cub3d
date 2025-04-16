@@ -1,99 +1,55 @@
 #include "cube.h"
 
-void    get_pos_player(t_cub *cub)
+int key_press(int keycode, t_cub *cub)
 {
-    int i;
-    int j;
-    
-    i = 0;
-    while (i < cub->lines)
-    {
-        j = 0;
-        while (j < ft_strlen(cub->maps->my_map[i]))
-        {
-            if (cub->maps->my_map[i][j] == cub->maps->player_dir)
-            {
-                cub->maps->start_pos.x = j;
-                cub->maps->start_pos.y = i;
-                return ;
-            }
-            j++;
-        }
-        i++;
-    }
+    if (keycode == XK_w)
+        cub->keys->w = 1;
+    if (keycode == XK_a)
+        cub->keys->a = 1;
+    if (keycode == XK_s)
+        cub->keys->s = 1;
+    if (keycode == XK_d)
+        cub->keys->d = 1;
+    if (keycode == XK_Left)
+        cub->keys->left = 1;
+    if (keycode == XK_Right)
+        cub->keys->right = 1;
+    if (keycode == XK_Escape)
+        cub->keys->esc = 1;
+    if (keycode == KEY_CTRL)
+        cub->keys->ctrl = 1;
+    return (1);
 }
 
-void    init_game(t_cub *cub)
+int key_release(int keycode, t_cub *cub)
 {
-    cub->my_mlx->mlx_ptr = mlx_init();
-    if (!cub->my_mlx->mlx_ptr)
-    {
-        print_error(cub, "Mlx fail", NULL);
-        exit (1);
-    }
-    cub->my_mlx->win_ptr = mlx_new_window(cub->my_mlx->mlx_ptr, SCREEN_W,
-        SCREEN_H, "Cub3D");
-    if (!cub->my_mlx->win_ptr)
-    {
-        print_error(cub, "Window Fail", NULL);
-        exit (1);
-    }
-    get_pos_player(cub);
-    printf("pos x == %i\npos y == %i\n", cub->maps->start_pos.x, cub->maps->start_pos.y);
-}
-
-int my_window(t_cub *cub)
-{
-    int x;
-    int y;
-
-    x = 0;
-    y = 0;
-    if (cub->my_mlx->win_ptr)
-    {
-        while (x < cub->lines)
-        {
-            printf("x -----> %i\n", x);
-            y = 0;
-            while (y < ft_strlen(cub->maps->my_map[x]))
-            {
-                mlx_put_image_to_window(cub->my_mlx->mlx_ptr, cub->my_mlx->win_ptr, "../thisisfine.xpm", y
-                    * 64, x * 64);
-                y++;
-            }
-            x++;
-        }
-    }
-    return  (0);
-}
-
-int key_events(int key_code, t_cub *cub)
-{
-    int x;
-    int y;
-
-    x = cub->maps->start_pos.x;
-    y = cub->maps->start_pos.y;
-    if (key_code == 119)
-        x--;
-    else if (key_code == 115)
-        x++;
-    else if (key_code == 100)
-        y++;
-    else if (key_code == 97)
-        y--;
-    return (0);
+    if (keycode == XK_w)
+        cub->keys->w = 0;
+    if (keycode == XK_a)
+        cub->keys->a = 0;
+    if (keycode == XK_s)
+        cub->keys->s = 0;
+    if (keycode == XK_d)
+        cub->keys->d = 0;
+    if (keycode == XK_Left)
+        cub->keys->left = 0;
+    if (keycode == XK_Right)
+        cub->keys->right = 0;
+    if (keycode == XK_Escape)
+        cub->keys->esc = 0;
+    return (1);
 }
 
 void my_game(t_cub *cub)
 {
-    int screen_w = SCREEN_W;
-    int screen_h = SCREEN_H;
-    
     init_game(cub);
-    cub->my_mlx->img_ptr = mlx_new_image(cub->my_mlx->mlx_ptr, SCREEN_W, SCREEN_H);
-    cub->my_mlx->img_data = mlx_get_data_addr(cub->my_mlx->img_ptr, &screen_w, &screen_h, &screen_w);
-    mlx_loop_hook(cub->my_mlx->mlx_ptr, my_window, cub);
-    // mlx_hook(cub->my_mlx->win_ptr, 2, 1L << 0, key_events,cub);
-    // mlx_loop(cub->my_mlx->mlx_ptr);
+    cub->my_mlx->img_data = mlx_get_data_addr(cub->my_mlx->img_ptr, &cub->my_mlx->bpp, &cub->my_mlx->size_line, &cub->my_mlx->endian);
+    mlx_put_image_to_window(cub->my_mlx->mlx_ptr, cub->my_mlx->win_ptr, cub->my_mlx->img_ptr, 0, 0);
+    mlx_hook(cub->my_mlx->win_ptr, 2, 1L << 0, &key_press, cub);
+    mlx_hook(cub->my_mlx->win_ptr, 3, 1L << 1, &key_release, cub);
+    mlx_hook(cub->my_mlx->win_ptr, DestroyNotify, StructureNotifyMask, &destroy_all, cub);
+    mlx_hook(cub->my_mlx->win_ptr, 17, 0, &close_window, cub);
+    mlx_loop_hook(cub->my_mlx->mlx_ptr, &moving, cub);
+    mlx_loop(cub->my_mlx->mlx_ptr);
 }
+ 
