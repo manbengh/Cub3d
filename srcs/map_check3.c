@@ -32,42 +32,6 @@ int	check_names(t_map *maps)
 	return (0);
 }
 
-// int	check_flood(t_cub *cub, char **map_check)
-// {
-// 	int	i;
-// 	int	j;
-
-// 	i = -1;
-// 	while (++i < cub->lines - 1)
-// 	{
-// 		j = -1;
-// 		while (++j < ft_strlen(cub->maps->my_map[i]))
-// 		{
-// 			if (cub->maps->my_map[i][j] == '0' || cub->maps->my_map[i][j] == 'N'
-// 				|| cub->maps->my_map[i][j] == 'S'
-// 				|| cub->maps->my_map[i][j] == 'W'
-// 				|| cub->maps->my_map[i][j] == 'E')
-// 			{
-// 				if (cub->maps->my_map[i][j + 1] == ' ' || cub->maps->my_map[i][j
-// 					+ 1] == '\0')
-// 					return (print_error(cub, "Error !\nFlood 1", map_check), 1);
-// 				else if (cub->maps->my_map[i][j - 1] == ' '
-// 					|| cub->maps->my_map[i][j - 1] == '\0')
-// 					return (print_error(cub, "Error !\nFlood 2", map_check), 1);
-// 				else if (ft_strlen(cub->maps->my_map[i - 1]) - 2 < j
-// 					|| cub->maps->my_map[i - 1][j] == ' ' || cub->maps->my_map[i
-// 					- 1][j] == '\0')
-// 					return (print_error(cub, "Error !\nFlood 3", map_check), 1);
-// 				else if (ft_strlen(cub->maps->my_map[i + 1]) - 2 < j
-// 					|| cub->maps->my_map[i + 1][j] == ' ' || cub->maps->my_map[i
-// 					+ 1][j] == '\0')
-// 					return (print_error(cub, "Error !\nFlood 4", map_check), 1);
-// 			}
-// 		}
-// 	}
-// 	return (0);
-// }
-
 int	check_flood_swit(t_cub *cub, char **map_check, int *i, int *j)
 {
 	if (cub->maps->my_map[*i][*j + 1] == ' ' || cub->maps->my_map[*i][*j

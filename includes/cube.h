@@ -135,7 +135,8 @@ int					check_walls(t_cub *cub, char **map_check);
 int					check_file_name(char *argv);
 int					ft_check_nums(char *str);
 int					check_names(t_map *maps);
-
+char				**split_first_keyword(char *line);
+char				*clean_color_string(char *str);
 int					compare_dir(t_map *maps, char *stock_l);
 int					check_params_c(t_map *maps);
 

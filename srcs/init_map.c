@@ -12,45 +12,22 @@
 
 #include "cube.h"
 
-char **split_first_keywor(char *line)
-{
-	char **result;
-	int start;
-	int i;
-
-	i = 0;
-	while (line[i] && (line[i] == ' ' || line[i] == '\t'))
-		i++;
-	start = i;
-	while (line[i] && line[i] != ' ' && line[i] != '\t')
-		i++;
-	result = malloc(sizeof(char *) * 3);
-	if (!result)
-		return (NULL);
-	result[0] = ft_substr(line, start, i - start);
-	while (line[i] && (line[i] == ' ' || line[i] == '\t'))
-		i++;
-	result[1] = ft_strdup(&line[i]);
-	result[2] = NULL;
-	return (result);
-}
-
-int compare_dir_c_f(t_map *maps, char *stock_l)
+int	compare_dir_c_f(t_map *maps, char *stock_l)
 {
 	if (ft_strncmp("C ", stock_l, 2) == 0 && maps->c == NULL)
 	{
-		maps->c = split_first_keywor(stock_l);
+		maps->c = split_first_keyword(stock_l);
 		return (1);
 	}
 	else if (ft_strncmp("F ", stock_l, 2) == 0 && maps->f == NULL)
 	{
-		maps->f = split_first_keywor(stock_l);
+		maps->f = split_first_keyword(stock_l);
 		return (1);
 	}
 	return (0);
 }
 
-int compare_dir(t_map *maps, char *stock_l)
+int	compare_dir(t_map *maps, char *stock_l)
 {
 	if (ft_strncmp("NO ", stock_l, 3) == 0 && maps->no == NULL)
 	{
@@ -75,11 +52,11 @@ int compare_dir(t_map *maps, char *stock_l)
 	return (compare_dir_c_f(maps, stock_l));
 }
 
-char *clean_color_string(char *str)
+char	*clean_color_string(char *str)
 {
-	char *cleaned;
-	int i;
-	int j;
+	char	*cleaned;
+	int		i;
+	int		j;
 
 	i = 0;
 	j = 0;
@@ -91,7 +68,7 @@ char *clean_color_string(char *str)
 		if (str[i] == ' ' || str[i] == '\t')
 		{
 			i++;
-			continue;
+			continue ;
 		}
 		cleaned[j++] = str[i++];
 	}
@@ -100,9 +77,9 @@ char *clean_color_string(char *str)
 	return (cleaned);
 }
 
-int check_params_f(t_map *maps)
+int	check_params_f(t_map *maps)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (maps->f)
@@ -112,10 +89,13 @@ int check_params_f(t_map *maps)
 		{
 			if (ft_isalpha(maps->f[1][i]))
 				return (printf("Error !\nCheck params : no letters \n"), 1);
-			if (maps->f[1][i] == ',' && (ft_isdigit(maps->f[1][i + 1]) == 0 || ft_isdigit(maps->f[1][i - 1]) == 0))
-				return (printf("Error !\nCheck params : incorrect number\n"), 1);
+			if (maps->f[1][i] == ',' && (ft_isdigit(maps->f[1][i + 1]) == 0
+					|| ft_isdigit(maps->f[1][i - 1]) == 0))
+				return (printf("Error !\nCheck params : incorrect number\n"),
+					1);
 			if (ft_count_num(maps->f[1]) < 3 || ft_count_num(maps->f[1]) > 9)
-				return (printf("Error !\nCheck params : incorrect number\n"), 1);
+				return (printf("Error !\nCheck params : incorrect number\n"),
+					1);
 			if (ft_check_nums(maps->f[1]) == 1)
 				return (1);
 			i++;
@@ -124,9 +104,9 @@ int check_params_f(t_map *maps)
 	return (0);
 }
 
-int check_params_c(t_map *maps)
+int	check_params_c(t_map *maps)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (maps->c)
@@ -136,10 +116,13 @@ int check_params_c(t_map *maps)
 		{
 			if (ft_isalpha(maps->c[1][i]))
 				return (printf("Error !\nCheck params : no letters \n"), 1);
-			if (maps->c[1][i] == ',' && (!ft_isdigit(maps->c[1][i + 1]) || !ft_isdigit(maps->c[1][i - 1])))
-				return (printf("Error !\nCheck params : incorrect number\n"), 1);
+			if (maps->c[1][i] == ',' && (!ft_isdigit(maps->c[1][i + 1])
+				|| !ft_isdigit(maps->c[1][i - 1])))
+				return (printf("Error !\nCheck params : incorrect number\n"),
+					1);
 			if (ft_count_num(maps->c[1]) < 3 || ft_count_num(maps->c[1]) > 9)
-				return (printf("Error !\nCheck params : incorrect number\n"), 1);
+				return (printf("Error !\nCheck params : incorrect number\n"),
+					1);
 			if (ft_check_nums(maps->c[1]) == 1)
 				return (1);
 			i++;

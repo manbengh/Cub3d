@@ -78,3 +78,26 @@ int	ft_check_nums(char *str)
 	free_tab(check_n);
 	return (0);
 }
+
+char	**split_first_keyword(char *line)
+{
+	char	**result;
+	int		start;
+	int		i;
+
+	i = 0;
+	while (line[i] && (line[i] == ' ' || line[i] == '\t'))
+		i++;
+	start = i;
+	while (line[i] && line[i] != ' ' && line[i] != '\t')
+		i++;
+	result = malloc(sizeof(char *) * 3);
+	if (!result)
+		return (NULL);
+	result[0] = ft_substr(line, start, i - start);
+	while (line[i] && (line[i] == ' ' || line[i] == '\t'))
+		i++;
+	result[1] = ft_strdup(&line[i]);
+	result[2] = NULL;
+	return (result);
+}

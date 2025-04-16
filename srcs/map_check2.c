@@ -62,11 +62,12 @@ int	check_other_num(t_cub *cub, char **map_check)
 		while (++j < ft_strlen(cub->maps->my_map[i]) - 1)
 		{
 			if (ft_isdigit(cub->maps->my_map[i][j]) == 1
-				|| cub->maps->my_map[i][j] == ' ')
+				|| cub->maps->my_map[i][j] == ' ' || cub->maps->my_map[i][j] == '\t')
 			{
 				if (cub->maps->my_map[i][j] != '1'
 					&& cub->maps->my_map[i][j] != '0'
-					&& cub->maps->my_map[i][j] != ' ')
+					&& cub->maps->my_map[i][j] != ' '
+					&& cub->maps->my_map[i][j] != '\t')
 					return (print_error(cub, "Error ! \n1 or 0 only !",
 							map_check), 1);
 			}
