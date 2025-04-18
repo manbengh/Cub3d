@@ -1,10 +1,11 @@
 SO ./textures/spid_noir.xpm
-EA ./textures/eye_red.xpm
+EA ./textures/eye.xpm
 NO ./textures/spid_gris.xpm
 WE ./textures/eye.xpm
 
-F 80,80,80
-C 163,206,220
+F 0,0,0
+C 255,180,220
+
  111
  1S11
 11011111111111111111
