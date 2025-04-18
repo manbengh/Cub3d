@@ -12,11 +12,11 @@
 
 #include "cube.h"
 
-int	close_window(t_cub *cub)
-{
-	destroy_all(cub);
-	return (0);
-}
+// void	ft_secure(char *str)
+// {
+// 	if (str == NULL)
+// 		destroy_all()
+// }
 
 void	free_tab(char **tab)
 {
