@@ -6,21 +6,35 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 14:41:15 by ahbey             #+#    #+#             */
-/*   Updated: 2025/04/16 16:23:56 by ahbey            ###   ########.fr       */
+/*   Updated: 2025/04/18 22:00:19 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 
+// int	line_is_empty(char *line)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (line && (line[i] == '\t' || line[i] == ' ' || line[i] == '\n'))
+// 		i++;
+// 	if (line[i])
+// 		return (0);
+// 	return (1);
+// }
 int	line_is_empty(char *line)
 {
-	int	i;
+	int	i = 0;
 
-	i = 0;
-	while (line && (line[i] == '\t' || line[i] == ' ' || line[i] == '\n'))
+	if (!line)
+		return (1);
+	while (line[i])
+	{
+		if (line[i] != ' ' && line[i] != '\t' && line[i] != '\n')
+			return (0);
 		i++;
-	if (line[i])
-		return (0);
+	}
 	return (1);
 }
 
