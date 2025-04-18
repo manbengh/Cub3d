@@ -128,6 +128,7 @@ typedef struct t_cub
 
 // CHECKS
 
+int					is_space(char c);
 int					check_player(t_cub *cub, char **map_check);
 int					check_other_num(t_cub *cub, char **map_check, int i);
 int					check_first_last_line(t_cub *cub, char **map_check);

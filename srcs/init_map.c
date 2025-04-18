@@ -16,12 +16,12 @@ int	compare_dir_c_f(t_map *maps, char *stock_l)
 {
 	if (ft_strncmp("C ", stock_l, 2) == 0 && maps->c == NULL)
 	{
-		maps->c = split_first_keyword(stock_l);
+		maps->c = split_first_keyword(stock_l); // protege
 		return (1);
 	}
 	else if (ft_strncmp("F ", stock_l, 2) == 0 && maps->f == NULL)
 	{
-		maps->f = split_first_keyword(stock_l);
+		maps->f = split_first_keyword(stock_l); // protege
 		return (1);
 	}
 	return (0);
@@ -31,22 +31,22 @@ int	compare_dir(t_map *maps, char *stock_l)
 {
 	if (ft_strncmp("NO ", stock_l, 3) == 0 && maps->no == NULL)
 	{
-		maps->no = ft_split(stock_l, ' ');
+		maps->no = ft_split(stock_l, ' '); // protege
 		return (1);
 	}
 	else if (ft_strncmp("SO ", stock_l, 3) == 0 && maps->so == NULL)
 	{
-		maps->so = ft_split(stock_l, ' ');
+		maps->so = ft_split(stock_l, ' '); // protege
 		return (1);
 	}
 	else if (ft_strncmp("EA ", stock_l, 3) == 0 && maps->ea == NULL)
 	{
-		maps->ea = ft_split(stock_l, ' ');
+		maps->ea = ft_split(stock_l, ' '); // protege
 		return (1);
 	}
 	else if (ft_strncmp("WE ", stock_l, 3) == 0 && maps->we == NULL)
 	{
-		maps->we = ft_split(stock_l, ' ');
+		maps->we = ft_split(stock_l, ' '); // protege
 		return (1);
 	}
 	return (compare_dir_c_f(maps, stock_l));
@@ -60,7 +60,7 @@ char	*clean_color_string(char *str)
 
 	i = 0;
 	j = 0;
-	cleaned = malloc(ft_strlen(str) + 1);
+	cleaned = malloc(ft_strlen(str) + 1); // protege
 	if (!cleaned)
 		return (NULL);
 	while (str[i])

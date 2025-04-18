@@ -25,7 +25,7 @@ void	check_map(t_cub *cub, int fd)
 	while (i < cub->lines)
 	{
 		str = get_next_line(fd);
-		map_check[i] = ft_strdup(str);
+		map_check[i] = ft_strdup(str); // protege
 		if (!map_check)
 			return (print_error(cub, "strdup alloc error", map_check));
 		free(str);
@@ -41,7 +41,7 @@ void	init_struct(t_cub *cub, int fd, char **argv)
 	cub->lines = count_lines(fd);
 	close(fd);
 	fd = open(argv[1], O_RDONLY);
-	cub->maps = ft_calloc(sizeof(t_map), 1);
+	cub->maps = ft_calloc(sizeof(t_map), 1); // protege
 	if (!cub->maps)
 		return ;
 	cub->my_mlx = ft_calloc(sizeof(t_mlx), 1);

@@ -102,13 +102,12 @@ int	check_walls(t_cub *cub, char **map_check)
 		{
 			if (len != 0)
 			{
-				if (is_onlyfriend(cub->maps->my_map[i], ' '))
-					break ;
 				if ((cub->maps->my_map[i][0] != '1' || cub->maps->my_map[i][len
-					- 1] != '1') && (cub->maps->my_map[i][len - 1] == ' '
-					|| cub->maps->my_map[i][len - 1] == '\t'))
-					return (print_error(cub, "Error ! \nCheck the walls !",
-							map_check), 1);
+					- 1] != '1') && !is_space(cub->maps->my_map[i][len - 1]) && !is_space(cub->maps->my_map[i][0]))
+					{
+						return (print_error(cub, "Error ! \nCheck the walls !",
+								map_check), 1);
+					}
 			}
 			i++;
 			len = ft_strlen(cub->maps->my_map[i]) - 1;

@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 14:35:23 by ahbey             #+#    #+#             */
-/*   Updated: 2025/04/17 15:35:17 by ahbey            ###   ########.fr       */
+/*   Updated: 2025/04/18 16:30:15 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,12 @@ int	check_dir(char **map_check, t_cub *cub, int i)
 	char	**stock_l;
 
 	j = 0;
-	stock_l = ft_calloc(7, sizeof(char *));
+	stock_l = ft_calloc(7, sizeof(char *)); // protege
 	while (i < cub->lines)
 	{
 		if (!line_is_empty(map_check[i]))
 		{
-			stock_l[j] = ft_strdup(map_check[i]);
+			stock_l[j] = ft_strdup(map_check[i]); // protege
 			j++;
 		}
 		i++;
@@ -76,7 +76,7 @@ int	fill_my_map(t_cub *cub, char **map_check, int i)
 	j = 0;
 	while (i < cub->lines)
 	{
-		cub->maps->my_map[j] = ft_strdup(map_check[i]);
+		cub->maps->my_map[j] = ft_strdup(map_check[i]); // protege
 		j++;
 		i++;
 	}
@@ -84,8 +84,8 @@ int	fill_my_map(t_cub *cub, char **map_check, int i)
 		return (print_error(cub, "Error !\nMissing map !", map_check), 1);
 	cub->lines = j;
 	cub->maps->long_line = longest_line(cub);
-	if (check_first_last_line(cub, map_check) == 1 || check_walls(cub,
-			map_check) == 1 || check_player(cub, map_check) == 1
+	if (check_first_last_line(cub, map_check) == 1
+	|| check_walls(cub, map_check) == 1 || check_player(cub, map_check) == 1
 		|| check_other_num(cub, map_check, 0) == 1)
 		return (1);
 	return (0);
