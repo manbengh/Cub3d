@@ -63,7 +63,7 @@ void	my_game(t_cub *cub)
 	mlx_hook(cub->my_mlx->win_ptr, 3, 1L << 1, &key_release, cub);
 	mlx_hook(cub->my_mlx->win_ptr, DestroyNotify, StructureNotifyMask,
 		&destroy_all, cub);
-	mlx_hook(cub->my_mlx->win_ptr, 17, 0, &close_window, cub);
+	mlx_hook(cub->my_mlx->win_ptr, 17, 0, &destroy_all, cub);
 	mlx_loop_hook(cub->my_mlx->mlx_ptr, &moving, cub);
 	mlx_loop(cub->my_mlx->mlx_ptr);
 }

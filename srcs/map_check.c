@@ -23,12 +23,11 @@ void	init_maps(t_cub *cub, char **stock_l, char **map_check)
 		{
 			free_tab(stock_l);
 			print_error(cub, "Missing parameters", map_check);
-			return ;
 		}
 		if (check_names(cub->maps) == 1 || check_params_c(cub->maps) == 1)
 		{
 			free_tab(stock_l);
-			return (print_error(cub, NULL, map_check));
+			print_error(cub, NULL, map_check);
 		}
 		i++;
 	}
@@ -41,12 +40,14 @@ int	check_dir(char **map_check, t_cub *cub, int i)
 	char	**stock_l;
 
 	j = 0;
-	stock_l = ft_calloc(7, sizeof(char *)); // protege
+	stock_l = ft_calloc(7, sizeof(char *));
+	if (stock_l == NULL)
+		return (print_error(cub, "Error : Malloc ", map_check), 1);
 	while (i < cub->lines)
 	{
 		if (!line_is_empty(map_check[i]))
 		{
-			stock_l[j] = ft_strdup(map_check[i]); // protege
+			stock_l[j] = ft_strdup(map_check[i]);
 			j++;
 		}
 		i++;
@@ -56,7 +57,7 @@ int	check_dir(char **map_check, t_cub *cub, int i)
 	if (j != 6)
 	{
 		free_tab(stock_l);
-		return (print_error(cub, "Not enough", map_check), 1);
+		return (print_error(cub, "Not enough\n", map_check), 1);
 	}
 	init_maps(cub, stock_l, map_check);
 	return (i);
@@ -76,7 +77,9 @@ int	fill_my_map(t_cub *cub, char **map_check, int i)
 	j = 0;
 	while (i < cub->lines)
 	{
-		cub->maps->my_map[j] = ft_strdup(map_check[i]); // protege
+		cub->maps->my_map[j] = ft_strdup(map_check[i]);
+		if (cub->maps->my_map[j] == NULL)
+			return (print_error(cub, "Erro : Malloc", map_check), 1);
 		j++;
 		i++;
 	}

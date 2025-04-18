@@ -1,10 +1,6 @@
 SO ./textures/sud.xpm
 EA ./textures/est.xpm
 NO ./textures/north.xpm
-
-
-
-
 WE ./textures/west.xpm
 F 0,0,0
 C     255,255,255

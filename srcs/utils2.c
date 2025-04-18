@@ -64,7 +64,7 @@ int	ft_check_nums(char *str)
 
 	i = 0;
 	num = 0;
-	check_n = ft_split(str, ',');  // protege
+	check_n = ft_split(str, ',');
 	while (check_n[i])
 	{
 		num = ft_atoi(check_n[i]);
@@ -91,13 +91,13 @@ char	**split_first_keyword(char *line)
 	start = i;
 	while (line[i] && line[i] != ' ' && line[i] != '\t')
 		i++;
-	result = malloc(sizeof(char *) * 3); // protege
+	result = malloc(sizeof(char *) * 3);
 	if (!result)
 		return (NULL);
-	result[0] = ft_substr(line, start, i - start); // protege
+	result[0] = ft_substr(line, start, i - start);
 	while (line[i] && (line[i] == ' ' || line[i] == '\t'))
 		i++;
-	result[1] = ft_strdup(&line[i]); // protege
+	result[1] = ft_strdup(&line[i]);
 	result[2] = NULL;
 	return (result);
 }
