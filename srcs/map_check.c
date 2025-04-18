@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 14:35:23 by ahbey             #+#    #+#             */
-/*   Updated: 2025/04/16 16:22:31 by ahbey            ###   ########.fr       */
+/*   Updated: 2025/04/17 15:35:17 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	fill_my_map(t_cub *cub, char **map_check, int i)
 	cub->maps->long_line = longest_line(cub);
 	if (check_first_last_line(cub, map_check) == 1 || check_walls(cub,
 			map_check) == 1 || check_player(cub, map_check) == 1
-		|| check_other_num(cub, map_check) == 1)
+		|| check_other_num(cub, map_check, 0) == 1)
 		return (1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 14:37:09 by ahbey             #+#    #+#             */
-/*   Updated: 2025/04/16 17:56:39 by ahbey            ###   ########.fr       */
+/*   Updated: 2025/04/17 16:44:43 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,8 @@ int	check_other_num_swit(t_cub *cub, char **map_check, int i, int j)
 	return (0);
 }
 
-int	check_other_num(t_cub *cub, char **map_check)
+int	check_other_num(t_cub *cub, char **map_check, int i)
 {
-	int	i;
 	int	j;
 
 	i = 0;
@@ -62,7 +61,8 @@ int	check_other_num(t_cub *cub, char **map_check)
 		while (++j < ft_strlen(cub->maps->my_map[i]) - 1)
 		{
 			if (ft_isdigit(cub->maps->my_map[i][j]) == 1
-				|| cub->maps->my_map[i][j] == ' ' || cub->maps->my_map[i][j] == '\t')
+				|| cub->maps->my_map[i][j] == ' '
+				|| cub->maps->my_map[i][j] == '\t')
 			{
 				if (cub->maps->my_map[i][j] != '1'
 					&& cub->maps->my_map[i][j] != '0'
@@ -73,7 +73,7 @@ int	check_other_num(t_cub *cub, char **map_check)
 			}
 			else if (ft_isdigit(cub->maps->my_map[i][j]) == 0)
 				if (check_other_num_swit(cub, map_check, i, j) == 1)
-					return (0);
+					return (1);
 		}
 	}
 	return (0);

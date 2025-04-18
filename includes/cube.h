@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 16:43:12 by ahbey             #+#    #+#             */
-/*   Updated: 2025/04/16 16:48:57 by ahbey            ###   ########.fr       */
+/*   Updated: 2025/04/17 15:34:07 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ typedef struct t_cub
 // CHECKS
 
 int					check_player(t_cub *cub, char **map_check);
-int					check_other_num(t_cub *cub, char **map_check);
+int					check_other_num(t_cub *cub, char **map_check, int i);
 int					check_first_last_line(t_cub *cub, char **map_check);
 int					check_walls(t_cub *cub, char **map_check);
 int					check_file_name(char *argv);
