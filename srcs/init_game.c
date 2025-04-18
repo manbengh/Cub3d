@@ -91,8 +91,8 @@ void	init_floor_sky(t_cub *cub)
 	char	**my_f;
 	char	**my_c;
 
-	my_f = ft_split(cub->maps->f[1], ',');
-	my_c = ft_split(cub->maps->c[1], ',');
+	my_f = ft_split(cub->maps->f[1], ','); // protege
+	my_c = ft_split(cub->maps->c[1], ','); // protege
 	cub->ray->my_sky[0] = ft_atoi(my_c[0]);
 	cub->ray->my_sky[1] = ft_atoi(my_c[1]);
 	cub->ray->my_sky[2] = ft_atoi(my_c[2]);

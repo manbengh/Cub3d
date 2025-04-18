@@ -12,6 +12,13 @@
 
 #include "cube.h"
 
+int	is_space(char c)
+{
+	if (c == ' ' || c == '\t')
+		return (1);
+	return (0);
+}
+
 void	to_the_right(t_mlx *my_mlx)
 {
 	double	old_dir_x;
