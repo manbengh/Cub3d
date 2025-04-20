@@ -6,7 +6,7 @@
 /*   By: ahbey <ahbey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 14:37:09 by ahbey             #+#    #+#             */
-/*   Updated: 2025/04/18 22:47:42 by ahbey            ###   ########.fr       */
+/*   Updated: 2025/04/20 16:41:13 by ahbey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,8 @@ int	check_first_last_line(t_cub *cub, char **map_check)
 	{
 		if (!line_is_empty(cub->maps->my_map[cub->lines - 1])
 			&& cub->maps->my_map[cub->lines - 1][i] != '1'
-			&& cub->maps->my_map[cub->lines - 1][i] != ' ')
+			&& cub->maps->my_map[cub->lines - 1][i] != ' '
+			&& cub->maps->my_map[cub->lines - 1][i] != '\n')
 			return (print_error(cub, "Error ! \nCheck the last line !",
 					map_check), 1);
 		i++;
