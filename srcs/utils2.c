@@ -25,8 +25,9 @@
 // }
 int	line_is_empty(char *line)
 {
-	int	i = 0;
+	int	i;
 
+	i = 0;
 	if (!line)
 		return (1);
 	while (line[i])

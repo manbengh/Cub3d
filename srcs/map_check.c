@@ -88,7 +88,7 @@ int	fill_my_map(t_cub *cub, char **map_check, int i)
 	cub->lines = j;
 	cub->maps->long_line = longest_line(cub);
 	if (check_first_last_line(cub, map_check) == 1
-	|| check_walls(cub, map_check) == 1 || check_player(cub, map_check) == 1
+		|| check_walls(cub, map_check) == 1 || check_player(cub, map_check) == 1
 		|| check_other_num(cub, map_check, 0) == 1)
 		return (1);
 	return (0);

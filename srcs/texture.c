@@ -60,7 +60,7 @@ int	make_img(t_cub *cub, t_mlx *text, char *path)
 	text->img_ptr = mlx_xpm_file_to_image(cub->my_mlx->mlx_ptr, path,
 			&text->width, &text->height);
 	if (text->img_ptr == NULL)
-		return (ft_printf("Error textures 1\n"), 1);
+		return (ft_printf("Error textures\n"), 1);
 	text->img_data = mlx_get_data_addr(text->img_ptr, &text->bpp,
 			&text->size_line, &text->endian);
 	if (!text->img_data)
