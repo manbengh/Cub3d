@@ -74,7 +74,7 @@ int	main(int argc, char **argv)
 		fd = open(argv[1], O_RDONLY);
 		if (fd < 0 || read(fd, 0, 0) < 0)
 			return (printf("Error !\nFile can't be opened\n"), 0);
-		if (init_struct(&cub, fd, argv)  == 1)
+		if (init_struct(&cub, fd, argv) == 1)
 			return (0);
 		my_game(&cub);
 	}
